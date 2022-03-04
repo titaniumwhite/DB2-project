@@ -8,6 +8,7 @@ import java.io.Serializable;
 @Table(name = "optional_service", schema = "dbproject2022")
 public class OptionalServiceEntity implements Serializable{
 
+    @Id
     @Column(name = "name", nullable = false)
     private String name;
 

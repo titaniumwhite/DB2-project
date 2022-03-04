@@ -8,6 +8,7 @@ import java.io.Serializable;
 @Table(name = "period", schema = "dbproject2022")
 public class PeriodEntity implements Serializable{
 
+    @Id
     @Column(name = "duration", nullable = false)
     private int duration;
 

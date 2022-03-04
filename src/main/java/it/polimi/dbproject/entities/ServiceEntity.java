@@ -9,6 +9,7 @@ import java.io.Serializable;
 @Table(name = "service", schema = "dbproject2022")
 public class ServiceEntity implements Serializable{
 
+    @Id
     @Column(name = "type", nullable = false)
     private String type;
 

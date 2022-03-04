@@ -8,7 +8,8 @@ import java.io.Serializable;
 @Table(name = "service_pack", schema = "dbproject2022")
 public class ServicePackEntity implements Serializable{
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private int id;
 
