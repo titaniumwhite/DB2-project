@@ -3,6 +3,7 @@ package it.polimi.dbproject.entities;
 import javax.persistence.*;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "period", schema = "dbproject2022")

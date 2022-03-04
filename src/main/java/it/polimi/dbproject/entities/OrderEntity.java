@@ -18,11 +18,29 @@ public class OrderEntity implements Serializable {
     @Column(name = "creation_date", nullable=false)
     private Timestamp creation_date;
 
+    @OneToOne (fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = false)
+    @JoinColumn(name = "owner")
+    private UserEntity owner;
+
+    @OneToOne (fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = false)
+    @JoinColumn(name = "chosenServicePack")
+    private ServicePackEntity chosenServicePackage;
+
+    @OneToOne (fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = false)
+    @JoinColumn(name = "chosenPeriod")
+    private PeriodEntity chosenPeriod;
+
     public OrderEntity(){
     }
 
-    public OrderEntity( Timestamp creation_date ) {
+    public OrderEntity(Timestamp creation_date,
+                       UserEntity owner,
+                       ServicePackEntity chosenServicePackage,
+                       PeriodEntity chosenPeriod) {
         this.creation_date = creation_date;
+        this.owner = owner;
+        this.chosenServicePackage = chosenServicePackage;
+        this.chosenPeriod = chosenPeriod;
     }
 
     public Long getId() {

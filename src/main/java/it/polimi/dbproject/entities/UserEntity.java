@@ -3,6 +3,7 @@ package it.polimi.dbproject.entities;
 import javax.persistence.*;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Table(name = "user", schema = "dbproject2022")
 public class UserEntity implements Serializable {
@@ -30,6 +31,9 @@ public class UserEntity implements Serializable {
 
     @Column(name = "isInsolvent")
     private Boolean isInsolvent;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy="owner", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<OrderEntity> orders;
 
     public UserEntity() {
     }
@@ -107,6 +111,14 @@ public class UserEntity implements Serializable {
 
     public void setInsolvent(Boolean insolvent) {
         isInsolvent = insolvent;
+    }
+
+    public List<OrderEntity> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<OrderEntity> orders) {
+        this.orders = orders;
     }
 
     // METHODS //

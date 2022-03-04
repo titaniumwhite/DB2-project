@@ -3,6 +3,7 @@ package it.polimi.dbproject.entities;
 import javax.persistence.*;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "service_pack", schema = "dbproject2022")
@@ -26,8 +27,7 @@ public class ServicePackEntity implements Serializable{
     public ServicePackEntity(
             int id,
             String name,
-            int monthlyFee
-    ){
+            int monthlyFee){
         this.id = id;
         this.name = name;
         this.monthlyFee = monthlyFee;
