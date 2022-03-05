@@ -4,11 +4,11 @@
     <option name="dataSources">
       <list>
         <State>
-          <option name="id" value="5b63c207-ef82-471a-a298-aa3d9da06c40" />
+          <option name="id" value="dff13aef-0fc9-4338-900c-fa19e25f86f5" />
           <option name="name" value="DDL data source" />
           <option name="urls">
             <array>
-              <option value="file://$PROJECT_DIR$/ddl" />
+              <option value="file://$PROJECT_DIR$/ddl/dbproject2022" />
             </array>
           </option>
         </State>

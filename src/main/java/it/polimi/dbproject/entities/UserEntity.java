@@ -5,7 +5,11 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
+@Entity
 @Table(name = "user", schema = "dbproject2022")
+
+@NamedQuery(name = "User.checkUser", query = "SELECT u FROM UserEntity u WHERE u.username = :usn and u.password = :psw")
+
 public class UserEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -45,8 +49,7 @@ public class UserEntity implements Serializable {
     @OneToMany(fetch = FetchType.LAZY, mappedBy="errorsOwner", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ErrorEntity> errors;
 
-    public UserEntity() {
-    }
+    public UserEntity() {}
 
     public UserEntity(String username,
                       String name,

@@ -5,6 +5,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
+@Entity
 @Table(name = "order", schema = "dbproject2022")
 public class OrderEntity implements Serializable {
 
@@ -36,7 +37,7 @@ public class OrderEntity implements Serializable {
     @Column(name = "isPlaceable", nullable=false)
     private boolean isPlaceable;
 
-    @OneToOne (fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = false)
+    @ManyToOne (fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = false)
     @JoinColumn(name = "user_order")
     private UserEntity user_order;
 

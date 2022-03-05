@@ -4,6 +4,7 @@ import javax.persistence.*;
 
 import java.io.Serializable;
 
+@Entity
 @Table(name = "employee", schema = "dbproject2022")
 public class EmployeeEntity implements Serializable {
 

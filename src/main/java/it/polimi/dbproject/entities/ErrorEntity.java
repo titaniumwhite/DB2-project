@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
 
+@Entity
 @Table(name = "error", schema = "dbproject2022")
 public class ErrorEntity implements Serializable {
 
