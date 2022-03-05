@@ -1,0 +1,17 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="dbproject:war exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/dbproject_war_exploded</output-path>
+    <root id="root">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="dbproject" />
+          <element id="jpa-descriptors" facet="dbproject/jpa/JPA" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="application" name="mysql-connector-java-8.0.28" />
+        </element>
+      </element>
+      <element id="javaee-facet-resources" facet="dbproject/web/Web" />
+    </root>
+  </artifact>
+</component>
