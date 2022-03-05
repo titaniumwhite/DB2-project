@@ -12,57 +12,90 @@ public class OrderEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    private Long id;
+    @Column(name = "order_id", nullable = false)
+    private Long order_id;
 
-    @Column(name = "creation_date", nullable=false)
-    private Timestamp creation_date;
+    @Column(name = "creation_ts", nullable=false)
+    private Timestamp creation_ts;
+
+    public void setOwner(UserEntity owner) {
+        this.owner = owner;
+    }
+
+    public ServicePackEntity getChosenServicePackage() {
+        return chosenServicePackage;
+    }
+
+    public void setChosenServicePackage(ServicePackEntity chosenServicePackage) {
+        this.chosenServicePackage = chosenServicePackage;
+    }
+
+    @Column(name = "total_cost", nullable=false)
+    private int total_cost;
+
+    @Column(name = "isPlaceable", nullable=false)
+    private boolean isPlaceable;
 
     @OneToOne (fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = false)
-    @JoinColumn(name = "owner")
+    @JoinColumn(name = "ordersOwner")
     private UserEntity owner;
 
     @OneToOne (fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = false)
     @JoinColumn(name = "chosenServicePack")
     private ServicePackEntity chosenServicePackage;
 
-    @OneToOne (fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = false)
-    @JoinColumn(name = "chosenPeriod")
-    private PeriodEntity chosenPeriod;
 
     public OrderEntity(){
     }
 
-    public OrderEntity(Timestamp creation_date,
+    public OrderEntity(Timestamp creation_ts,
                        UserEntity owner,
-                       ServicePackEntity chosenServicePackage,
-                       PeriodEntity chosenPeriod) {
-        this.creation_date = creation_date;
+                       ServicePackEntity chosenServicePackage) {
+        this.creation_ts = creation_ts;
         this.owner = owner;
         this.chosenServicePackage = chosenServicePackage;
-        this.chosenPeriod = chosenPeriod;
     }
 
-    public Long getId() {
-        return id;
+    public Long getOrder_id() {
+        return order_id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setOrder_id(Long order_id) {
+        this.order_id = order_id;
     }
 
-    public Timestamp getCreation_date() {
-        return creation_date;
+    public Timestamp getCreation_ts() {
+        return creation_ts;
     }
 
-    public void setCreation_date(Timestamp creation_date) {
-        this.creation_date = creation_date;
+    public void setCreation_ts(Timestamp creation_ts) {
+        this.creation_ts = creation_ts;
+    }
+
+    public int getTotal_cost() {
+        return total_cost;
+    }
+
+    public void setTotal_cost(int total_cost) {
+        this.total_cost = total_cost;
+    }
+
+    public boolean isPlaceable() {
+        return isPlaceable;
+    }
+
+    public void setPlaceable(boolean placeable) {
+        isPlaceable = placeable;
+    }
+
+    public UserEntity getOwner() {
+        return owner;
     }
 
     @Override
     public String toString() {
         return "OrderEntity{" +
-                "order_id=" + id +
+                "order_id=" + order_id +
                 '}';
     }
 }

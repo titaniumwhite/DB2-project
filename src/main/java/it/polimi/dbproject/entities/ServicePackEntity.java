@@ -20,6 +20,10 @@ public class ServicePackEntity implements Serializable{
     @Column(name = "monthly_fee", nullable = false)
     private int monthlyFee;
 
+    @OneToOne (fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = false)
+    @JoinColumn(name = "servicePackOwner")
+    private ServicePackEntity servicePackageOwner;
+
     /*employeeID*/
 
     public ServicePackEntity(){}

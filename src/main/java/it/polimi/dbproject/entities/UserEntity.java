@@ -11,6 +11,10 @@ public class UserEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id", unique=true, nullable=false)
+    private String user_id;
+
     @Column(name = "username", unique=true, nullable=false)
     private String username;
 
@@ -32,8 +36,11 @@ public class UserEntity implements Serializable {
     @Column(name = "isInsolvent")
     private Boolean isInsolvent;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy="owner", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy="ordersOwner", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderEntity> orders;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy="servicePackOwner", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ServicePackEntity> servicePackages;
 
     public UserEntity() {
     }
