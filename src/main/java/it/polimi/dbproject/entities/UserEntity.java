@@ -42,6 +42,9 @@ public class UserEntity implements Serializable {
     @OneToMany(fetch = FetchType.LAZY, mappedBy="servicePackOwner", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ServicePackEntity> servicePackages;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy="errorsOwner", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ErrorEntity> errors;
+
     public UserEntity() {
     }
 
@@ -63,6 +66,14 @@ public class UserEntity implements Serializable {
     }
 
     // GETTER AND SETTER //
+
+    public String getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(String id) {
+        this.user_id = user_id;
+    }
 
     public String getUsername() {
         return username;
@@ -128,16 +139,26 @@ public class UserEntity implements Serializable {
         this.orders = orders;
     }
 
+    public List<ServicePackEntity> getServicePackages() {
+        return servicePackages;
+    }
+
+    public void setServicePackages(List<ServicePackEntity> servicePackages) {
+        this.servicePackages = servicePackages;
+    }
+
+    public List<ErrorEntity> getErrors() {
+        return errors;
+    }
+
+    public void setErrors(List<ErrorEntity> errors) {
+        this.errors = errors;
+    }
+
     // METHODS //
 
     public void incrementFailedPayments() {
         failedPayments++;
     }
 
-    @Override
-    public String toString() {
-        return "UserEntity{" +
-                "username='" + username + '\'' +
-                '}';
-    }
 }
