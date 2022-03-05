@@ -12,59 +12,59 @@ public class ServiceEntity implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "service_id", nullable = false)
-    private int service_id;
+    private int serviceId;
 
     @Column(name = "type", nullable = false)
     private String type;
 
-    @Column(name = "minutes", nullable = false)
-    private String minutes;
+    @Column(name = "num_of_minutes", nullable = false)
+    private int numOfMinutes;
 
-    @Column(name = "sms", nullable = false)
-    private String sms;
+    @Column(name = "num_of_SMS", nullable = false)
+    private int numOfSMS;
 
-    @Column(name = "gigas", nullable = false)
-    private String gigas;
+    @Column(name = "num_of_giga", nullable = false)
+    private int numOfGiga;
 
-    @Column(name = "extraMinutes_fee", nullable = false)
-    private String extraMinutes_fee;
+    @Column(name = "fee_extra_minutes", nullable = false)
+    private int feeExtraMinutes;
 
-    @Column(name = "extraSms_fee", nullable = false)
-    private String extraSms_fee;
+    @Column(name = "fee_extra_sms", nullable = false)
+    private int feeExtraSMS;
 
-    @Column(name = "extraGigas_fee", nullable = false)
-    private String extraGigas_fee;
+    @Column(name = "fee_extra_giga", nullable = false)
+    private int feeExtraGiga;
 
     public ServiceEntity() {
 
     }
 
     public ServiceEntity(String type,
-                         String minutes,
-                         String sms,
-                         String gigas,
-                         String extraMinutes_fee,
-                         String extraSms_fee,
-                         String extraGigas_fee) {
+                         int numOfMinutes,
+                         int numOfSMS,
+                         int numOfGiga,
+                         int feeExtraMinutes,
+                         int feeExtraSMS,
+                         int feeExtraGiga) {
 
         this.type = type;
-        this.minutes = minutes;
-        this.sms = sms;
-        this.gigas = gigas;
-        this.extraMinutes_fee = extraMinutes_fee;
-        this.extraSms_fee = extraSms_fee;
-        this.extraGigas_fee = extraGigas_fee;
+        this.numOfMinutes = numOfMinutes;
+        this.numOfSMS = numOfSMS;
+        this.numOfGiga = numOfGiga;
+        this.feeExtraMinutes = feeExtraMinutes;
+        this.feeExtraSMS = feeExtraSMS;
+        this.feeExtraGiga = feeExtraGiga;
 
     }
 
     // GETTER AND SETTER //
 
     public int getService_id() {
-        return service_id;
+        return serviceId;
     }
 
-    public void setService_id(int service_id) {
-        this.service_id = service_id;
+    public void setService_id(int serviceId) {
+        this.serviceId = serviceId;
     }
 
     public String getType() {
@@ -75,52 +75,52 @@ public class ServiceEntity implements Serializable{
         this.type = type;
     }
 
-    public String getMinutes() {
-        return minutes;
+    public int getMinutes() {
+        return numOfMinutes;
     }
 
-    public void setMinutes(String minutes) {
-        this.minutes = minutes;
+    public void setMinutes(int numOfMinutes) {
+        this.numOfMinutes = numOfMinutes;
     }
 
-    public String getSms() {
-        return sms;
+    public int getSms() {
+        return numOfSMS;
     }
 
-    public void setSms(String sms) {
-        this.sms = sms;
+    public void setSms(int numOfSMS) {
+        this.numOfSMS = numOfSMS;
     }
 
-    public String getGigas() {
-        return gigas;
+    public int getGigas() {
+        return numOfGiga;
     }
 
-    public void setGigas(String gigas) {
-        this.gigas = gigas;
+    public void setGigas(int numOfGiga) {
+        this.numOfGiga = numOfGiga;
     }
 
-    public String getExtraMinutes_fee() {
-        return extraMinutes_fee;
+    public int getExtraMinutes_fee() {
+        return feeExtraMinutes;
     }
 
-    public void setExtraMinutes_fee(String extraMinutes_fee) {
-        this.extraMinutes_fee = extraMinutes_fee;
+    public void setExtraMinutes_fee(int feeExtraMinutes) {
+        this.feeExtraMinutes = feeExtraMinutes;
     }
 
-    public String getExtraSms_fee() {
-        return extraSms_fee;
+    public int getExtraSms_fee() {
+        return feeExtraSMS;
     }
 
-    public void setExtraSms_fee(String extraSms_fee) {
-        this.extraSms_fee = extraSms_fee;
+    public void setExtraSms_fee(int feeExtraSMS) {
+        this.feeExtraSMS = feeExtraSMS;
     }
 
-    public String getExtraGigas_fee() {
-        return extraGigas_fee;
+    public int getExtraGigas_fee() {
+        return feeExtraGiga;
     }
 
-    public void setExtraGigas_fee(String extraGigas_fee) {
-        this.extraGigas_fee = extraGigas_fee;
+    public void setExtraGigas_fee(int feeExtraGiga) {
+        this.feeExtraGiga = feeExtraGiga;
     }
 
 

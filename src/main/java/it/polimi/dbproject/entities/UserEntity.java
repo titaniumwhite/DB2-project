@@ -13,16 +13,16 @@ public class UserEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id", unique=true, nullable=false)
-    private String user_id;
+    private String userId;
 
     @Column(name = "username", unique=true, nullable=false)
     private String username;
 
-    @Column(name = "first_name", nullable=false)
-    private String first_name;
+    @Column(name = "name", nullable=false)
+    private String name;
 
-    @Column(name = "last_name", nullable=false)
-    private String last_name;
+    @Column(name = "surname", nullable=false)
+    private String surname;
 
     @Column(name = "email", nullable=false)
     private String email;
@@ -30,8 +30,8 @@ public class UserEntity implements Serializable {
     @Column(name = "password", nullable=false)
     private String password;
 
-    @Column(name = "failedPayments")
-    private int failedPayments;
+    @Column(name = "totFailedAttempts")
+    private int totFailedAttempts;
 
     @Column(name = "isInsolvent")
     private Boolean isInsolvent;
@@ -49,18 +49,18 @@ public class UserEntity implements Serializable {
     }
 
     public UserEntity(String username,
-                      String first_name,
-                      String last_name,
+                      String name,
+                      String surname,
                       String email,
                       String password) {
 
         this.username = username;
-        this.first_name = first_name;
-        this.last_name = last_name;
+        this.name = name;
+        this.surname = surname;
         this.email = email;
         this.password = password;
 
-        failedPayments=0;
+        totFailedAttempts=0;
         isInsolvent=false;
 
     }
@@ -68,11 +68,11 @@ public class UserEntity implements Serializable {
     // GETTER AND SETTER //
 
     public String getUser_id() {
-        return user_id;
+        return userId;
     }
 
-    public void setUser_id(String id) {
-        this.user_id = user_id;
+    public void setUser_id(String userId) {
+        this.userId = userId;
     }
 
     public String getUsername() {
@@ -84,19 +84,19 @@ public class UserEntity implements Serializable {
     }
 
     public String getFirst_name() {
-        return first_name;
+        return name;
     }
 
-    public void setFirst_name(String first_name) {
-        this.first_name = first_name;
+    public void setFirst_name(String name) {
+        this.name = name;
     }
 
     public String getLast_name() {
-        return last_name;
+        return surname;
     }
 
-    public void setLast_name(String last_name) {
-        this.last_name = last_name;
+    public void setLast_name(String surname) {
+        this.surname = surname;
     }
 
     public String getEmail() {
@@ -116,11 +116,11 @@ public class UserEntity implements Serializable {
     }
 
     public int getFailedPayments() {
-        return failedPayments;
+        return totFailedAttempts;
     }
 
-    public void setFailedPayments(int failedPayments) {
-        this.failedPayments = failedPayments;
+    public void setFailedPayments(int totFailedAttempts) {
+        this.totFailedAttempts = totFailedAttempts;
     }
 
     public Boolean getInsolvent() {
@@ -158,7 +158,7 @@ public class UserEntity implements Serializable {
     // METHODS //
 
     public void incrementFailedPayments() {
-        failedPayments++;
+        totFailedAttempts++;
     }
 
 }

@@ -11,14 +11,14 @@ public class OptionalServiceEntity implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "optionalService_id", unique = true, nullable = false)
+    @Column(name = "optional_service_id", unique = true, nullable = false)
     private String optionalService_id;
 
     @Column(name = "name", nullable = false)
     private String name;
 
     @Column(name = "monthly_fee", nullable = false)
-    private int monthly_fee;
+    private int monthlyFee;
 
     @ManyToMany(mappedBy = "offeredOptionalServiceToAllPackages", fetch = FetchType.EAGER)
     private List<AvailableServicePackEntity> availableServicePackages;
@@ -30,10 +30,10 @@ public class OptionalServiceEntity implements Serializable{
 
     public OptionalServiceEntity(
             String name,
-            int monthly_fee){
+            int monthlyFee){
 
         this.name = name;
-        this.monthly_fee = monthly_fee;
+        this.monthlyFee = monthlyFee;
 
     }
 
@@ -55,11 +55,11 @@ public class OptionalServiceEntity implements Serializable{
     }
 
     public void setMonthly_fee(int monthlyFee){
-        this.monthly_fee = monthlyFee;
+        this.monthlyFee = monthlyFee;
     }
 
     public int getMonthly_fee(){
-        return this.monthly_fee;
+        return this.monthlyFee;
     }
 
 }

@@ -12,10 +12,13 @@ public class PeriodEntity implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "period_id", unique = true, nullable = false)
-    private String period_id;
+    private String periodId;
 
     @Column(name = "duration", nullable = false)
     private int duration;
+
+    @Column(name = "monthly_fee", nullable = false)
+    private int monthlyFee;
 
     public PeriodEntity() {    }
 
@@ -27,18 +30,27 @@ public class PeriodEntity implements Serializable{
 
 
     public String getPeriod_id() {
-        return period_id;
+        return periodId;
     }
 
-    public void setPeriod_id(String period_id) {
-        this.period_id = period_id;
+    public void setPeriod_id(String periodId) {
+        this.periodId = periodId;
     }
 
-    public void setDuration(int Duration){
+    public void setDuration(int duration){
         this.duration = duration;
     }
 
     public int getDuration(){
         return this.duration;
     }
+
+    public void getMonthlyFee(int monthlyFee){
+        this.monthlyFee = monthlyFee;
+    }
+
+    public int getMonthlyFee(){
+        return this.monthlyFee;
+    }
 }
+

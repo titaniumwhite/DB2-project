@@ -12,7 +12,7 @@ public class EmployeeEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "employee_id", nullable = false)
-    private Long employee_id;
+    private Long employeeId;
 
     @Column(name = "email", unique = true, nullable = false)
     private String email;
@@ -32,11 +32,11 @@ public class EmployeeEntity implements Serializable {
     }
 
     public Long getEmployee_id() {
-        return employee_id;
+        return employeeId;
     }
 
-    public void setEmployee_id(Long employee_id) {
-        this.employee_id = employee_id;
+    public void setEmployee_id(Long employeeId) {
+        this.employeeId = employeeId;
     }
 
     // GETTER AND SETTER //

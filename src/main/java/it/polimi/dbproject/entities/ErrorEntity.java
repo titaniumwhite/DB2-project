@@ -13,59 +13,59 @@ public class ErrorEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "error_id", unique = true, nullable = false)
-    private String error_id;
+    private int errorId;
 
     @Column(name = "tot_number", unique = true, nullable = false)
-    private int tot_number;
+    private int totNumber;
 
-    @Column(name = "ts", nullable = false)
-    private Timestamp ts;
+    @Column(name = "timestamp", nullable = false)
+    private Timestamp timestamp;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "errorsOwner")
-    private UserEntity owner;
+    @JoinColumn(name = "user_error")
+    private UserEntity userError;
 
     public ErrorEntity() {
     }
 
-    public ErrorEntity(Timestamp ts,
+    public ErrorEntity(Timestamp timestamp,
                        UserEntity owner) {
-        this.owner = owner;
-        this.tot_number = 0;
+        this.userError = owner;
+        this.totNumber = 0;
     }
 
     // GETTER AND SETTER //
 
-    public String getError_id() {
-        return error_id;
+    public int getError_id() {
+        return errorId;
     }
 
-    public void setError_id(String error_id) {
-        this.error_id = error_id;
+    public void setError_id (int errorId) {
+        this.errorId = errorId;
     }
 
     public int getTot_number() {
-        return tot_number;
+        return totNumber;
     }
 
-    public void setTot_number(int tot_number) {
-        this.tot_number = tot_number;
+    public void setTot_number(int totNumber) {
+        this.totNumber = totNumber;
     }
 
     public Timestamp getTs() {
-        return ts;
+        return timestamp;
     }
 
-    public void setTs(Timestamp ts) {
-        this.ts = ts;
+    public void setTs(Timestamp timestamp) {
+        this.timestamp = timestamp;
     }
 
     public UserEntity getOwner() {
-        return owner;
+        return userError;
     }
 
-    public void setOwner(UserEntity owner) {
-        this.owner = owner;
+    public void setOwner(UserEntity userError) {
+        this.userError = userError;
     }
 
     // METHODS //

@@ -12,24 +12,24 @@ public class ServicePackEntity implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "servicePack_id", nullable = false)
+    @Column(name = "service_pack_id", nullable = false)
     private int servicePack_id;
 
-    @Column(name = "startDate", nullable = false)
+    @Column(name = "start_date", nullable = false)
     private Date startDate;
 
-    @Column(name = "endDate", nullable = false)
+    @Column(name = "end_date", nullable = false)
     private Date endDate;
 
-    @Column(name = "total_cost", nullable = false)
-    private int totalCost;
+    @Column(name = "cost", nullable = false)
+    private int cost;
 
-    @Column(name = "optional_services_fee", nullable = false)
-    private int optionalServicesFee;
+    @Column(name = "total_cost_optional_service", nullable = false)
+    private int totalCostOptionalService;
 
     @ManyToOne (fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "selectedPackage")
-    private AvailableServicePackEntity selectedPackage;
+    @JoinColumn(name = "available_package")
+    private AvailableServicePackEntity availablePackage;
 
     @ManyToMany (mappedBy="offeredOptionalServiceToSinglePackages", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     // VA MESSA LA JOIN TABLE? //
@@ -47,13 +47,13 @@ public class ServicePackEntity implements Serializable{
 
     public ServicePackEntity(Date startDate,
                              Date endDate,
-                             int totalCost,
-                             int optionalServicesFee) {
+                             int cost,
+                             int totalCostOptionalService) {
 
         this.startDate = startDate;
         this.endDate = endDate;
-        this.totalCost = totalCost;
-        this.optionalServicesFee = optionalServicesFee;
+        this.cost = cost;
+        this.totalCostOptionalService = totalCostOptionalService;
 
     }
 
@@ -68,12 +68,12 @@ public class ServicePackEntity implements Serializable{
         return servicePack_id;
     }
 
-    public void setTotalCost(int totalCost){
-        this.totalCost = totalCost;
+    public void setTotalCost(int cost){
+        this.cost = cost;
     }
 
     public int getTotalCost(){
-        return this.totalCost;
+        return this.cost;
     }
 
     public Date getStartDate() {
@@ -93,11 +93,11 @@ public class ServicePackEntity implements Serializable{
     }
 
     public int getOptionalServicesFee() {
-        return optionalServicesFee;
+        return totalCostOptionalService;
     }
 
-    public void setOptionalServicesFee(int optionalServicesFee) {
-        this.optionalServicesFee = optionalServicesFee;
+    public void setOptionalServicesFee(int totalCostOptionalService) {
+        this.totalCostOptionalService = totalCostOptionalService;
     }
 
 }

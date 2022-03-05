@@ -13,71 +13,71 @@ public class OrderEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "order_id", nullable = false)
-    private Long order_id;
+    private Long orderId;
 
-    @Column(name = "creation_ts", nullable=false)
-    private Timestamp creation_ts;
+    @Column(name = "timestamp_creation", nullable=false)
+    private Timestamp timestampCreation;
 
-    public void setOwner(UserEntity owner) {
-        this.owner = owner;
+    public void setOwner(UserEntity user_order) {
+        this.user_order = user_order;
     }
 
     public ServicePackEntity getChosenServicePackage() {
-        return chosenServicePackage;
+        return service_package_order;
     }
 
-    public void setChosenServicePackage(ServicePackEntity chosenServicePackage) {
-        this.chosenServicePackage = chosenServicePackage;
+    public void setChosenServicePackage(ServicePackEntity service_package_order) {
+        this.service_package_order = service_package_order;
     }
 
     @Column(name = "total_cost", nullable=false)
-    private int total_cost;
+    private int totalCost;
 
     @Column(name = "isPlaceable", nullable=false)
     private boolean isPlaceable;
 
     @OneToOne (fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = false)
-    @JoinColumn(name = "ordersOwner")
-    private UserEntity owner;
+    @JoinColumn(name = "user_order")
+    private UserEntity user_order;
 
     @OneToOne (fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = false)
-    @JoinColumn(name = "chosenServicePack")
-    private ServicePackEntity chosenServicePackage;
+    @JoinColumn(name = "service_package_order")
+    private ServicePackEntity service_package_order;
 
 
     public OrderEntity(){
     }
 
-    public OrderEntity(Timestamp creation_ts,
-                       UserEntity owner,
-                       ServicePackEntity chosenServicePackage) {
-        this.creation_ts = creation_ts;
-        this.owner = owner;
-        this.chosenServicePackage = chosenServicePackage;
+    public OrderEntity(Timestamp timestampCreation,
+                       UserEntity user_order,
+                       ServicePackEntity service_package_order) {
+        this.timestampCreation = timestampCreation;
+        this.user_order = user_order;
+        this.service_package_order = service_package_order;
     }
 
     public Long getOrder_id() {
-        return order_id;
+        return orderId;
     }
 
-    public void setOrder_id(Long order_id) {
-        this.order_id = order_id;
+    public void setOrder_id(Long orderId) {
+        this.orderId = orderId;
     }
 
     public Timestamp getCreation_ts() {
-        return creation_ts;
+        return timestampCreation;
     }
 
-    public void setCreation_ts(Timestamp creation_ts) {
-        this.creation_ts = creation_ts;
+    public void setCreation_ts(Timestamp timestampCreation) {
+        this.timestampCreation = timestampCreation;
     }
 
     public int getTotal_cost() {
-        return total_cost;
+        return totalCost;
     }
 
-    public void setTotal_cost(int total_cost) {
-        this.total_cost = total_cost;
+    public void setTotal_cost(int totalCost) {
+        this.totalCost = totalCost;
     }
 
     public boolean isPlaceable() {
@@ -89,13 +89,13 @@ public class OrderEntity implements Serializable {
     }
 
     public UserEntity getOwner() {
-        return owner;
+        return user_order;
     }
 
     @Override
     public String toString() {
         return "OrderEntity{" +
-                "order_id=" + order_id +
+                "order_id=" + orderId +
                 '}';
     }
 }

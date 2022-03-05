@@ -5,13 +5,13 @@ import java.io.Serializable;
 import java.util.List;
 
 @Entity
-@Table(name = "available_service_pack", schema = "dbproject2022")
+@Table(name = "available_service_package", schema = "dbproject2022")
 public class AvailableServicePackEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "availableServicePack_id", nullable = false)
-    private int availableServicePack_id;
+    @Column(name = "available_service_pack_id", nullable = false)
+    private int availableServicePackId;
 
     @Column(name = "name", nullable = false)
     private int name;
@@ -43,10 +43,10 @@ public class AvailableServicePackEntity implements Serializable {
     // GETTER AND SETTER //
 
     public int getAvailableServicePack_id() {
-        return availableServicePack_id;
+        return availableServicePackId;
     }
 
-    public void setAvailableServicePack_id(int availableServicePack_id) { this.availableServicePack_id = availableServicePack_id; }
+    public void setAvailableServicePack_id(int availableServicePackId) { this.availableServicePackId = availableServicePackId; }
 
     public int getName() {
         return name;
