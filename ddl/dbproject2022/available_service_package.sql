@@ -117,7 +117,10 @@ create table service
     num_of_giga       int         null,
     fee_extra_minutes int         null,
     fee_extra_sms     int         null,
-    fee_extra_giga    int         null
+    fee_extra_giga    int         null, 
+    available_service_package int null,
+    constraint available_service_package__fk
+        foreign key (available_service_package) references available_service_package (available_service_pack_id)
 );
 
 

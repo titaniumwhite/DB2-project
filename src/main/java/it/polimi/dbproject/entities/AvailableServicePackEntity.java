@@ -5,6 +5,11 @@ import java.io.Serializable;
 import java.util.List;
 
 @Entity
+@NamedQuery(
+        name = "AvailableServicePackage.findAll",
+        query = "SELECT servicePackages FROM AvailableServicePackEntity servicePackages "
+)
+
 @Table(name = "available_service_package", schema = "dbproject2022")
 public class AvailableServicePackEntity implements Serializable {
 
@@ -25,22 +30,22 @@ public class AvailableServicePackEntity implements Serializable {
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private PeriodEntity offeredPeriod;
 
-    // TO DO: DA AGGIUSTARE A TEMPO DEBITO //
-    /*
-    @ManyToMany(mappedBy="offeredOptionalServiceToAllPackages", fetch=FetchType.LAZY)
-    // VA MESSA LA JOIN TABLE? //
-    /*@JoinTable(
-            name="offeredOptionalServiceToAllPackages",
-            joinColumns={@JoinColumn(name="id")},
-            inverseJoinColumns={@JoinColumn(name="id")}
+
+    @ManyToMany(fetch=FetchType.LAZY)
+    @JoinTable(
+            name="services_to_offer",
+            joinColumns={@JoinColumn(name="availableServicePackages")},
+            inverseJoinColumns={@JoinColumn(name="service_id")}
     )
-    private List<OptionalServiceEntity> optionalServices;
-*/
+    private List<ServiceEntity> services;
+
 
     public AvailableServicePackEntity(){}
 
-    public AvailableServicePackEntity(int name) {
+    public AvailableServicePackEntity(int name,
+                                      List<ServiceEntity> services) {
         this.name = name;
+        this.services = services;
     }
 
     // GETTER AND SETTER //
@@ -73,5 +78,28 @@ public class AvailableServicePackEntity implements Serializable {
         this.offeredServices = offeredServices;
     }
 
+    public int getAvailableServicePackId() {
+        return availableServicePackId;
+    }
+
+    public void setAvailableServicePackId(int availableServicePackId) {
+        this.availableServicePackId = availableServicePackId;
+    }
+
+    public PeriodEntity getOfferedPeriod() {
+        return offeredPeriod;
+    }
+
+    public void setOfferedPeriod(PeriodEntity offeredPeriod) {
+        this.offeredPeriod = offeredPeriod;
+    }
+
+    public List<ServiceEntity> getServices() {
+        return services;
+    }
+
+    public void setServices(List<ServiceEntity> services) {
+        this.services = services;
+    }
 
 }

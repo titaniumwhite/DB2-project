@@ -35,6 +35,9 @@ public class ServiceEntity implements Serializable{
     @Column(name = "fee_extra_giga", nullable = false)
     private int feeExtraGiga;
 
+    @ManyToMany(mappedBy = "services", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<AvailableServicePackEntity> availableServicePackages;
+
     public ServiceEntity() {
 
     }

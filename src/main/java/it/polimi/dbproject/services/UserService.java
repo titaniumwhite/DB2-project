@@ -4,6 +4,7 @@ import it.polimi.dbproject.entities.*;
 
 import javax.ejb.Stateless;
 import javax.persistence.*;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -50,5 +51,9 @@ public class UserService {
         return null;
     }
 
-
+    public List<AvailableServicePackEntity> getAllServicePackages(){
+        List<AvailableServicePackEntity> a = em.createNamedQuery("AvailableServicePackage.findAll", AvailableServicePackEntity.class).getResultList();
+        System.out.println(a);
+        return a;
+    }
 }
