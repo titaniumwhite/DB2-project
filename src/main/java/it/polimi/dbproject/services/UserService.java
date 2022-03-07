@@ -19,17 +19,17 @@ public class UserService {
         UserEntity u;
 
         try {
-            u = em.createNamedQuery("User.checkUser", UserEntity.class)
+            u = em.createNamedQuery("User.loginUser", UserEntity.class)
                     .setParameter("usn", username)
                     .setParameter("psw", password)
                     .getSingleResult();
 
             return u;
         } catch (NoResultException e) {
-            logger.log(Level.SEVERE, "An exception was thrown", e);
+            // No-one has such credentials
+            return null;
         }
 
-        return null;
     }
 
     public UserEntity createUser(String username, String first_name, String last_name, String email, String password) {
@@ -38,7 +38,6 @@ public class UserService {
         try {
             em.persist(u);
             em.flush();
-            System.out.println(u);
             return u;
         } catch (EntityExistsException e) {
             logger.log(Level.INFO, "The user already exists", e);

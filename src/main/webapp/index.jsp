@@ -6,8 +6,9 @@
 </head>
 <body>
 <form action="login" method="post">
-    Email:<input type="text" name="username"/><br/><br/>
+    Username:<input type="text" name="username"/><br/><br/>
     Password:<input type="password" name="password"/><br/><br/>
+    <br>${loginMessage}
     <input type="submit" value="login"/>"
 </form>
 <div class="registration">
