@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-@WebServlet(name = "RegistrationServlet", value = "/RegistrationServlet")
+@WebServlet(name = "RegistrationServlet", value = "/registration")
 public class RegistrationServlet extends HttpServlet {
     Logger logger = Logger.getAnonymousLogger();
 
@@ -46,10 +46,14 @@ public class RegistrationServlet extends HttpServlet {
         String last_name = request.getParameter("last_name");
         String toServlet = "registration";
 
+        System.out.println("username is " + username);
+
         UserEntity u;
 
         try {
             u = us.createUser(username, first_name, last_name, email, password);
+
+
             if (u != null) toServlet = "registration?registrationDone=true";
             else toServlet = "registration?registrationError=true";
         } catch (Exception e) {

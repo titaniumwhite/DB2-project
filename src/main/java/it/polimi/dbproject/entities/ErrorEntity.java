@@ -22,16 +22,16 @@ public class ErrorEntity implements Serializable {
     @Column(name = "timestamp", nullable = false)
     private Timestamp timestamp;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(targetEntity = UserEntity.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_error")
-    private UserEntity userError;
+    private UserEntity owner;
 
     public ErrorEntity() {
     }
 
     public ErrorEntity(Timestamp timestamp,
                        UserEntity owner) {
-        this.userError = owner;
+        this.owner = owner;
         this.totNumber = 0;
     }
 
@@ -62,11 +62,11 @@ public class ErrorEntity implements Serializable {
     }
 
     public UserEntity getOwner() {
-        return userError;
+        return owner;
     }
 
-    public void setOwner(UserEntity userError) {
-        this.userError = userError;
+    public void setOwner(UserEntity owner) {
+        this.owner = owner;
     }
 
     // METHODS //

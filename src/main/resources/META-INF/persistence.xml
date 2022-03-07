@@ -5,5 +5,24 @@
              version="2.2">
     <persistence-unit name="default">
 
+        <class>it.polimi.dbproject.entities.UserEntity</class>
+        <class>it.polimi.dbproject.entities.AvailableServicePackEntity</class>
+        <class>it.polimi.dbproject.entities.EmployeeEntity</class>
+        <class>it.polimi.dbproject.entities.ErrorEntity</class>
+        <class>it.polimi.dbproject.entities.OptionalServiceEntity</class>
+        <class>it.polimi.dbproject.entities.OrderEntity</class>
+        <class>it.polimi.dbproject.entities.PeriodEntity</class>
+        <class>it.polimi.dbproject.entities.ServicePackEntity</class>
+        <class>it.polimi.dbproject.entities.ServiceEntity</class>
+
+
+        <properties>
+            <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/db2project" />
+            <property name="javax.persistence.jdbc.user" value="root" />
+            <property name="javax.persistence.jdbc.password" value="DBproject2022" />
+
+        </properties>
+
     </persistence-unit>
 </persistence>

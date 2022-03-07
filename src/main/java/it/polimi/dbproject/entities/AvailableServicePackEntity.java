@@ -16,23 +16,26 @@ public class AvailableServicePackEntity implements Serializable {
     @Column(name = "name", nullable = false)
     private int name;
 
-    @OneToMany(mappedBy="offeredToPackage", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy="availablePackages", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<ServicePackEntity> offeredToPackage;
 
-    @OneToMany(mappedBy="offeredServices", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<ServiceEntity> offeredServices;
 
-    @OneToOne(mappedBy="offeredPeriod", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private PeriodEntity offeredPeriod;
 
+    // TO DO: DA AGGIUSTARE A TEMPO DEBITO //
+    /*
     @ManyToMany(mappedBy="offeredOptionalServiceToAllPackages", fetch=FetchType.LAZY)
     // VA MESSA LA JOIN TABLE? //
     /*@JoinTable(
             name="offeredOptionalServiceToAllPackages",
             joinColumns={@JoinColumn(name="id")},
             inverseJoinColumns={@JoinColumn(name="id")}
-    )*/
+    )
     private List<OptionalServiceEntity> optionalServices;
+*/
 
     public AvailableServicePackEntity(){}
 

@@ -20,7 +20,7 @@ public class OrderEntity implements Serializable {
     private Timestamp timestampCreation;
 
     public void setOwner(UserEntity user_order) {
-        this.user_order = user_order;
+        this.owner = owner;
     }
 
     public ServicePackEntity getChosenServicePackage() {
@@ -37,9 +37,9 @@ public class OrderEntity implements Serializable {
     @Column(name = "isPlaceable", nullable=false)
     private boolean isPlaceable;
 
-    @ManyToOne (fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = false)
-    @JoinColumn(name = "user_order")
-    private UserEntity user_order;
+    @ManyToOne (targetEntity = UserEntity.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = false)
+    @JoinColumn(name = "owner")
+    private UserEntity owner;
 
     @OneToOne (fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = false)
     @JoinColumn(name = "service_package_order")
@@ -50,10 +50,10 @@ public class OrderEntity implements Serializable {
     }
 
     public OrderEntity(Timestamp timestampCreation,
-                       UserEntity user_order,
+                       UserEntity owner,
                        ServicePackEntity service_package_order) {
         this.timestampCreation = timestampCreation;
-        this.user_order = user_order;
+        this.owner = owner;
         this.service_package_order = service_package_order;
     }
 
@@ -90,7 +90,7 @@ public class OrderEntity implements Serializable {
     }
 
     public UserEntity getOwner() {
-        return user_order;
+        return owner;
     }
 
     @Override

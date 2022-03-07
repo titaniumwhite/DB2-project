@@ -5,10 +5,12 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
+
+
 @Entity
 @Table(name = "user", schema = "dbproject2022")
-
 @NamedQuery(name = "User.checkUser", query = "SELECT u FROM UserEntity u WHERE u.username = :usn and u.password = :psw")
+
 
 public class UserEntity implements Serializable {
 
@@ -17,7 +19,7 @@ public class UserEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id", unique=true, nullable=false)
-    private String userId;
+    private Long id;
 
     @Column(name = "username", unique=true, nullable=false)
     private String username;
@@ -40,13 +42,13 @@ public class UserEntity implements Serializable {
     @Column(name = "isInsolvent")
     private Boolean isInsolvent;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy="ordersOwner", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(targetEntity = OrderEntity.class, fetch = FetchType.LAZY, mappedBy="owner", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderEntity> orders;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy="servicePackOwner", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(targetEntity = ServicePackEntity.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ServicePackEntity> servicePackages;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy="errorsOwner", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(targetEntity = ErrorEntity.class, fetch = FetchType.LAZY, mappedBy="owner", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ErrorEntity> errors;
 
     public UserEntity() {}
@@ -70,12 +72,12 @@ public class UserEntity implements Serializable {
 
     // GETTER AND SETTER //
 
-    public String getUser_id() {
-        return userId;
+    public Long getUser_id() {
+        return id;
     }
 
-    public void setUser_id(String userId) {
-        this.userId = userId;
+    public void setUser_id(Long id) {
+        this.id = id;
     }
 
     public String getUsername() {
@@ -164,4 +166,23 @@ public class UserEntity implements Serializable {
         totFailedAttempts++;
     }
 
+
+
+
+    @Override
+    public String toString() {
+        return "UserEntity{" +
+                "id='" + id + '\'' +
+                ", username='" + username + '\'' +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", totFailedAttempts=" + totFailedAttempts +
+                ", isInsolvent=" + isInsolvent +
+                ", orders=" + orders +
+                ", servicePackages=" + servicePackages +
+                ", errors=" + errors +
+                '}';
+    }
 }

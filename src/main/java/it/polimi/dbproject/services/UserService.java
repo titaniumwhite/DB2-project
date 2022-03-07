@@ -34,16 +34,18 @@ public class UserService {
 
     public UserEntity createUser(String username, String first_name, String last_name, String email, String password) {
         UserEntity u = new UserEntity(username, first_name, last_name, email, password);
+
         try {
             em.persist(u);
             em.flush();
+            System.out.println(u);
             return u;
         } catch (EntityExistsException e) {
-            logger.log(Level.SEVERE, "The user already exists", e);
+            logger.log(Level.INFO, "The user already exists", e);
         } catch (IllegalArgumentException e) {
-            logger.log(Level.SEVERE, "The instance is not an entity", e);
+            logger.log(Level.INFO, "The instance is not an entity", e);
         } catch (Exception e) {
-            logger.log(Level.SEVERE, "An exception was thrown", e);
+            logger.log(Level.INFO, "An exception was thrown", e);
         }
 
         return null;
