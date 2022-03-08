@@ -20,6 +20,9 @@ public class PeriodEntity implements Serializable{
     @Column(name = "monthly_fee", nullable = false)
     private int monthlyFee;
 
+    @ManyToMany(mappedBy = "periods", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<AvailableServicePackEntity> availableServicePackages;
+
     public PeriodEntity() {    }
 
     public PeriodEntity(int duration) {

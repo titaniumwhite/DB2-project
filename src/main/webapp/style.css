@@ -1,0 +1,12 @@
+.wrap {
+    min-height: 100%;
+    margin-bottom: -12vh;
+    padding-bottom: 12vh;
+}
+
+.footer {
+    text-align: center;
+    height: 12vh;
+    width: 100%;
+    background-color: #393e46;
+}

@@ -23,6 +23,8 @@ public class customerHomepageServlet extends HttpServlet {
         List<AvailableServicePackEntity> availableServicePackages = us.getAllServicePackages();
         request.setAttribute("availableServicePackages", availableServicePackages);
 
+        System.out.println(availableServicePackages);
+
         dispatcher.forward(request, response);
     }
 

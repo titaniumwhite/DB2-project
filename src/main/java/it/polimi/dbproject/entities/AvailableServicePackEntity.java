@@ -7,7 +7,8 @@ import java.util.List;
 @Entity
 @NamedQuery(
         name = "AvailableServicePackage.findAll",
-        query = "SELECT servicePackages FROM AvailableServicePackEntity servicePackages "
+        query = "SELECT asp " +
+                "FROM AvailableServicePackEntity asp"
 )
 
 @Table(name = "available_service_package", schema = "dbproject2022")
@@ -19,7 +20,7 @@ public class AvailableServicePackEntity implements Serializable {
     private int availableServicePackId;
 
     @Column(name = "name", nullable = false)
-    private int name;
+    private String name;
 
     @OneToMany(mappedBy="availablePackages", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<ServicePackEntity> offeredToPackage;
@@ -27,22 +28,26 @@ public class AvailableServicePackEntity implements Serializable {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<ServiceEntity> offeredServices;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private PeriodEntity offeredPeriod;
-
-
-    @ManyToMany(fetch=FetchType.LAZY)
+    @ManyToMany(fetch=FetchType.EAGER)
     @JoinTable(
             name="services_to_offer",
-            joinColumns={@JoinColumn(name="availableServicePackages")},
+            joinColumns={@JoinColumn(name="available_service_pack_id")},
             inverseJoinColumns={@JoinColumn(name="service_id")}
     )
     private List<ServiceEntity> services;
 
+    @ManyToMany(fetch=FetchType.LAZY)
+    @JoinTable(
+            name="period_to_offer",
+            joinColumns={@JoinColumn(name="available_service_pack_id")},
+            inverseJoinColumns={@JoinColumn(name="period_id")}
+    )
+    private List<PeriodEntity> periods;
+
 
     public AvailableServicePackEntity(){}
 
-    public AvailableServicePackEntity(int name,
+    public AvailableServicePackEntity(String name,
                                       List<ServiceEntity> services) {
         this.name = name;
         this.services = services;
@@ -56,11 +61,11 @@ public class AvailableServicePackEntity implements Serializable {
 
     public void setAvailableServicePack_id(int availableServicePackId) { this.availableServicePackId = availableServicePackId; }
 
-    public int getName() {
+    public String getName() {
         return name;
     }
 
-    public void setName(int name) {
+    public void setName(String name) {
         this.name = name;
     }
 
@@ -84,14 +89,6 @@ public class AvailableServicePackEntity implements Serializable {
 
     public void setAvailableServicePackId(int availableServicePackId) {
         this.availableServicePackId = availableServicePackId;
-    }
-
-    public PeriodEntity getOfferedPeriod() {
-        return offeredPeriod;
-    }
-
-    public void setOfferedPeriod(PeriodEntity offeredPeriod) {
-        this.offeredPeriod = offeredPeriod;
     }
 
     public List<ServiceEntity> getServices() {

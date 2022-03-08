@@ -117,12 +117,30 @@ create table service
     num_of_giga       int         null,
     fee_extra_minutes int         null,
     fee_extra_sms     int         null,
-    fee_extra_giga    int         null, 
-    available_service_package int null,
-    constraint available_service_package__fk
-        foreign key (available_service_package) references available_service_package (available_service_pack_id)
+    fee_extra_giga    int         null
 );
 
+create table services_to_offer
+(
+    available_service_pack_id int not null,
+    service_id                int not null,
+    primary key (available_service_pack_id, service_id),
+    constraint services_to_offer_fk0
+        foreign key (available_service_pack_id) references available_service_package (available_service_pack_id),
+    constraint services_to_offer_fk1
+        foreign key (service_id) references service(service_id)
+);
+
+create table period_to_offer
+(
+    available_service_pack_id int not null,
+    period_id         int not null,
+    primary key (available_service_pack_id, period_id),
+    constraint period_to_offer_fk0
+        foreign key (available_service_pack_id) references available_service_package (available_service_pack_id),
+    constraint period_to_offer_fk1
+        foreign key (period_id) references period(period_id)
+);
 
 
 

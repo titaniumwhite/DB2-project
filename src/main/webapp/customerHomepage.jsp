@@ -11,22 +11,24 @@
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <style><%@include file="style.css"%></style>
 
-    <title>Hello, world!</title>
 </head>
 
 
 <body>
 
-<div style="text-align: center">
+<div class="container-fluid">
     <% List<AvailableServicePackEntity> servicePackages = (List<AvailableServicePackEntity>) request.getAttribute("availableServicePackages");
     %>
 
     <h2>List of Service Package available</h2>
-    <% for (AvailableServicePackEntity sp: servicePackages) {%>
-        <div class="col">
-            <div class="card" style="width: 18rem;">
-                <div class="card-body">
+    <div class="card-deck">
+        <div class="row">
+    <%  if (servicePackages != null) {
+            for (AvailableServicePackEntity sp: servicePackages) {%>
+            <div class="col-6 col-md-4">
+            <div class="card">
                     <h5 class="card-title"><%=sp.getName()%></h5>
                     <p class="card-text">
                         <ul>
@@ -37,10 +39,12 @@
                         </ul>
                     </p>
                     <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
             </div>
+            </div>
+        <% }} %>
         </div>
-    <% } %>
+    </div>
+
 
 
 
