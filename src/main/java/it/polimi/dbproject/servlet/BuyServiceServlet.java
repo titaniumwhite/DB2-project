@@ -15,7 +15,7 @@ import java.io.IOException;
 
 import java.util.*;
 
-@WebServlet("/buyServicePage")
+@WebServlet(name = "buyServiceServlet", value = "/buyservice")
 
 public class BuyServiceServlet extends HttpServlet{
 
