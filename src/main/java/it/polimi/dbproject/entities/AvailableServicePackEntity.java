@@ -7,8 +7,7 @@ import java.util.List;
 @Entity
 @NamedQuery(
         name = "AvailableServicePackage.findAll",
-        query = "SELECT asp " +
-                "FROM AvailableServicePackEntity asp"
+        query = "SELECT asp FROM AvailableServicePackEntity asp"
 )
 
 @Table(name = "available_service_package", schema = "dbproject2022")
@@ -43,6 +42,14 @@ public class AvailableServicePackEntity implements Serializable {
             inverseJoinColumns={@JoinColumn(name="period_id")}
     )
     private List<PeriodEntity> periods;
+
+    @ManyToMany(fetch=FetchType.EAGER)
+    @JoinTable(
+            name="optional_services_to_offer",
+            joinColumns={@JoinColumn(name="available_service_pack_id")},
+            inverseJoinColumns={@JoinColumn(name="optional_service_id")}
+    )
+    private List<ServiceEntity> optional_services;
 
 
     public AvailableServicePackEntity(){}

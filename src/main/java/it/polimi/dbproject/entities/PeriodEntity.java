@@ -6,6 +6,11 @@ import java.io.Serializable;
 import java.util.List;
 
 @Entity
+@NamedQuery(
+        name = "Period.findAll",
+        query = "SELECT p FROM PeriodEntity p"
+)
+
 @Table(name = "period", schema = "dbproject2022")
 public class PeriodEntity implements Serializable{
 

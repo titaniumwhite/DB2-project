@@ -6,6 +6,11 @@ import java.io.Serializable;
 import java.util.List;
 
 @Entity
+@NamedQuery(
+        name = "OptionalService.findAll",
+        query = "SELECT os FROM OptionalServiceEntity os"
+)
+
 @Table(name = "optional_service", schema = "dbproject2022")
 public class OptionalServiceEntity implements Serializable{
 
@@ -20,12 +25,13 @@ public class OptionalServiceEntity implements Serializable{
     @Column(name = "monthly_fee", nullable = false)
     private int monthlyFee;
 
-    @ManyToMany(mappedBy = "offeredOptionalServiceToAllPackages", fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "optional_services", fetch = FetchType.LAZY)
     private List<AvailableServicePackEntity> availableServicePackages;
 
+    /*
     @ManyToMany(mappedBy = "offeredOptionalServiceToSinglePackages", fetch = FetchType.EAGER)
     private List<OptionalServiceEntity> optionalServiceEntities;
-
+*/
     public OptionalServiceEntity(){}
 
     public OptionalServiceEntity(

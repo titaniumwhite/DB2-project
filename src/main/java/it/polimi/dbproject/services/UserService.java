@@ -52,8 +52,6 @@ public class UserService {
     }
 
     public List<AvailableServicePackEntity> getAllServicePackages(){
-        List<AvailableServicePackEntity> a = em.createNamedQuery("AvailableServicePackage.findAll", AvailableServicePackEntity.class).getResultList();
-        System.out.println("HO FATTO LA QUERY " + a);
-        return a;
+        return em.createNamedQuery("AvailableServicePackage.findAll", AvailableServicePackEntity.class).getResultList();
     }
 }
