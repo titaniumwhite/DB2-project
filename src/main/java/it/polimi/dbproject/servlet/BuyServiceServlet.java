@@ -101,7 +101,7 @@ public class BuyServiceServlet extends HttpServlet{
 
         List<AvailableServicePackEntity> availableService = userService.retrieveAllAvailableService();
 
-        req.setAttribute("availableService", availableService);
+        req.setAttribute("availableServicePackages", availableService);
         req.setAttribute("periods", periods);
         req.setAttribute("optionalServices", optionalServices);
         req.setAttribute("selectedPackages", selectedPackages);

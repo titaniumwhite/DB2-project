@@ -30,39 +30,40 @@
             <label class="form-check-label" for="mobilePhone">Mobile Phone</label>
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon">Minutes</span>
-                <input type="text" class="form-control" name="minutes" id="minutes" value=0 disabled>
+                <input type="text" class="form-control" name="mobilePhone" id="minutes" value=0 disabled>
             </div>
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1">SMS</span>
-                <input type="text" class="form-control" id="sms" value=0 disabled>
+                <input type="text" class="form-control" name="mobilePhone" id="sms" value=0 disabled>
             </div>
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon2">Fee for extra minutes</span>
-                <input type="text" class="form-control" id="fee_minutes" value=0 disabled>
+                <input type="text" class="form-control" name="mobilePhone" id="fee_minutes" value=0 disabled>
             </div>
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon3">Fee for extra SMS</span>
-                <input type="text" class="form-control" id="fee_sms" value=0 disabled>
+                <input type="text" class="form-control" name="mobilePhone" id="fee_sms" value=0 disabled>
             </div>
         </div>
+
         <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" role="switch" id="mobileInternet" onclick="enableDisableTextbox(this)">
+            <input class="form-check-input" name="mobileInternet" type="checkbox" role="switch" id="mobileInternet" onclick="enableDisableTextbox(this)">
             <label class="form-check-label" for="mobileInternet">Mobile Internet</label>
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon4">Gigas</span>
-                <input type="text" class="form-control" id="gigas" value=0 disabled>
+                <input type="text"  name="mobileInternet"  class="form-control" id="gigas" value=0 disabled>
             </div>
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon5">Fee for extra gigas</span>
-                <input type="text" class="form-control" id="fee_gigas" value=0 disabled>
+                <input type="text" class="form-control" name="mobileInternet" id="fee_gigas" value=0 disabled>
             </div>
         </div>
         <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" role="switch" id="fixedPhone">
+            <input class="form-check-input" name="fixedPhone" type="checkbox" role="switch" id="fixedPhone">
             <label class="form-check-label" for="fixedPhone">Fixed phone</label>
         </div>
         <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" role="switch" id="fixedInternet">
+            <input class="form-check-input" name="fixedInternet" type="checkbox" role="switch" id="fixedInternet">
             <label class="form-check-label" for="fixedInternet">Fixed Internet</label>
         </div>
         <br>

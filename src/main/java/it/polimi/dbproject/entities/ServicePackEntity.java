@@ -33,9 +33,9 @@ public class ServicePackEntity implements Serializable{
     @JoinColumn(name = "available_package")
     private AvailableServicePackEntity availablePackages;
 
-    @ManyToMany (mappedBy="offeredOptionalServiceToSinglePackages", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany (fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
-            name="offeredOptionalService",
+            name="optional_services_selected",
             joinColumns={@JoinColumn(name="service_pack_id")},
             inverseJoinColumns={@JoinColumn(name="optional_service_id")}
     )

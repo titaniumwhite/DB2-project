@@ -34,7 +34,7 @@ public class AvailableServicePackEntity implements Serializable {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<ServiceEntity> offeredServices;
 
-    @ManyToMany(fetch=FetchType.EAGER)
+    @ManyToMany(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name="services_to_offer",
             joinColumns={@JoinColumn(name="available_service_pack_id")},
