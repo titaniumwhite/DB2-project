@@ -71,5 +71,6 @@ public class PeriodEntity implements Serializable{
     public int getMonthlyFee(){
         return this.monthlyFee;
     }
+
 }
 

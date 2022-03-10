@@ -22,8 +22,8 @@ public class EmployeeService {
 
     Logger logger = Logger.getAnonymousLogger();
 
-    public AvailableServicePackEntity createAvailableServicePack(String name, List<ServiceEntity> services) {
-        AvailableServicePackEntity asp = new AvailableServicePackEntity(name, services);
+    public AvailableServicePackEntity createAvailableServicePack(String name, List<ServiceEntity> services, List<PeriodEntity> periods, List<OptionalServiceEntity> optionalServices) {
+        AvailableServicePackEntity asp = new AvailableServicePackEntity(name, services, periods, optionalServices);
 
         try{
             em.persist(asp);
@@ -47,4 +47,5 @@ public class EmployeeService {
     public List<PeriodEntity> getAllPeriods(){
         return em.createNamedQuery("Period.findAll", PeriodEntity.class).getResultList();
     }
+
 }

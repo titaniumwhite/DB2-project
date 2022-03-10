@@ -56,15 +56,19 @@ public class AvailableServicePackEntity implements Serializable {
             joinColumns={@JoinColumn(name="available_service_pack_id")},
             inverseJoinColumns={@JoinColumn(name="optional_service_id")}
     )
-    private List<ServiceEntity> optional_services;
+    private List<OptionalServiceEntity> optionalServices;
 
 
     public AvailableServicePackEntity(){}
 
     public AvailableServicePackEntity(String name,
-                                      List<ServiceEntity> services) {
+                                      List<ServiceEntity> services,
+                                      List<PeriodEntity> periods,
+                                      List<OptionalServiceEntity> optionalServices) {
         this.name = name;
         this.services = services;
+        this.periods = periods;
+        this.optionalServices = optionalServices;
     }
 
     // GETTER AND SETTER //

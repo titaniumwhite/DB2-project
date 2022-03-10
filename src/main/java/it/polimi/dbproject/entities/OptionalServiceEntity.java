@@ -37,7 +37,7 @@ public class OptionalServiceEntity implements Serializable{
     @Column(name = "monthly_fee", nullable = false)
     private int monthlyFee;
 
-    @ManyToMany(mappedBy = "optional_services", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "optionalServices", fetch = FetchType.LAZY)
     private List<AvailableServicePackEntity> availableServicePackages;
 
 

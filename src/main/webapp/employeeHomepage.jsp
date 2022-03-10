@@ -72,10 +72,11 @@
             List<PeriodEntity> periods = (List<PeriodEntity>) request.getAttribute("periods");
             if (periods != null) {
                 for (PeriodEntity p: periods) {
+                    int d = p.getDuration();
         %>
         <div class="form-check form-switch">
-            <input class="form-check-input" name="periods" type="checkbox" role="switch" id="periods">
-            <label class="form-check-label" for="fixedPhone"><%=p.getDuration()%></label>
+            <input class="form-check-input" name="periods" value=<%=d%> type="checkbox" role="switch" id="periods">
+            <label class="form-check-label" for="fixedPhone"><%=d%></label>
         </div>
         <%
                 }}
@@ -86,10 +87,11 @@
             List<OptionalServiceEntity> optionalServices = (List<OptionalServiceEntity>) request.getAttribute("optionalServices");
             if (optionalServices != null) {
                 for (OptionalServiceEntity os: optionalServices) {
+                    String n = os.getName();
         %>
         <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" role="switch" id="optional">
-            <label class="form-check-label" for="fixedPhone"><%=os.getName()%></label>
+            <input class="form-check-input" name="optionalServices" value=<%=n%> type="checkbox" role="switch" id="optional">
+            <label class="form-check-label" for="optional"><%=n%></label>
         </div>
         <%
             }}
