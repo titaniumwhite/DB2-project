@@ -22,15 +22,15 @@
 </head>
 <body>
 <div class="container-fluid">
-    <form action="createPackage" method="post">
+    <form action="createpackage" method="post">
         Package Name <input type="text" name="name"/><br/><br/>
         Services
         <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" role="switch" id="mobilePhone" onclick="enableDisableTextbox(this)">
+            <input class="form-check-input" name="mobilePhone" type="checkbox" role="switch" id="mobilePhone" onclick="enableDisableTextbox(this)">
             <label class="form-check-label" for="mobilePhone">Mobile Phone</label>
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon">Minutes</span>
-                <input type="text" class="form-control" id="minutes" value=0 disabled>
+                <input type="text" class="form-control" name="minutes" id="minutes" value=0 disabled>
             </div>
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1">SMS</span>
@@ -73,7 +73,7 @@
                 for (PeriodEntity p: periods) {
         %>
         <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" role="switch" id="periods">
+            <input class="form-check-input" name="periods" type="checkbox" role="switch" id="periods">
             <label class="form-check-label" for="fixedPhone"><%=p.getDuration()%></label>
         </div>
         <%

@@ -3,6 +3,7 @@ package it.polimi.dbproject.servlet;
 import it.polimi.dbproject.entities.AvailableServicePackEntity;
 import it.polimi.dbproject.entities.OptionalServiceEntity;
 import it.polimi.dbproject.entities.PeriodEntity;
+import it.polimi.dbproject.entities.ServiceEntity;
 import it.polimi.dbproject.services.EmployeeService;
 import it.polimi.dbproject.services.UserService;
 
@@ -23,18 +24,19 @@ public class EmployeeHomepageServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RequestDispatcher dispatcher = request.getRequestDispatcher("employeeHomepage.jsp");
 
-
         List<OptionalServiceEntity> optionalServices = es.getAllOptionalServices();
         request.setAttribute("optionalServices", optionalServices);
 
         List<PeriodEntity> periods = es.getAllPeriods();
         request.setAttribute("periods", periods);
 
+
         dispatcher.forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 
     }
 }

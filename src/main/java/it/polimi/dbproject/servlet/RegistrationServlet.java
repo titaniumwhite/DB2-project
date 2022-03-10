@@ -46,8 +46,6 @@ public class RegistrationServlet extends HttpServlet {
         String last_name = request.getParameter("last_name");
         String toServlet = "registration";
 
-        System.out.println("username is " + username);
-
         UserEntity u;
 
         try {
