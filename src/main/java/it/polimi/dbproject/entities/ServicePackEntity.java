@@ -49,6 +49,7 @@ public class ServicePackEntity implements Serializable{
     @JoinColumn(name = "user_service_package")
     private UserEntity user_service_package;
 
+
     @OneToOne(mappedBy = "servicePackageOrder", cascade = CascadeType.ALL, orphanRemoval = true)
     private OrderEntity order;
 
@@ -115,4 +116,11 @@ public class ServicePackEntity implements Serializable{
         this.totalCostOptionalService = totalCostOptionalService;
     }
 
+    public void setUser(UserEntity user){
+        this.user_service_package = user;
+    }
+
+    public UserEntity getUser(){
+        return this.user_service_package;
+    }
 }

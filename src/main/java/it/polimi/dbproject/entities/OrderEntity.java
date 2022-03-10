@@ -1,11 +1,23 @@
 package it.polimi.dbproject.entities;
 
+import jdk.jfr.Name;
+
 import javax.persistence.*;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
 
 @Entity
+@NamedQuery(
+        name = "Order.retrieveAllUserOrderThroughID",
+        query = " SELECT o FROM OrderEntity o" +
+                " WHERE o.owner = :user "
+)
+@NamedQuery(
+        name = "Order.retrieveThroughID",
+        query = " SELECT o FROM OrderEntity o " +
+                " WHERE o.orderId = :orderId "
+)
 @Table(name = "order", schema = "dbproject2022")
 public class OrderEntity implements Serializable {
 
@@ -50,9 +62,11 @@ public class OrderEntity implements Serializable {
     }
 
     public OrderEntity(Timestamp timestampCreation,
+                       int totalCost,
                        UserEntity owner,
                        ServicePackEntity service_package_order) {
         this.timestampCreation = timestampCreation;
+        this.totalCost = totalCost;
         this.owner = owner;
         this.service_package_order = service_package_order;
     }

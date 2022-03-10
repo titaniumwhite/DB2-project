@@ -4,9 +4,13 @@ import it.polimi.dbproject.entities.*;
 
 import javax.ejb.Stateless;
 import javax.persistence.*;
+import javax.persistence.criteria.Order;
 import javax.validation.ConstraintViolationException;
+import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -98,4 +102,62 @@ public class UserService {
         return em.createNamedQuery("AvailableServicePackage.findAll", AvailableServicePackEntity.class)
                 .getResultList();
     }
+
+    public List<OrderEntity> retrieveAllOrdersOfUser(int userId){
+        List<OrderEntity> orders = em.createNamedQuery("Order.retrieveAllUserOrderThroughID", OrderEntity.class)
+                .setParameter("user", retrieveUserThroughID(userId).get())
+                .getResultList();
+
+        return orders;
+    }
+
+    public Optional<UserEntity> retrieveUserThroughID(int userId){
+        return em.createNamedQuery("User.retrieveUserThroughID", UserEntity.class)
+                .setParameter("id", userId)
+                .getResultStream().findFirst();
+    }
+
+    public boolean randomPayment(){
+        Random rd = new Random();
+        return rd.nextBoolean();
+    }
+
+    public ServicePackEntity addressServiceToUser(ServicePackEntity servicePack, UserEntity user) throws SQLException{
+        servicePack.setUser(user);
+        try {
+            em.persist(servicePack);
+            em.flush();
+            return servicePack;
+        } catch (ConstraintViolationException ignored){
+            return null;
+        }
+    }
+
+    public OrderEntity createOrder(Timestamp ts, UserEntity user, ServicePackEntity sp, boolean isPlaceable){
+        int cost = sp.getTotalCost() + sp.getOptionalServicesFee();
+        OrderEntity order = new OrderEntity(ts, cost, user, sp);
+        order.setPlaceable(isPlaceable);
+
+        try {
+            em.persist(order);
+            em.flush();
+            return order;
+        } catch (ConstraintViolationException ignored) {
+            return null;
+        }
+    }
+
+    public Optional<OrderEntity> retrieveOrderThroughID(int orderId){
+        return em.createNamedQuery("Order.retrieveThroughID", OrderEntity.class)
+                .setParameter("orderId", orderId)
+                .getResultStream().findFirst();
+    }
+
+    public OrderEntity orderUpdate(OrderEntity order, boolean isPlaceable){
+        OrderEntity order1 = em.find(OrderEntity.class, order.getOrder_id());
+        order1.setPlaceable(isPlaceable);
+        em.merge(order1);
+        return order1;
+    }
+
 }

@@ -5,7 +5,11 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
-
+@NamedQuery(
+        name = "User.retrieveUserThroughID",
+        query = "SELECT u FROM UserEntity u " +
+                "WHERE u.id = :id"
+)
 
 @Entity
 @Table(name = "user", schema = "dbproject2022")
@@ -19,7 +23,7 @@ public class UserEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id", unique=true, nullable=false)
-    private Long id;
+    private int id;
 
     @Column(name = "username", unique=true, nullable=false)
     private String username;
@@ -72,11 +76,11 @@ public class UserEntity implements Serializable {
 
     // GETTER AND SETTER //
 
-    public Long getUser_id() {
+    public int getUser_id() {
         return id;
     }
 
-    public void setUser_id(Long id) {
+    public void setUser_id(int id) {
         this.id = id;
     }
 
