@@ -18,10 +18,10 @@ public class ServicePackEntity implements Serializable{
     private int servicePack_id;
 
     @Column(name = "start_date", nullable = false)
-    private Date startDate;
+    private java.sql.Date startDate;
 
     @Column(name = "end_date", nullable = false)
-    private Date endDate;
+    private java.sql.Date endDate;
 
     @Column(name = "cost", nullable = false)
     private int cost;
@@ -92,19 +92,19 @@ public class ServicePackEntity implements Serializable{
         return this.cost;
     }
 
-    public Date getStartDate() {
+    public java.sql.Date getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(java.sql.Date startDate) {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
+    public java.sql.Date getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(java.sql.Date endDate) {
         this.endDate = endDate;
     }
 
@@ -122,5 +122,13 @@ public class ServicePackEntity implements Serializable{
 
     public UserEntity getUser(){
         return this.user_service_package;
+    }
+
+    public List<OptionalServiceEntity> getSelectedOptionalServices(){
+        return selectedOptionalServices;
+    }
+
+    public AvailableServicePackEntity getAvailablePackages(){
+        return availablePackages;
     }
 }

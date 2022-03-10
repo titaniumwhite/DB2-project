@@ -42,11 +42,11 @@ public class ConfirmationServlet extends HttpServlet {
         boolean isPlaceable;
 
         switch (result) {
-            case = "placeable":
+            case "placeable":
                 isPlaceable = true;
                 break;
 
-            case = "notPlaceable":
+            case "notPlaceable":
                 isPlaceable = false;
                 break;
 
@@ -98,11 +98,10 @@ public class ConfirmationServlet extends HttpServlet {
 
         IDOrderRejected = request.getParameter("IDOrderRejected");
 
-        if (IDOrderRejected != null{
+        if (IDOrderRejected != null) {
             servicePack = userService.retrieveOrderThroughID(Integer.parseInt(IDOrderRejected)).get().getChosenServicePackage();
             creationOfPackage = true;
-        }
-        else{
+        } else {
             servicePack = (ServicePackEntity) request.getSession(false).getAttribute("servicePack");
             creationOfPackage = true;
         }
