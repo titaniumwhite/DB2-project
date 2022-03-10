@@ -1,5 +1,7 @@
 package it.polimi.dbproject.entities;
 
+import jdk.jfr.Name;
+
 import javax.persistence.*;
 
 import java.io.Serializable;
@@ -9,6 +11,17 @@ import java.util.List;
 @NamedQuery(
         name = "OptionalService.findAll",
         query = "SELECT os FROM OptionalServiceEntity os"
+)
+@NamedQuery(
+        name = "OptionalService.findOptionalThroughPackage",
+        query = "SELECT os FROM OptionalServiceEntity os " +
+                "JOIN os.availableServicePackages a " +
+                "WHERE a.availableServicePackId = :availableServicePackId "
+)
+@NamedQuery(
+        name = "OptionalService.findServiceThroughID",
+        query = "SELECT os FROM OptionalServiceEntity os" +
+                "WHERE os.optionalService_id = :optionalService_id"
 )
 
 @Table(name = "optional_service", schema = "dbproject2022")

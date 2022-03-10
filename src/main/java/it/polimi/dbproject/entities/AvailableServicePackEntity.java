@@ -9,6 +9,12 @@ import java.util.List;
         name = "AvailableServicePackage.findAll",
         query = "SELECT asp FROM AvailableServicePackEntity asp"
 )
+@NamedQuery(
+        name = "AvailableServicePackage.findByID",
+        query = "SELECT asp " +
+                "FROM AvailableServicePackEntity asp " +
+                "WHERE asp.availableServicePackId = :availableServicePackId"
+)
 
 @Table(name = "available_service_package", schema = "dbproject2022")
 public class AvailableServicePackEntity implements Serializable {

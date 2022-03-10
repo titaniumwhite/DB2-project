@@ -10,6 +10,17 @@ import java.util.List;
         name = "Period.findAll",
         query = "SELECT p FROM PeriodEntity p"
 )
+@NamedQuery(
+        name = "Period.findPeriodThroughPackage",
+        query = "SELECT p FROM PeriodEntity p " +
+                "JOIN p.availableServicePackages s " +
+                "WHERE s.availableServicePackId = :availableServicePackId "
+)
+@NamedQuery(
+        name = "Period.findPeriodThroughID",
+        query = "SELECT p FROM PeriodEntity p " +
+                "WHERE p.periodId = :periodId"
+)
 
 @Table(name = "period", schema = "dbproject2022")
 public class PeriodEntity implements Serializable{
@@ -17,7 +28,7 @@ public class PeriodEntity implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "period_id", unique = true, nullable = false)
-    private String periodId;
+    private int periodId;
 
     @Column(name = "duration", nullable = false)
     private int duration;
@@ -37,11 +48,11 @@ public class PeriodEntity implements Serializable{
     // GETTER AND SETTER //
 
 
-    public String getPeriod_id() {
+    public int getPeriod_id() {
         return periodId;
     }
 
-    public void setPeriod_id(String periodId) {
+    public void setPeriod_id(int periodId) {
         this.periodId = periodId;
     }
 

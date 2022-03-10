@@ -4,7 +4,9 @@ import it.polimi.dbproject.entities.*;
 
 import javax.ejb.Stateless;
 import javax.persistence.*;
+import javax.validation.ConstraintViolationException;
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -20,10 +22,7 @@ public class UserService {
         UserEntity u;
 
         try {
-            u = em.createNamedQuery("User.loginUser", UserEntity.class)
-                    .setParameter("usn", username)
-                    .setParameter("psw", password)
-                    .getSingleResult();
+            u = em.createNamedQuery("User.loginUser", UserEntity.class).setParameter("usn", username).setParameter("psw", password).getSingleResult();
 
             return u;
         } catch (NoResultException e) {
@@ -51,7 +50,47 @@ public class UserService {
         return null;
     }
 
-    public List<AvailableServicePackEntity> getAllServicePackages(){
+    public List<AvailableServicePackEntity> getAllServicePackages() {
         return em.createNamedQuery("AvailableServicePackage.findAll", AvailableServicePackEntity.class).getResultList();
+    }
+
+    public void createError(ErrorEntity err) {
+        try {
+            em.persist(err);
+            em.flush();
+        } catch (ConstraintViolationException ignored) {
+
+        }
+    }
+
+    public Optional<AvailableServicePackEntity> retrieveAvailableServicePackByID(int availableServicePackId) {
+        return em.createNamedQuery("AvailableServicePackage.findByID",
+                AvailableServicePackEntity.class)
+                .setParameter("availableServicePackId", availableServicePackId)
+                .getResultStream().findFirst();
+    }
+
+    public List<PeriodEntity> retrieveServicePeriodID(int availableServicePackId){
+        return em.createNamedQuery("Period.findPeriodThroughPackage", PeriodEntity.class)
+                .setParameter("availableServicePackId", availableServicePackId)
+                .getResultList();
+    }
+
+    public List<OptionalServiceEntity> retrieveOptionalOfAvailablePackage(int availableServicePackId){
+        return em.createNamedQuery("OptionalService.findOptionalThroughPackage", OptionalServiceEntity.class)
+                .setParameter("availableServicePackId", availableServicePackId)
+                .getResultList();
+    }
+
+    public Optional<PeriodEntity> retrievePeriodID(int periodId){
+        return em.createNamedQuery("Period.findPeriodThroughID", PeriodEntity.class)
+                .setParameter("periodId", periodId)
+                .getResultStream().findFirst();
+    }
+
+    public Optional<OptionalServiceEntity> retrieveOptionalServicePackByID(int optionalService_id){
+        return em.createNamedQuery("OptionalService.findServiceThroughID", OptionalServiceEntity.class)
+                .setParameter("optionalService_id", optionalService_id)
+                .getResultStream().findFirst();
     }
 }
