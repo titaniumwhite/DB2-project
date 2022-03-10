@@ -7,6 +7,8 @@ import it.polimi.dbproject.entities.ServicePackEntity;
 import it.polimi.dbproject.services.UserService;
 
 import javax.ejb.EJB;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -73,6 +75,39 @@ public class BuyServiceServlet extends HttpServlet{
             }
 
             int costPackage = periodOfValidity.getMonthlyFee() * periodOfValidity.getDuration();
+
+            startLocalDate = LocalDate.parse(startDate);
+            endLocalDate = startLocalDate.plusMonths(periodOfValidity.getDuration());
+
+            startDateInSQL = java.sql.Date.valueOf(startLocalDate);
+            endDateInSQL = java.sql.Date.valueOf(endLocalDate);
+
+            servicePack = new ServicePackEntity(startDateInSQL,
+                    endDateInSQL,
+                    costPackage,
+                    totalAmountOptionalServices,
+                    availableServicePack,
+                    periodOfValidity,
+                    optionalServices);
+
+            session.setAttribute("servicePack", servicePack);
+            toServlet = "confirmationPage";
         }
+
+        response.sendRedirect(toServlet);
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
+
+        List<AvailableServicePackEntity> availableService = userService.retrieveAllAvailableService();
+
+        req.setAttribute("availableService", availableService);
+        req.setAttribute("periods", periods);
+        req.setAttribute("optionalServices", optionalServices);
+        req.setAttribute("selectedPackages", selectedPackages);
+
+        RequestDispatcher dispatcher = req.getRequestDispatcher("buyServicePage.jsp");
+        dispatcher.forward(req, res);
     }
 }

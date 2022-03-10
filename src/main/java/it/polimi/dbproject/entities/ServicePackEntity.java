@@ -1,5 +1,7 @@
 package it.polimi.dbproject.entities;
 
+import it.polimi.dbproject.services.UserService;
+
 import javax.persistence.*;
 
 import java.io.Serializable;
@@ -31,27 +33,34 @@ public class ServicePackEntity implements Serializable{
     @JoinColumn(name = "available_package")
     private AvailableServicePackEntity availablePackages;
 
-    // TO DO: DA AGGIUSTARE A TEMPO DEBITO //
-    /*
     @ManyToMany (mappedBy="offeredOptionalServiceToSinglePackages", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    // VA MESSA LA JOIN TABLE? //
     @JoinTable(
-            name="offeredOptionalServiceToSinglePackages",
-            joinColumns={@JoinColumn(name="id")},
-            inverseJoinColumns={@JoinColumn(name="id")}
+            name="offeredOptionalService",
+            joinColumns={@JoinColumn(name="service_pack_id")},
+            inverseJoinColumns={@JoinColumn(name="optional_service_id")}
     )
     private List<OptionalServiceEntity> selectedOptionalServices;
-    */
+
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private PeriodEntity chosenPeriod;
 
+    @ManyToOne (fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_service_package")
+    private UserEntity user_service_package;
+
+    @OneToOne(mappedBy = "servicePackageOrder", cascade = CascadeType.ALL, orphanRemoval = true)
+    private OrderEntity order;
+
     public ServicePackEntity(){}
 
-    public ServicePackEntity(Date startDate,
-                             Date endDate,
+    public ServicePackEntity(java.sql.Date startDate,
+                             java.sql.Date endDate,
                              int cost,
-                             int totalCostOptionalService) {
+                             int totalCostOptionalService,
+                             AvailableServicePackEntity selectedAvailableService,
+                             PeriodEntity period,
+                             List<OptionalServiceEntity> optionalServices) {
 
         this.startDate = startDate;
         this.endDate = endDate;

@@ -93,4 +93,9 @@ public class UserService {
                 .setParameter("optionalService_id", optionalService_id)
                 .getResultStream().findFirst();
     }
+
+    public List<AvailableServicePackEntity> retrieveAllAvailableService(){
+        return em.createNamedQuery("AvailableServicePackage.findAll", AvailableServicePackEntity.class)
+                .getResultList();
+    }
 }
