@@ -18,6 +18,17 @@ import java.sql.Timestamp;
         query = " SELECT o FROM OrderEntity o " +
                 " WHERE o.orderId = :orderId "
 )
+@NamedQuery(
+        name = "Order.retrieveFailedUserOrder",
+        query = " SELECT o FROM OrderEntity o " +
+                " WHERE o.owner =: user AND o.isPlaceable = false"
+)
+@NamedQuery(
+        name = "Order.retrievePendingOrder",
+        query = " SELECT distinct o FROM OrderEntity o "+
+                " JOIN o.servicePackageOrder s " +
+                " WHERE o.owner = :user AND o.isPlaceable = true AND s.startDate > CURRENT_TIMESTAMP "
+)
 @Table(name = "order", schema = "dbproject2022")
 public class OrderEntity implements Serializable {
 

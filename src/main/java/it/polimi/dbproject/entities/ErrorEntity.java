@@ -30,9 +30,10 @@ public class ErrorEntity implements Serializable {
     }
 
     public ErrorEntity(Timestamp timestamp,
-                       UserEntity owner) {
+                       UserEntity owner, int totNumber) {
+        this.timestamp = timestamp;
         this.owner = owner;
-        this.totNumber = 0;
+        this.totNumber = totNumber;
     }
 
     // GETTER AND SETTER //

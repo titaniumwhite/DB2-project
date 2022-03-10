@@ -160,4 +160,37 @@ public class UserService {
         return order1;
     }
 
+    public UserEntity addFailedPayment(UserEntity user){
+        UserEntity user1 = em.find(UserEntity.class, user.getUser_id());
+        user1.incrementFailedPayments();
+        em.merge(user1);
+        return user1;
+    }
+
+    public UserEntity setFailedPayments(UserEntity user){
+        UserEntity user1 = em.find(UserEntity.class, user.getUser_id());
+        user1.setFailedPayments(0);
+        em.merge(user1);
+        return user1;
+    }
+
+    public List<OrderEntity> retrieveFailedOrderthroughUser(int userId){
+        UserEntity user = retrieveUserThroughID(userId).get();
+        return em.createNamedQuery("Order.retrieveFailedUserOrder", OrderEntity.class)
+                .setParameter("user", user)
+                .getResultList();
+    }
+
+    public void userIsInsolvent(UserEntity user, boolean isInsolvent){
+        UserEntity user1 = em.find(UserEntity.class, user.getUser_id());
+        user1.setInsolvent(isInsolvent);
+        em.merge(user1);
+    }
+
+    public List<OrderEntity> retrievePendingOrder(int userId){
+        UserEntity user = retrieveUserThroughID(userId).get();
+        return em.createNamedQuery("Order.retrievePendingOrder", OrderEntity.class)
+                .setParameter("user", user)
+                .getResultList();
+    }
 }
