@@ -1,6 +1,5 @@
 package it.polimi.dbproject.entities;
 
-import jdk.jfr.Name;
 
 import javax.persistence.*;
 
@@ -20,7 +19,7 @@ import java.util.List;
 )
 @NamedQuery(
         name = "OptionalService.findServiceThroughID",
-        query = "SELECT os FROM OptionalServiceEntity os" +
+        query = "SELECT os FROM OptionalServiceEntity os " +
                 "WHERE os.optionalService_id = :optionalService_id"
 )
 
