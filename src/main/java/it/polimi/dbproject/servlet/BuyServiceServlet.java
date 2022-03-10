@@ -44,7 +44,6 @@ public class BuyServiceServlet extends HttpServlet{
             System.out.println(request.getParameter("selectServicePackBTN"));
             availablePackages = request.getParameter("servicePack");
 
-            //DA CONTINUARE DOPO AVER SCRITTO LA USER SERVICE //
             selectedPackages = userService.retrieveAvailableServicePackByID(Integer.parseInt(availablePackages)).get().getName();
             periods = userService.retrieveServicePeriodID(Integer.parseInt(availablePackages));
             optionalServices = userService.retrieveOptionalOfAvailablePackage(Integer.parseInt(availablePackages));

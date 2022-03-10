@@ -66,6 +66,9 @@ public class ServicePackEntity implements Serializable{
         this.endDate = endDate;
         this.cost = cost;
         this.totalCostOptionalService = totalCostOptionalService;
+        this.availablePackages = selectedAvailableService;
+        this.chosenPeriod = period;
+        this.selectedOptionalServices = optionalServices;
 
     }
 
