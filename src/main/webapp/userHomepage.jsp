@@ -54,9 +54,10 @@
 
 
                         <% }} %>
-                        </ul>
+                    </ul>
                     </p>
-                    <a href="#" class="btn btn-primary">Buy</a>
+                <% int x = sp.getAvailableServicePack_id();%>
+                <a href="buyservice?id=<%=x%>" class="btn btn-primary"><c:out value="<%=x%>"/> Buy </a>
             </div>
             </div>
         <% }} %>

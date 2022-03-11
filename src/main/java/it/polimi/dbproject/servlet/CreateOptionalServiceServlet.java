@@ -1,5 +1,6 @@
 package it.polimi.dbproject.servlet;
 
+import it.polimi.dbproject.entities.AvailableServicePackEntity;
 import it.polimi.dbproject.entities.OptionalServiceEntity;
 import it.polimi.dbproject.services.EmployeeService;
 
@@ -24,7 +25,17 @@ public class CreateOptionalServiceServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String name = request.getParameter("name");
         int fee = Integer.parseInt(request.getParameter("fee"));
+        String toServlet = "employeehomepage";
 
-        es.createOptionalService(name, fee);
+        try {
+            OptionalServiceEntity os = es.createOptionalService(name, fee);
+
+            if (os != null) toServlet = "employeehomepage?createoptionalserviceDone=true";
+            else toServlet = "employeehomepage?createoptionalserviceError=true";
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        response.sendRedirect(toServlet);
     }
 }

@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.logging.Level;
 
 @WebServlet(name = "CreatePackageServlet", value = "/createpackage")
 public class CreatePackageServlet extends HttpServlet {
@@ -26,10 +27,14 @@ public class CreatePackageServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        String toServlet = "employeehomepage";
+
         String name = request.getParameter("name");
         String[] mobilePhone = (String [])request.getParameterValues("mobilePhone");
         String[] mobileInternet = (String [])request.getParameterValues("mobileInternet");
@@ -100,6 +105,15 @@ public class CreatePackageServlet extends HttpServlet {
             }
         }
 
-        es.createAvailableServicePack(name, services, periods, optionalServices);
+        try {
+            AvailableServicePackEntity a = es.createAvailableServicePack(name, services, periods, optionalServices);
+
+            if (a != null) toServlet = "employeehomepage?createpackageDone=true";
+            else toServlet = "employeehomepage?createpackageError=true";
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        response.sendRedirect(toServlet);
+
     }
 }

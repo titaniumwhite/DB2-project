@@ -1,13 +1,11 @@
 package it.polimi.dbproject.services;
 
-import it.polimi.dbproject.entities.AvailableServicePackEntity;
-import it.polimi.dbproject.entities.OptionalServiceEntity;
-import it.polimi.dbproject.entities.PeriodEntity;
-import it.polimi.dbproject.entities.ServiceEntity;
+import it.polimi.dbproject.entities.*;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.swing.text.html.Option;
 import java.util.List;
@@ -21,6 +19,20 @@ public class EmployeeService {
     private EntityManager em;
 
     Logger logger = Logger.getAnonymousLogger();
+
+    public EmployeeEntity checkEmployee(String username, String password) throws NoResultException {
+        EmployeeEntity emp;
+
+        try {
+            emp = em.createNamedQuery("Employee.loginEmployee", EmployeeEntity.class).setParameter("usn", username).setParameter("psw", password).getSingleResult();
+
+            return emp;
+        } catch (NoResultException e) {
+            // No-one has such credentials
+            return null;
+        }
+
+    }
 
     public AvailableServicePackEntity createAvailableServicePack(String name, List<ServiceEntity> services, List<PeriodEntity> periods, List<OptionalServiceEntity> optionalServices) {
         AvailableServicePackEntity asp = new AvailableServicePackEntity(name, services, periods, optionalServices);

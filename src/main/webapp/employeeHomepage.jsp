@@ -21,7 +21,7 @@
 
 </head>
 <body>
-<div class="container-fluid">
+<div class="form container-fluid">
     <form action="createpackage" method="post">
         Package Name <input type="text" name="name"/><br/><br/>
         Services
@@ -96,8 +96,11 @@
         <%
             }}
         %>
-
+        <%String x = (String)request.getAttribute("creationPackageMessage");%>
+        <br>${x}
         <input class="btn btn-primary" type="submit" value="Submit">
+
+
 
 
 

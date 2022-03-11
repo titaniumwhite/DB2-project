@@ -34,7 +34,7 @@ public class BuyServiceServlet extends HttpServlet{
     String selectedPackages = null;
 
     @Override
-    protected  void doPost(HttpServletRequest request,
+    protected void doPost(HttpServletRequest request,
                            HttpServletResponse response) throws IOException{
 
         HttpSession session = request.getSession();
@@ -98,6 +98,9 @@ public class BuyServiceServlet extends HttpServlet{
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
+
+        int id = Integer.parseInt((String)req.getAttribute("id"));
+        System.out.println(id);
 
         List<AvailableServicePackEntity> availableService = userService.retrieveAllAvailableService();
 

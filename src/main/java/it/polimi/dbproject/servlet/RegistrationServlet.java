@@ -51,7 +51,6 @@ public class RegistrationServlet extends HttpServlet {
         try {
             u = us.createUser(username, first_name, last_name, email, password);
 
-
             if (u != null) toServlet = "registration?registrationDone=true";
             else toServlet = "registration?registrationError=true";
         } catch (Exception e) {

@@ -12,7 +12,6 @@
 
 <%
 
-    List<AvailableServicePackEntity> availableServicePacks = (List<AvailableServicePackEntity>) request.getAttribute("availableServicePackages");
     List<PeriodEntity> periods = (List<PeriodEntity>) request.getAttribute("periods");
     List<OptionalServiceEntity> optionalServices = (List<OptionalServiceEntity>) request.getAttribute("optionalServices");
     String selectedPackage = (String) request.getAttribute("selectedPackage");
@@ -50,16 +49,7 @@ else{
         <form action="buyServicePage" method="post">
             <br>
             <br>
-            <label for="servicePack">Select the service package to buy:</label>
-            <select name="servicePack" id="servicePack">
-                <%
-                    for (AvailableServicePackEntity availableServicePack: availableServicePacks){
-                %>
-                <option value="<%=availableServicePack.getAvailableServicePack_id()%>"
-                <%
-                    }
-                %>
-            </select>
+            
             <br>
             <br>
             <button type="submit" class="button" name="selectServicePackBTN">SELECT</button>

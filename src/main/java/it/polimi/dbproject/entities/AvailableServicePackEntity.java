@@ -101,14 +101,6 @@ public class AvailableServicePackEntity implements Serializable {
         this.offeredServices = offeredServices;
     }
 
-    public int getAvailableServicePackId() {
-        return availableServicePackId;
-    }
-
-    public void setAvailableServicePackId(int availableServicePackId) {
-        this.availableServicePackId = availableServicePackId;
-    }
-
     public List<ServiceEntity> getServices() {
         return services;
     }

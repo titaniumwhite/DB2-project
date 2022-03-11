@@ -1,6 +1,8 @@
 package it.polimi.dbproject.servlet;
 
+import it.polimi.dbproject.entities.EmployeeEntity;
 import it.polimi.dbproject.entities.UserEntity;
+import it.polimi.dbproject.services.EmployeeService;
 import it.polimi.dbproject.services.UserService;
 
 import javax.ejb.EJB;
@@ -20,6 +22,8 @@ public class LoginServlet extends HttpServlet {
 
     @EJB
     private UserService us;
+    @EJB
+    private EmployeeService es;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -34,21 +38,40 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        String email = request.getParameter("username");
+        String username = request.getParameter("username");
         String pass = request.getParameter("password");
-        UserEntity u = null;
         String toServlet = "login";
 
-        try {
-            u = us.checkUser(email, pass);
-        } catch (Exception e) {
-            logger.log(Level.SEVERE, "An exception was thrown", e);
-        }
 
-        if(u != null) {
-            toServlet = "homepage";
+        if (username.matches("emp.*[0-9]{3}")) {
+            // It is logging an employee
+            EmployeeEntity emp = null;
+            try {
+                emp = es.checkEmployee(username, pass);
+            } catch (Exception e) {
+                logger.log(Level.SEVERE, "An exception was thrown", e);
+            }
+
+            if(emp != null) {
+                toServlet = "employeehomepage";
+            } else {
+                toServlet = "login?loginSucceed=false";
+            }
+
         } else {
-            toServlet = "login?loginSucceed=false";
+            // It is logging a user
+            UserEntity u = null;
+            try {
+                u = us.checkUser(username, pass);
+            } catch (Exception e) {
+                logger.log(Level.SEVERE, "An exception was thrown", e);
+            }
+
+            if(u != null) {
+                toServlet = "homepage";
+            } else {
+                toServlet = "login?loginSucceed=false";
+            }
         }
 
         response.sendRedirect(toServlet);
