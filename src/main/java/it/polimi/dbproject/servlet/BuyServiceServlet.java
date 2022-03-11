@@ -99,7 +99,7 @@ public class BuyServiceServlet extends HttpServlet{
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
 
-        int id = Integer.parseInt((String)req.getAttribute("id"));
+        int id = Integer.parseInt(req.getParameter("id"));
         System.out.println(id);
 
         List<AvailableServicePackEntity> availableService = userService.retrieveAllAvailableService();
