@@ -40,6 +40,25 @@ public class EmployeeService {
         return null;
     }
 
+    public OptionalServiceEntity createOptionalService(String name, int fee) {
+        OptionalServiceEntity os = new OptionalServiceEntity(name, fee);
+        System.out.println(os.toString());
+
+        try{
+            em.persist(os);
+            em.flush();
+            return os;
+        } catch (EntityExistsException e) {
+            logger.log(Level.INFO, "The optional service already exists", e);
+        } catch (IllegalArgumentException e) {
+            logger.log(Level.INFO, "The instance is not an entity", e);
+        } catch (Exception e) {
+            logger.log(Level.INFO, "An exception was thrown", e);
+        }
+
+        return null;
+    }
+
     public List<OptionalServiceEntity> getAllOptionalServices(){
         return em.createNamedQuery("OptionalService.findAll", OptionalServiceEntity.class).getResultList();
     }

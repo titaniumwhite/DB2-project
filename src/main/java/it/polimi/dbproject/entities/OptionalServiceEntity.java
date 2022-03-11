@@ -80,4 +80,14 @@ public class OptionalServiceEntity implements Serializable{
         return this.monthlyFee;
     }
 
+    @Override
+    public String toString() {
+        return "OptionalServiceEntity{" +
+                "optionalService_id='" + optionalService_id + '\'' +
+                ", name='" + name + '\'' +
+                ", monthlyFee=" + monthlyFee +
+                ", availableServicePackages=" + availableServicePackages +
+                ", servicePackages=" + servicePackages +
+                '}';
+    }
 }

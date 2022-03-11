@@ -27,7 +27,7 @@ public class ConfirmationServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-/*
+
         HttpSession session = request.getSession();
 
         UserEntity user = (UserEntity) session.getAttribute("user");
@@ -79,7 +79,7 @@ public class ConfirmationServlet extends HttpServlet {
             userService.createError(error);
             user = userService.setFailedPayments(user);
 
-        } */
+        }
 
         if(userService.retrieveFailedOrderthroughUser(user.getUser_id()).size() >= 1)
             userService.userIsInsolvent(user, true);

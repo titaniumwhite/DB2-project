@@ -107,16 +107,16 @@
     <div id="overlay">
         <div class="card mx-auto" style="width: 600px;">
             <button type="button" class="btn-close" onclick="overlayOff()"></button>
-            <form action="createOptionalService" method="post">
+            <form action="createoptionalservice" method="post">
                 <h5 class="card-header">Create an Optional Service</h5>
 
                 <div class="input-group mb-3">
                     <span class="input-group-text" id="optionalServiceName">Name</span>
-                    <input type="text" class="form-control" id="name">
+                    <input type="text" name="name" class="form-control" id="name">
                 </div>
                 <div class="input-group mb-3">
                     <span class="input-group-text" id="optionalServiceFee">Monthly Fee &euro;</span>
-                    <input type="number" class="form-control" id="fee">
+                    <input type="number" name="fee" class="form-control" id="fee">
                 </div>
                 <input class="btn btn-primary" type="submit" value="Submit">
 
