@@ -17,9 +17,12 @@
                         <h3 class="mb-3">Sign in</h3>
 
                         ${registrationMessage}
+                        ${loginMessage}
 
                         <br>
                         <br>
+
+                        <form action="login" method="post">
 
                         <div class="form-outline mb-4">
                             <input type="text" name="username" id="typeUsername" class="form-control form-control-lg" />
@@ -37,6 +40,7 @@
                         <button class="btn btn-primary btn-lg btn-block" type="submit" value="login">Login</button>
                         <br>
                         <hr/>
+                        </form>
 
                         If you don't have an account yet
                         <br>

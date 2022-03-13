@@ -40,6 +40,7 @@ public class LoginServlet extends HttpServlet {
 
         String username = request.getParameter("username");
         String pass = request.getParameter("password");
+        int id = -1;
         String toServlet = "login";
 
 
@@ -48,12 +49,13 @@ public class LoginServlet extends HttpServlet {
             EmployeeEntity emp = null;
             try {
                 emp = es.checkEmployee(username, pass);
+                id = emp.getEmployee_id();
             } catch (Exception e) {
                 logger.log(Level.SEVERE, "An exception was thrown", e);
             }
 
             if(emp != null) {
-                toServlet = "employeehomepage";
+                toServlet = "employeehomepage?id=" + id;
             } else {
                 toServlet = "login?loginSucceed=false";
             }
@@ -63,12 +65,13 @@ public class LoginServlet extends HttpServlet {
             UserEntity u = null;
             try {
                 u = us.checkUser(username, pass);
+                id = u.getUser_id();
             } catch (Exception e) {
                 logger.log(Level.SEVERE, "An exception was thrown", e);
             }
 
             if(u != null) {
-                toServlet = "homepage";
+                toServlet = "homepage?id="  + id;
             } else {
                 toServlet = "login?loginSucceed=false";
             }

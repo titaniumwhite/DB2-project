@@ -20,19 +20,37 @@
 
 <body>
 
-<div class="container-fluid">
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+
+    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item" style="color: white">${username}</li>
+        <li class="nav-item"><a class="nav-link" href="#" style="color: white">Logout</a></li>
+    </ul>
+
+</nav>
+
+<section class="vh-100" style="background-color: #508bfc;">
+    <div class="container">
+        <h2>My Orders</h2>
+    </div>
+
+
+
+    <div class="container">
     <% List<AvailableServicePackEntity> servicePackages = (List<AvailableServicePackEntity>) request.getAttribute("availableServicePackages");
     %>
 
-    <h2>List of Service Package available</h2>
+    <h2>Service Packages</h2>
     <div class="card-deck">
         <div class="row">
     <%  if (servicePackages != null) {
             for (AvailableServicePackEntity sp: servicePackages) {%>
-            <div class="col-6 col-md-4">
-            <div class="card">
-                    <h5 class="card-title"><%=sp.getName()%></h5>
-                    <p class="card-text">
+            <div class="col-lg-4 d-flex align-items-stretch">
+                <div class="card card-margin">
+                    <div class="card-header no-border">
+                        <h5 class="card-title"><%=sp.getName()%></h5>
+                    </div>
+                    <div class="card-body pt-0">
                         <ul>
                         <% for (ServiceEntity s: sp.getServices()) {%>
                         <li><%String type=s.getType();%>
@@ -54,23 +72,26 @@
 
 
                         <% }} %>
+                        </div>
                     </ul>
                     </p>
                 <% int x = sp.getAvailableServicePack_id();%>
                 <a href="buyservice?id=<%=x%>" class="btn btn-primary"><c:out value="<%=x%>"/> Buy </a>
+                </div>
+
             </div>
-            </div>
-        <% }} %>
+
+            <% }} %>
+
         </div>
     </div>
 
+    </div>
+    </div>
 
-
-
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+</section>
 
 
 </body>
+
 </html>

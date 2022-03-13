@@ -29,7 +29,7 @@ public class OptionalServiceEntity implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "optional_service_id", unique = true, nullable = false)
-    private String optionalService_id;
+    private int optionalService_id;
 
     @Column(name = "name", nullable = false)
     private String name;
@@ -56,11 +56,11 @@ public class OptionalServiceEntity implements Serializable{
     }
 
     // GETTER AND SETTER //
-    public String getId() {
+    public int getId() {
         return optionalService_id;
     }
 
-    public void setId(String optionalService_id) {
+    public void setId(int optionalService_id) {
         this.optionalService_id = optionalService_id;
     }
 
