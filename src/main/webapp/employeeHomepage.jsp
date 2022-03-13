@@ -165,7 +165,6 @@
     }
 
     function overlayOn() {
-        console.log("Sto qua")
         document.getElementById("overlay").style.display = "block";
     }
 
