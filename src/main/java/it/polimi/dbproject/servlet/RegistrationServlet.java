@@ -23,15 +23,15 @@ public class RegistrationServlet extends HttpServlet {
         RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
         String message;
         if (request.getParameter("registrationFailed") != null) {
-            message = "The username or the email already exists.";
+            message = "The username or the email already exists. Try registering again.";
             request.setAttribute("registrationMessage", message);
         }
         else if (request.getParameter("registrationError") != null) {
-            message = "The registration has failed.";
+            message = "An error occurred. Try registering again.";
             request.setAttribute("registrationMessage", message);
         }
         else if (request.getParameter("registrationDone") != null) {
-            message = "The registration is completed.";
+            message = "The registration was successful. Now you can sign in.";
             request.setAttribute("registrationMessage", message);
         }
         dispatcher.forward(request, response);

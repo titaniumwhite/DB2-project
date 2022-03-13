@@ -14,7 +14,7 @@
                 <div class="card shadow-2-strong" style="border-radius: 1rem;">
                     <div class="card-body p-33 text-center">
 
-                        <h3 class="mb-4">Sign in</h3>
+                        <h3 class="mb-3">Sign in</h3>
 
                         ${registrationMessage}
 
@@ -36,7 +36,7 @@
 
                         <button class="btn btn-primary btn-lg btn-block" type="submit" value="login">Login</button>
                         <br>
-                        <br>
+                        <hr/>
 
                         If you don't have an account yet
                         <br>
