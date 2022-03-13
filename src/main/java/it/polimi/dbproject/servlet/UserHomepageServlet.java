@@ -23,18 +23,23 @@ public class UserHomepageServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RequestDispatcher dispatcher = request.getRequestDispatcher("userHomepage.jsp");
 
-        int user_id = Integer.parseInt(request.getParameter("id"));
-        Optional<UserEntity> optionalUser = us.retrieveUserThroughID(user_id);
         String username = "";
         List<OrderEntity> orders = null;
 
+        try {
+            int user_id = Integer.parseInt(request.getParameter("id"));
+            Optional<UserEntity> optionalUser = us.retrieveUserThroughID(user_id);
 
-        UserEntity user = optionalUser.get();
-        username = user.getUsername();
-        orders = user.getOrders();
+            UserEntity user = optionalUser.get();
+            username = user.getUsername();
+            orders = user.getOrders();
 
-        request.setAttribute("username", username);
-        request.setAttribute("orders", orders);
+            request.setAttribute("username", username);
+            request.setAttribute("orders", orders);
+        } catch (NumberFormatException e) {
+            //the user accessed as a guest
+            int user_id = -1;
+        }
 
         List<AvailableServicePackEntity> availableServicePackages = us.getAllServicePackages();
         request.setAttribute("availableServicePackages", availableServicePackages);
