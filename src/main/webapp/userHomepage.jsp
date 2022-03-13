@@ -22,10 +22,13 @@
 
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
 
-    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item" style="color: white">${username}</li>
-        <li class="nav-item"><a class="nav-link" href="#" style="color: white">Logout</a></li>
+    <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="display: inline-flex; width: 90%">
+        <li class="nav-item"><a class="nav-link" href="#" style="color: white; float: left !important; display: flex">Logout</a></li>
     </ul>
+    <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="display: inline-flex; width: 2%">
+        <li class="nav-item" style="color: white; padding: 0.5rem; text-align: right !important; display: flex">${username}</li>
+    </ul>
+
 
 </nav>
 
