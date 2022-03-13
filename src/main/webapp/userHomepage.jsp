@@ -29,10 +29,9 @@
         <li class="nav-item" style="color: white; padding: 0.5rem; text-align: right !important; display: flex">${username}</li>
     </ul>
 
-
 </nav>
 
-<section class="vh-100" style="background-color: #508bfc;">
+<section style="background-color: #508bfc;">
     <div class="container">
         <h2>My Orders</h2>
     </div>
