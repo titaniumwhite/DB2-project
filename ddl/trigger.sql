@@ -30,6 +30,44 @@ CREATE TABLE errors(
     constraint errors_fk foreign key (error_id) references error(error_id)
 );
 
+CREATE TABLE insolventUsers
+(
+    user_id int not null,
+    constraint insolventUsers_fk0
+        foreign key (user_id) references user (user_id)
+);
+
+create index insolventUsers_fk0_idx
+    on insolventusers (user_id);
+
+CREATE TABLE unplaceableOrders
+(
+    order_id int not null,
+    constraint unplaceableOrders_fk0
+        foreign key (order_id) references `order`  (order_id)
+);
+
+create index unplaceableOrders_fk0_idx
+    on unplaceableOrders (order_id);
+
+CREATE TABLE salesPerOptionalService
+(
+    optional_service_id int   not null
+        primary key,
+    sales              float default 0 not null
+);
+
+CREATE TABLE bestOptionalService
+(
+    optional_service_id int   not null
+        primary key,
+    sales              float default 0 not null,
+    constraint bestOptionalService_fk0
+        foreign key (optional_service_id) references optional_service (optional_service_id)
+);
+
+
+
 CREATE DEFINER = CURRENT_USER TRIGGER updateServiceOrder AFTER UPDATE ON `order` FOR EACH ROW
 BEGIN
     IF NEW.isPlaceable = true THEN
@@ -154,3 +192,65 @@ CREATE DEFINER = CURRENT_USER TRIGGER insertError AFTER INSERT ON error FOR EACH
 BEGIN
     INSERT INTO errors VALUES (NEW.error_id);
 end;
+
+CREATE DEFINER = CURRENT_USER TRIGGER insertInsolventUser AFTER UPDATE ON user FOR EACH ROW
+BEGIN
+    IF NEW.isInsolvent = true AND
+       NEW.user_id NOT IN (SELECT user_id FROM insolventusers) THEN
+        INSERT INTO insolventUsers VALUE (NEW.user_id);
+
+    ELSE
+        IF NEW.isInsolvent = false AND
+           NEW.user_id IN (SELECT user_id FROM insolventusers) THEN
+            DELETE FROM insolventUsers i WHERE i.user_id = NEW.user_id;
+        END if;
+    END IF;
+end;
+
+CREATE DEFINER = CURRENT_USER TRIGGER updateUnplaceableOrder AFTER UPDATE ON `order` FOR EACH ROW
+BEGIN
+    IF (NEW.isPlaceable = false) THEN
+        IF (NEW.service_package_order NOT IN (SELECT order_id FROM unplaceableOrders)) THEN
+            INSERT INTO unplaceableOrders (SELECT s.service_pack_id
+                                           FROM service_pack s
+                                           WHERE NEW.service_package_order = s.service_pack_id);
+        END if;
+    ELSE
+        IF (NEW.service_package_order IN (SELECT order_id FROM unplaceableOrders)) THEN
+            DELETE FROM unplaceableOrders u WHERE u.order_id = NEW.service_package_order;
+        END if;
+    END if;
+end;
+
+CREATE DEFINER = CURRENT_USER TRIGGER insertUnplaceableOrder AFTER INSERT ON `order` FOR EACH ROW
+BEGIN
+    IF (NEW.isPlaceable = false) THEN
+        IF (NEW.service_package_order NOT IN (SELECT order_id FROM unplaceableOrders)) THEN
+            INSERT INTO unplaceableOrders (SELECT s.service_pack_id
+                                            FROM service_pack s
+                                            WHERE NEW.service_package_order = s.service_pack_id);
+        end if;
+    ELSE
+        IF (NEW.service_package_order in (SELECT  ``.`order`.order_id FROM unplaceableOrders)) THEN
+            DELETE FROM unplaceableOrders s
+            WHERE s.order_id = NEW.service_package_order;
+        end if;
+    end if;
+end;
+
+CREATE DEFINER = CURRENT_USER TRIGGER insertOptionalServiceBestSelled AFTER INSERT ON `order` FOR EACH ROW
+BEGIN
+    DELETE FROM salesPerOptionalService;
+    INSERT INTO salesPerOptionalService
+
+        SELECT os.optional_service_id, (os.monthly_fee * p.duration)
+        FROM `order` o
+            JOIN service_pack sp on sp.service_pack_id = o.service_package_order
+            JOIN optional_services_selected i on i.service_pack_id = sp.service_pack_id
+            JOIN optional_service os on os.optional_service_id = i.optional_service_id
+            JOIN period p on p.period_id = sp.period_service_pack
+        WHERE sp.service_pack_id = NEW.service_package_order;
+
+    UPDATE
+end;
+
