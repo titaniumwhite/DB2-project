@@ -14,9 +14,9 @@
 
     List<PeriodEntity> periods = (List<PeriodEntity>) request.getAttribute("periods");
     List<OptionalServiceEntity> optionalServices = (List<OptionalServiceEntity>) request.getAttribute("optionalServices");
-    String selectedPackage = (String) request.getAttribute("selectedPackage");
+    String selectedPackage = (String) request.getAttribute("servicePack");
 
-    UserEntity user = null;
+    UserEntity user;
     String username = null;
 
     if(request.getSession().getAttribute("user")!=null){
@@ -28,13 +28,13 @@
 <% if(username != null){
 
     %>
-<p text-align="right"> User: ${user.username}</p>
-<p text-align="right">Logout</p> // qui ci va il bottone con la ref //
+<p align="right"> User: ${user.username}</p>
+<p align="right">Logout</p>
 <%
 }
 else{
 %>
-<p text-align="right">Login</p>p> // qui ci va il bottone con la ref //
+<p align="right"><a href="${pageContext.request.contextPath}/login">Login</a></p>
 <%
     }
 %>

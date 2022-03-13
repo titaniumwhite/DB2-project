@@ -85,7 +85,7 @@ public class UserEntity implements Serializable {
     }
 
     public String getUsername() {
-        return username;
+        return this.username;
     }
 
     public void setUsername(String username) {

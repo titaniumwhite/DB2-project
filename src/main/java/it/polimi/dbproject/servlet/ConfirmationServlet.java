@@ -15,7 +15,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.List;
 
-@WebServlet(name = "ConfirmationServlet", value = "/Confirmation")
+@WebServlet(name = "confirmationPage", value = "/confirmationPage")
 public class ConfirmationServlet extends HttpServlet {
 
     @EJB
@@ -98,7 +98,7 @@ public class ConfirmationServlet extends HttpServlet {
 
         IDOrderRejected = request.getParameter("IDOrderRejected");
 
-        if (IDOrderRejected != null) {
+        if(IDOrderRejected != null) {
             servicePack = userService.retrieveOrderThroughID(Integer.parseInt(IDOrderRejected)).get().getChosenServicePackage();
             creationOfPackage = true;
         } else {
