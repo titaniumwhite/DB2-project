@@ -30,31 +30,22 @@ public class UserHomepageServlet extends HttpServlet {
 
         try {
             user_id = Integer.parseInt(request.getParameter("user_id"));
-            System.out.println("Lo user id è " + user_id);
             Optional<UserEntity> optionalUser = userService.retrieveUserThroughID(user_id);
-            System.out.println("L'exception non era in retrieveUserThroughID ");
 
             UserEntity user = optionalUser.get();
-            System.out.println("L'exception non era in get ");
 
             username = user.getUsername();
             request.setAttribute("username", username);
 
-            if (user_id != -1) {
-                userOrders = userService.retrieveAllOrdersOfUser(user.getUser_id());
-                System.out.println("L'exception non era in retrieveAllOrdersOfUser ");
-
-
-                request.setAttribute("userOrders", userOrders);
-                System.out.println(userOrders);
-                if (userOrders.size() == 0) {
-                    request.setAttribute("errorMessageSize", errorMessageSize);
-                }
+            userOrders = userService.retrieveAllOrdersOfUser(user.getUser_id());
+            request.setAttribute("userOrders", userOrders);
+            System.out.println(userOrders);
+            if(userOrders.size()==0){
+                request.setAttribute("There are no order here", errorMessageSize);
             }
 
         } catch (NumberFormatException e) {
             //the user accessed as a guest
-            System.out.println("EXCEPTION");
             user_id = -1;
         }
 

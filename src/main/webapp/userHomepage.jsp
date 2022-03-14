@@ -39,7 +39,8 @@
         <div class="card-deck">
             <div class="row">
                 <%
-                    if(userOrders != null) {
+                    if(userOrders.size() != 0 && userOrders != null) {
+                        System.out.println(userOrders);
                         for (OrderEntity o: userOrders){%>
                     <div class="col-lg-4 d-flex align-items-stretch">
                 <div class="card card-margin">
