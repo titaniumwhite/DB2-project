@@ -47,7 +47,9 @@
                         <h5 class="card-title"><%=o.getOrder_id()%></h5>
                     </div>
                 </div>
-                        <% }}
+                        <% }} else {%>
+                        <p>You have not placed any order yet!</p>
+                        <% }
                 %>
 
             </div>
@@ -95,9 +97,8 @@
                         </div>
                     </ul>
                     </p>
-                <% int package_id = sp.getAvailableServicePack_id();%>
-                <% int user_id =(int)request.getAttribute("user_id"); %>
-                <a href="buyservice?user_id=<%=user_id%>&package_id=<%=package_id%>" class="btn btn-primary"><c:out value="<%=user_id%>"/><c:out value="<%=package_id%>"/> Buy </a>
+                <% int x = sp.getAvailableServicePack_id();%>
+                <a href="buyservice?id=<%=x%>" class="btn btn-primary"><c:out value="<%=x%>"/> Buy </a>
                 </div>
 
             </div>
