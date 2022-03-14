@@ -22,21 +22,16 @@ public class UserHomepageServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RequestDispatcher dispatcher = request.getRequestDispatcher("userHomepage.jsp");
-
         String username = "guest";
         String errorMessageSize = "There are no order here";
         List<OrderEntity> userOrders = null;
         int user_id = -1;
-
         try {
             user_id = Integer.parseInt(request.getParameter("user_id"));
             Optional<UserEntity> optionalUser = userService.retrieveUserThroughID(user_id);
-
             UserEntity user = optionalUser.get();
-
             username = user.getUsername();
             request.setAttribute("username", username);
-
             if (user.getUser_id() >= 1) {
                 userOrders = userService.retrieveAllOrdersOfUser(user.getUser_id());
                 request.setAttribute("userOrders", userOrders);
@@ -45,17 +40,14 @@ public class UserHomepageServlet extends HttpServlet {
                     request.setAttribute("There are no order here", errorMessageSize);
                 }
             }
-
         } catch (NumberFormatException e) {
             //the user accessed as a guest
             System.out.println("EXCEPTION");
             user_id = -1;
         }
-
         List<AvailableServicePackEntity> availableServicePackages = userService.getAllServicePackages();
         request.setAttribute("availableServicePackages", availableServicePackages);
         request.setAttribute("user_id", user_id);
-
         dispatcher.forward(request, response);
     }
 

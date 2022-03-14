@@ -21,12 +21,18 @@
 <body style="background-color: #508bfc;">
 
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-
+    <%
+        UserEntity user = (UserEntity) request.getSession().getAttribute("user");
+    %>
     <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="display: inline-flex; width: 90%">
         <li class="nav-item"><a class="nav-link" href="./" style="color: white; float: left !important; display: flex">Logout</a></li>
     </ul>
     <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="display: inline-flex; width: 2%">
+        <%if(user != null){%>
         <li class="nav-item" style="color: white; padding: 0.5rem; text-align: right !important; display: flex">${username}</li>
+        <% } else {%>
+        <li class="nav-item" style="color: white; padding: 0.5rem; text-align: right !important; display: flex">Guest</li>
+        <%}%>
     </ul>
 
 </nav>
@@ -35,9 +41,8 @@
     <div class="container">
         <%
             List<OrderEntity> userOrders = (List<OrderEntity>) request.getAttribute("userOrders");
-            UserEntity user = (UserEntity) request.getSession().getAttribute("user");
         %>
-        <h2>My Orders</h2>
+        <h2><b>My Orders</b></h2>
         <div class="card-deck">
             <div class="row">
                 <%
@@ -51,9 +56,23 @@
                     </div>
                 </div>
                         <% }} else if (user == null){%>
-                        <p>You need to login to place an order!</p>
+                        <div class="col-lg-4 d-flex align-items-stretch"  style="padding-bottom: calc(1.5rem * 1.5);">
+                        <div class="card-deck">
+                            <div class="card card-margin">
+                                <div class="card-body p-0.5">
+                                    <p style="text-align: center; justify-content: center; position: center;"><i>You need to login to place an order!</i></p>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
                         <% } else {%>
-                        <p>You have not placed any order yet!</p>
+                        <div class="card-deck">
+                        <div class="card card-margin">
+                        <div class="card-body pt-0">
+                        You have not placed any order yet!
+                        </div>
+                        </div>
+                        </div>
                         <% } %>
 
             </div>
@@ -66,7 +85,7 @@
     <% List<AvailableServicePackEntity> servicePackages = (List<AvailableServicePackEntity>) request.getAttribute("availableServicePackages");
     %>
 
-    <h2>Service Packages</h2>
+        <h2><b>Service Packages</b></h2>
     <div class="card-deck">
         <div class="row">
     <%  if (servicePackages != null) {
