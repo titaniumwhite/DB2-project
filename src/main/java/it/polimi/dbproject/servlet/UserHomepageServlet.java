@@ -17,26 +17,39 @@ import java.util.Optional;
 public class UserHomepageServlet extends HttpServlet {
 
     @EJB
-    UserService us;
+    UserService userService;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RequestDispatcher dispatcher = request.getRequestDispatcher("userHomepage.jsp");
 
-        int user_id = Integer.parseInt(request.getParameter("id"));
-        Optional<UserEntity> optionalUser = us.retrieveUserThroughID(user_id);
-        String username = "";
-        List<OrderEntity> orders = null;
+        String username = "guest";
+        String errorMessageSize = "";
+        List<OrderEntity> userOrders = null;
+
+        try {
+            int user_id = Integer.parseInt(request.getParameter("user_id"));
+            Optional<UserEntity> optionalUser = userService.retrieveUserThroughID(user_id);
+
+            UserEntity user = optionalUser.get();
+
+            username = user.getUsername();
+            request.setAttribute("username", username);
+
+            userOrders = userService.retrieveAllOrdersOfUser(user.getUser_id());
+            request.setAttribute("userOrders", userOrders);
+
+            if(userOrders.size()==0){
+                request.setAttribute("There are no order here", errorMessageSize);
+            }
+
+        } catch (NumberFormatException e) {
+            //the user accessed as a guest
+            int user_id = -1;
+        }
 
 
-        UserEntity user = optionalUser.get();
-        username = user.getUsername();
-        orders = user.getOrders();
-
-        request.setAttribute("username", username);
-        request.setAttribute("orders", orders);
-
-        List<AvailableServicePackEntity> availableServicePackages = us.getAllServicePackages();
+        List<AvailableServicePackEntity> availableServicePackages = userService.getAllServicePackages();
         request.setAttribute("availableServicePackages", availableServicePackages);
 
         dispatcher.forward(request, response);

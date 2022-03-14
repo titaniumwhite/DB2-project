@@ -238,7 +238,7 @@ BEGIN
     end if;
 end;
 
-CREATE DEFINER = CURRENT_USER TRIGGER insertOptionalServiceBestSelled AFTER INSERT ON `order` FOR EACH ROW
+CREATE DEFINER = CURRENT_USER TRIGGER insertOptionalServiceBestSold AFTER INSERT ON `order` FOR EACH ROW
 BEGIN
     DELETE FROM salesPerOptionalService;
     INSERT INTO salesPerOptionalService
