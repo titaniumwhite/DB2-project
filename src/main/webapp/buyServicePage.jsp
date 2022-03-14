@@ -32,7 +32,7 @@
 
     List<PeriodEntity> periods = (List<PeriodEntity>) request.getAttribute("periods");
     List<OptionalServiceEntity> optionalServices = (List<OptionalServiceEntity>) request.getAttribute("optionalServices");
-    String selectedPackage = (String) request.getAttribute("servicePack");
+    AvailableServicePackEntity selectedPackage = (AvailableServicePackEntity) request.getSession().getAttribute("selectedPackage");
 
     UserEntity user;
     String username = null;
@@ -41,47 +41,84 @@
         user = (UserEntity) request.getSession().getAttribute("user");
         username = user.getUsername();
     }
-%>
 
+%>
 
 <section>
     <div class="container">
         <div class="col-lg-4 d-flex align-items-stretch"  style="padding-bottom: calc(1.5rem * 1.5);">
             <div class="card card-margin">
                 <div class="card-header no-border">
-                    <h5 class="card-title">Service Package to buy</h5>
+                    <h5 class="card-title">Package to buy: <%=selectedPackage.getName()%></h5>
                 </div>
-                <div class="card-body pt-0">
-                    <ul>
-                        <li><%String type=selectedPackage.getType();%>
-                            <%=type%>
-                            <% if (Objects.equals(type, "mobile phone") ) {
-                                int minutes = s.getMinutes();
-                                int sms = s.getSms();
-                                int extra_minutes = s.getExtraMinutes_fee();
-                                int extra_sms = s.getExtraSms_fee();
-                            %>: <ul>
-                                <li><%=minutes%> minutes (afterwards <%=extra_minutes%>&euro;/min)</li>
-                                <li><%=sms%> sms (afterwards <%=extra_sms%>&euro;/sms)</li>
-                            </ul>
-                            <%}%>
-                            <% if (Objects.equals(type, "mobile internet") ) {
-                                int gigas = s.getGigas();
-                                int extra_gigas = s.getExtraGigas_fee();
-                            %>: <%=gigas%> gigas (afterwards <%=extra_gigas%>&euro;/giga) </li>
+
+                <div class="card-text">
+                    <form action="buyservice" method="post">
+                    <h2>Choose the period of the subscription</h2>
+                    <% for (PeriodEntity p: periods) {%>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="periodRadio" id="periodRadio">>
+                        <label class="form-check-label" for="periodRadio">
+                            <%=p.getDuration()%> months (<%=p.getMonthlyFee()%> &euro;/month)
+                        </label>
+                    </div>
+                    <% } %>
+
+                    <br> <br>
+
+                    Choose the optional services
+
+                    <ul class="list-group">
+                        <% for (OptionalServiceEntity os: optionalServices) {%>
+                        <li class="list-group-item">
+                            <input class="form-check-input me-1" type="checkbox" value="">
+                            <%=os.getName()%> (<%=os.getMonthly_fee()%> &euro;/month)
+                        </li>
+                        <% } %>
+
+                    </ul
+
+                    <br><br>
 
 
-                            <% }} %>
+                    <label>Choose the start date:
+                        <input type="date" name="startDate" required>
+                    </label>
+
+                    <br><br>
+
+                    <input class="btn btn-outline-primary" type="submit" value="Confirm"/>
+
+                    </form>
+
+
+
                 </div>
-                </ul>
-                </p>
             </div>
 
         </div>
 
+
+        <br> <br>
+
+
+
+
+
     </div>
 
 </section>
-
 </body>
 </html>
+
+<script>
+    src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"
+
+    $(document).ready(function () {
+        $('.it-date-datepicker').datepicker({
+            inputFormat: ['dd/MM/yyyy'],
+            outputFormat: 'dd/MM/yyyy',
+        })
+    })
+
+</script>

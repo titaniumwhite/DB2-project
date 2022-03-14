@@ -86,6 +86,11 @@ public class UserService {
                 .getResultList();
     }
 
+    public List<PeriodEntity> retrieveAllPeriods(){
+        return em.createNamedQuery("Period.findAll", PeriodEntity.class)
+                .getResultList();
+    }
+
     public Optional<PeriodEntity> retrievePeriodID(int periodId){
         return em.createNamedQuery("Period.findPeriodThroughID", PeriodEntity.class)
                 .setParameter("periodId", periodId)
@@ -96,6 +101,11 @@ public class UserService {
         return em.createNamedQuery("OptionalService.findServiceThroughID", OptionalServiceEntity.class)
                 .setParameter("optionalService_id", optionalService_id)
                 .getResultStream().findFirst();
+    }
+
+    public List<OptionalServiceEntity> retrieveAllOptionalServices(){
+        return em.createNamedQuery("OptionalService.findAll", OptionalServiceEntity.class)
+                .getResultList();
     }
 
     public List<AvailableServicePackEntity> retrieveAllAvailableService(){
