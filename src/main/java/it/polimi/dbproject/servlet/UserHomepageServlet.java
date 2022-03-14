@@ -26,9 +26,10 @@ public class UserHomepageServlet extends HttpServlet {
         String username = "guest";
         String errorMessageSize = "";
         List<OrderEntity> userOrders = null;
+        int user_id = -1;
 
         try {
-            int user_id = Integer.parseInt(request.getParameter("user_id"));
+            user_id = Integer.parseInt(request.getParameter("user_id"));
             Optional<UserEntity> optionalUser = userService.retrieveUserThroughID(user_id);
 
             UserEntity user = optionalUser.get();
@@ -45,12 +46,12 @@ public class UserHomepageServlet extends HttpServlet {
 
         } catch (NumberFormatException e) {
             //the user accessed as a guest
-            int user_id = -1;
+            user_id = -1;
         }
-
 
         List<AvailableServicePackEntity> availableServicePackages = userService.getAllServicePackages();
         request.setAttribute("availableServicePackages", availableServicePackages);
+        request.setAttribute("user_id", user_id);
 
         dispatcher.forward(request, response);
     }

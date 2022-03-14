@@ -55,7 +55,7 @@ public class LoginServlet extends HttpServlet {
             }
 
             if(emp != null) {
-                toServlet = "employeehomepage?id=" + id;
+                toServlet = "employeehomepage?user_id=" + id;
             } else {
                 toServlet = "login?loginSucceed=false";
             }
