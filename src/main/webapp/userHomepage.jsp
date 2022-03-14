@@ -33,13 +33,15 @@
 
 <section>
     <div class="container">
-        <%List<OrderEntity> userOrders = (List<OrderEntity>) request.getAttribute("userOrders");
+        <%
+            List<OrderEntity> userOrders = (List<OrderEntity>) request.getAttribute("userOrders");
+            UserEntity user = (UserEntity) request.getSession().getAttribute("user");
         %>
         <h2>My Orders</h2>
         <div class="card-deck">
             <div class="row">
                 <%
-                    if(userOrders.size() != 0 && userOrders != null) {
+                    if( user != null && userOrders.size() != 0 && userOrders != null) {
                         System.out.println(userOrders);
                         for (OrderEntity o: userOrders){%>
                     <div class="col-lg-4 d-flex align-items-stretch">
@@ -48,10 +50,11 @@
                         <h5 class="card-title"><%=o.getOrder_id()%></h5>
                     </div>
                 </div>
-                        <% }} else {%>
+                        <% }} else if (user == null){%>
+                        <p>You need to login to place an order!</p>
+                        <% } else {%>
                         <p>You have not placed any order yet!</p>
-                        <% }
-                %>
+                        <% } %>
 
             </div>
         </div>

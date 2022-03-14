@@ -37,11 +37,13 @@ public class UserHomepageServlet extends HttpServlet {
             username = user.getUsername();
             request.setAttribute("username", username);
 
-            userOrders = userService.retrieveAllOrdersOfUser(user.getUser_id());
-            request.setAttribute("userOrders", userOrders);
-            System.out.println(userOrders);
-            if(userOrders.size()==0){
-                request.setAttribute("There are no order here", errorMessageSize);
+            if (user.getUser_id() >= 1) {
+                userOrders = userService.retrieveAllOrdersOfUser(user.getUser_id());
+                request.setAttribute("userOrders", userOrders);
+                System.out.println(userOrders);
+                if (userOrders.size() == 0) {
+                    request.setAttribute("There are no order here", errorMessageSize);
+                }
             }
 
         } catch (NumberFormatException e) {
