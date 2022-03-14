@@ -67,7 +67,7 @@
         <div class="row">
     <%  if (servicePackages != null) {
             for (AvailableServicePackEntity sp: servicePackages) {%>
-            <div class="col-lg-4 d-flex align-items-stretch">
+            <div class="col-lg-4 d-flex align-items-stretch"  style="padding-bottom: calc(1.5rem * 1.5);">
                 <div class="card card-margin">
                     <div class="card-header no-border">
                         <h5 class="card-title"><%=sp.getName()%></h5>

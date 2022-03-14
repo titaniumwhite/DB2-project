@@ -26,7 +26,7 @@ public class UserHomepageServlet extends HttpServlet {
         String username = "guest";
         String errorMessageSize = "";
         List<OrderEntity> userOrders = null;
-        int user_id = -1;
+        int user_id;
 
         try {
             user_id = Integer.parseInt(request.getParameter("user_id"));
