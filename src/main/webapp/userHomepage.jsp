@@ -41,7 +41,7 @@
         <div class="card-deck">
             <div class="row">
                 <%
-                    if( user != null && userOrders.size() != 0 && userOrders != null) {
+                    if( user != null && userOrders != null && userOrders.size() != 0 ) {
                         System.out.println(userOrders);
                         for (OrderEntity o: userOrders){%>
                     <div class="col-lg-4 d-flex align-items-stretch">
