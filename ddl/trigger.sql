@@ -54,16 +54,22 @@ CREATE TABLE salesPerOptionalService
 (
     optional_service_id int   not null
         primary key,
-    sales              float default 0 not null
+    sales              int default 0 not null
+);
+
+CREATE TABLE orderPerOptionalService
+(
+    optional_service_id int   not null,
+    sales              int default 0 not null
 );
 
 CREATE TABLE bestOptionalService
 (
-    optional_service_id int   not null
-        primary key,
-    sales              float default 0 not null,
+    optional_service_id int   not null primary key,
+    sales              int default 0 not null,
     constraint bestOptionalService_fk0
-        foreign key (optional_service_id) references optional_service (optional_service_id)
+        foreign key (optional_service_id) references optional_service(optional_service_id)
+
 );
 
 
@@ -238,7 +244,7 @@ BEGIN
     end if;
 end;
 
-CREATE DEFINER = CURRENT_USER TRIGGER insertOptionalServiceBestSelled AFTER INSERT ON `order` FOR EACH ROW
+CREATE DEFINER = CURRENT_USER TRIGGER insertOptionalServiceBestSold AFTER INSERT ON `order` FOR EACH ROW
 BEGIN
     DELETE FROM salesPerOptionalService;
     INSERT INTO salesPerOptionalService
@@ -250,7 +256,47 @@ BEGIN
             JOIN optional_service os on os.optional_service_id = i.optional_service_id
             JOIN period p on p.period_id = sp.period_service_pack
         WHERE sp.service_pack_id = NEW.service_package_order;
+    UPDATE orderPerOptionalService o, salesPerOptionalService s
+    SET o.sales = o.sales + s.sales
+    WHERE o.optional_service_id = s.optional_service_id;
 
-    UPDATE
+    DELETE FROM bestOptionalService;
+    INSERT INTO  bestOptionalService
+        SELECT o1.optional_service_id, o1.sales
+        FROM orderPerOptionalService o1
+        WHERE o1.optional_service_id
+                  IN (SELECT MAX(s2.sales) FROM salesPerOptionalService s2);
+
+end;
+
+CREATE DEFINER = CURRENT_USER TRIGGER updateOptionalServiceBestSold AFTER UPDATE ON `order` FOR EACH ROW
+BEGIN
+    DELETE FROM salesPerOptionalService;
+    INSERT INTO salesPerOptionalService
+
+    SELECT os.optional_service_id, (os.monthly_fee * p.duration)
+    FROM `order` o
+             JOIN service_pack sp on sp.service_pack_id = o.service_package_order
+             JOIN optional_services_selected i on i.service_pack_id = sp.service_pack_id
+             JOIN optional_service os on os.optional_service_id = i.optional_service_id
+             JOIN period p on p.period_id = sp.period_service_pack
+    WHERE sp.service_pack_id = NEW.service_package_order;
+    UPDATE orderPerOptionalService o, salesPerOptionalService s
+    SET o.sales = o.sales + s.sales
+    WHERE o.optional_service_id = s.optional_service_id;
+
+    DELETE FROM bestOptionalService;
+    INSERT INTO  bestOptionalService
+    SELECT o1.optional_service_id, o1.sales
+    FROM orderPerOptionalService o1
+    WHERE o1.optional_service_id
+              IN (SELECT MAX(s2.sales) FROM salesPerOptionalService s2);
+
+end;
+
+CREATE DEFINER = CURRENT_USER TRIGGER insertOptionalService AFTER INSERT ON optional_service FOR EACH ROW
+BEGIN
+    INSERT INTO salesPerOptionalService(optional_service_id)
+    VALUES(NEW.optional_service_id);
 end;
 
