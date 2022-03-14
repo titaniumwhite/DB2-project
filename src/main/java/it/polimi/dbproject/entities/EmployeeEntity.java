@@ -38,9 +38,7 @@ public class EmployeeEntity implements Serializable {
 
     }
 
-    public int getEmployee_id() {
-        return employeeId;
-    }
+    public int getEmployee_id() { return employeeId; }
 
     public void setEmployee_id(int employeeId) {
         this.employeeId = employeeId;

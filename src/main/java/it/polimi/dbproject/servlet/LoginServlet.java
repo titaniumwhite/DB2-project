@@ -71,7 +71,7 @@ public class LoginServlet extends HttpServlet {
             }
 
             if(u != null) {
-                toServlet = "homepage?id="  + id;
+                toServlet = "homepage?user_id="  + id;
             } else {
                 toServlet = "login?loginSucceed=false";
             }

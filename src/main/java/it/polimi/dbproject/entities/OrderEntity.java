@@ -58,7 +58,7 @@ public class OrderEntity implements Serializable {
     @Column(name = "isPlaceable", nullable=false)
     private boolean isPlaceable;
 
-    @ManyToOne (targetEntity = UserEntity.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = false)
+    @ManyToOne (targetEntity = UserEntity.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL, optional = false)
     @JoinColumn(name = "owner")
     private UserEntity owner;
 

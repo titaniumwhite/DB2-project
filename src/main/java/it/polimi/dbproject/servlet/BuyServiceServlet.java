@@ -97,18 +97,18 @@ public class BuyServiceServlet extends HttpServlet{
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 
-        int id = Integer.parseInt(req.getParameter("id"));
+        int package_id = Integer.parseInt(request.getParameter("package_id"));
 
         List<AvailableServicePackEntity> availableService = userService.retrieveAllAvailableService();
 
-        req.setAttribute("availableServicePackages", availableService);
-        req.setAttribute("periods", periods);
-        req.setAttribute("optionalServices", optionalServices);
-        req.setAttribute("selectedPackages", selectedPackages);
+        request.setAttribute("availableServicePackages", availableService);
+        request.setAttribute("periods", periods);
+        request.setAttribute("optionalServices", optionalServices);
+        request.setAttribute("selectedPackages", selectedPackages);
 
-        RequestDispatcher dispatcher = req.getRequestDispatcher("buyServicePage.jsp");
-        dispatcher.forward(req, res);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("buyServicePage.jsp");
+        dispatcher.forward(request, response);
     }
 }
