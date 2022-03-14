@@ -39,7 +39,7 @@ public class UserHomepageServlet extends HttpServlet {
 
             userOrders = userService.retrieveAllOrdersOfUser(user.getUser_id());
             request.setAttribute("userOrders", userOrders);
-
+            System.out.println(userOrders);
             if(userOrders.size()==0){
                 request.setAttribute("There are no order here", errorMessageSize);
             }
