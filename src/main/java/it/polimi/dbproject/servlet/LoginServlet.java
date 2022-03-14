@@ -15,6 +15,8 @@ import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static com.mysql.cj.xdevapi.Type.JSON;
+
 @WebServlet(name = "LoginServlet", value = "/login")
 public class LoginServlet extends HttpServlet {
 
@@ -42,6 +44,7 @@ public class LoginServlet extends HttpServlet {
         String pass = request.getParameter("password");
         int id = -1;
         String toServlet = "login";
+        HttpSession session = request.getSession();
 
 
         if (username.matches("emp.*[0-9]{3}")) {
@@ -55,7 +58,8 @@ public class LoginServlet extends HttpServlet {
             }
 
             if(emp != null) {
-                toServlet = "employeehomepage?user_id=" + id;
+                request.getSession().setAttribute("employee_id", id);
+                toServlet = "employeehomepage";
             } else {
                 toServlet = "login?loginSucceed=false";
             }
@@ -71,7 +75,8 @@ public class LoginServlet extends HttpServlet {
             }
 
             if(u != null) {
-                toServlet = "homepage?user_id="  + id;
+                session.setAttribute("user", u);
+                toServlet = "homepage";
             } else {
                 toServlet = "login?loginSucceed=false";
             }

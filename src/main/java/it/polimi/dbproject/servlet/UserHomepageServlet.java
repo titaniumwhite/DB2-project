@@ -29,20 +29,16 @@ public class UserHomepageServlet extends HttpServlet {
         int user_id = -1;
 
         try {
-            user_id = Integer.parseInt(request.getParameter("user_id"));
-            System.out.println("Lo user id è " + user_id);
+            user_id = Integer.parseInt((String) request.getSession().getAttribute("user_id"));
             Optional<UserEntity> optionalUser = userService.retrieveUserThroughID(user_id);
-            System.out.println("L'exception non era in retrieveUserThroughID ");
 
             UserEntity user = optionalUser.get();
-            System.out.println("L'exception non era in get ");
 
             username = user.getUsername();
             request.setAttribute("username", username);
 
             if (user_id != -1) {
                 userOrders = userService.retrieveAllOrdersOfUser(user.getUser_id());
-                System.out.println("L'exception non era in retrieveAllOrdersOfUser ");
 
 
                 request.setAttribute("userOrders", userOrders);
@@ -54,8 +50,8 @@ public class UserHomepageServlet extends HttpServlet {
 
         } catch (NumberFormatException e) {
             //the user accessed as a guest
-            System.out.println("EXCEPTION");
             user_id = -1;
+            request.getSession().setAttribute("user_id", user_id);
         }
 
         List<AvailableServicePackEntity> availableServicePackages = userService.getAllServicePackages();

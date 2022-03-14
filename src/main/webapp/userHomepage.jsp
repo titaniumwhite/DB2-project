@@ -97,9 +97,8 @@
                         </div>
                     </ul>
                     </p>
-                <% int package_id = sp.getAvailableServicePack_id();%>
-                <% int user_id =(int)request.getAttribute("user_id"); %>
-                <a href="buyservice?user_id=<%=user_id%>&package_id=<%=package_id%>" class="btn btn-primary"><c:out value="<%=user_id%>"/><c:out value="<%=package_id%>"/> Buy </a>
+
+                <a href="buyservice" class="btn btn-primary">Buy </a>
                 </div>
 
             </div>
