@@ -6,9 +6,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>TELCO COMPANY</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <style><%@include file="style.css"%></style>
+
 </head>
-<body>
+<body style="background-color: #508bfc;">
+
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+
+    <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="display: inline-flex; width: 90%">
+        <li class="nav-item"><a class="nav-link" href="./" style="color: white; float: left !important; display: flex">Logout</a></li>
+    </ul>
+    <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="display: inline-flex; width: 2%">
+        <li class="nav-item" style="color: white; padding: 0.5rem; text-align: right !important; display: flex">${username}</li>
+    </ul>
+
+</nav>
 
 <%
 
@@ -25,111 +43,45 @@
     }
 %>
 
-<% if(username != null){
 
-    %>
-<p align="right"> User: ${user.username}</p>
-<p align="right">Logout</p>
-<%
-}
-else{
-%>
-<p align="right"><a href="${pageContext.request.contextPath}/login">Login</a></p>
-<%
-    }
-%>
+<section>
+    <div class="container">
+        <div class="col-lg-4 d-flex align-items-stretch"  style="padding-bottom: calc(1.5rem * 1.5);">
+            <div class="card card-margin">
+                <div class="card-header no-border">
+                    <h5 class="card-title">Service Package to buy</h5>
+                </div>
+                <div class="card-body pt-0">
+                    <ul>
+                        <li><%String type=selectedPackage.getType();%>
+                            <%=type%>
+                            <% if (Objects.equals(type, "mobile phone") ) {
+                                int minutes = s.getMinutes();
+                                int sms = s.getSms();
+                                int extra_minutes = s.getExtraMinutes_fee();
+                                int extra_sms = s.getExtraSms_fee();
+                            %>: <ul>
+                                <li><%=minutes%> minutes (afterwards <%=extra_minutes%>&euro;/min)</li>
+                                <li><%=sms%> sms (afterwards <%=extra_sms%>&euro;/sms)</li>
+                            </ul>
+                            <%}%>
+                            <% if (Objects.equals(type, "mobile internet") ) {
+                                int gigas = s.getGigas();
+                                int extra_gigas = s.getExtraGigas_fee();
+                            %>: <%=gigas%> gigas (afterwards <%=extra_gigas%>&euro;/giga) </li>
 
-<div>
 
-    <h1>BUY PAGE</h1>
-    <br>
-    <h2>Choose a Service Package</h2>
-
-    <div>
-        <form action="buyServicePage" method="post">
-            <br>
-            <br>
-            
-            <br>
-            <br>
-            <button type="submit" class="button" name="selectServicePackBTN">SELECT</button>
-            <br>
-            <br>
-        </form>
-
-        <form>
-            <%
-                if(periods != null && optionalServices != null){
-            %>
-
-                <h4>Selected Package: <%=selectedPackage%></h4>
-                <label for="chosenPeriod">Choose the period:</label>
-                <select name="chosenPeriod" id="chosenPeriod">
-                    <%
-                        for(PeriodEntity chosenPeriod: periods){
-                    %>
-                    <option value="<%=chosenPeriod.getPeriod_id()%>"<%=chosenPeriod.toString()%></option>
-                    <%
-                        }
-                    %>
-                </select>
-            <br>
-            <br>
-
-            <div>
-                <%
-                    if(optionalServices.size() != 0){
-                %>
-                <table class="table">
-                    <thead class="theadGrey">
-                    <tr>
-                        <td>Name Optional Service</td>
-                        <td>Monthly Fee:</td>
-                    </tr>
-                    </thead>
-
-                    <tbody class="tbodyWhite">
-                    <%
-                        for (OptionalServiceEntity optionalServ: optionalServices){
-                    %>
-                    <tr>
-                        <td><%=optionalServ.getName()%></td>
-                        <td><%=optionalServ.getMonthly_fee()%></td>
-                    </tr>
-                    <%
-                        }
-                        }
-                    %>
-                    </tbody>
-                </table>
-                <br>
-                <br>
-                <%
-                    if(optionalServices.size() != 0){
-                %>
-                <fieldset>
-                    <legend> Choose favourites optional services:</legend>
-                    <%
-                        for (OptionalServiceEntity optionalServ: optionalServices){
-                    %>
-                    <input type="checkbox" name="optionalServ"
-                    value="<%=optionalServ.getId()%>"><%=optionalServ.getName()%>
-                    <br>
-                    <%
-                        }
-                        }
-                    %>
-                </fieldset>
-                <br>
-                <br>
-                <button type="submit" class="button" name="buttonToConfirm">CONFIRM</button>
-                <%
-                    }
-                %>
+                            <% }} %>
+                </div>
+                </ul>
+                </p>
             </div>
-        </form>
+
+        </div>
+
     </div>
-</div>
+
+</section>
 
 </body>
 </html>

@@ -121,7 +121,8 @@
                     </ul>
                     </p>
 
-                <a href="buyservice" class="btn btn-primary">Buy </a>
+                    <% int package_id = sp.getAvailableServicePack_id();%>
+                    <a href="buyservice?package_id=<%=package_id%>" class="btn btn-primary"><c:out value="<%=package_id%>"/> Buy </a>
                 </div>
 
             </div>
