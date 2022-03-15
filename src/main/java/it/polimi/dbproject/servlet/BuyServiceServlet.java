@@ -38,35 +38,26 @@ public class BuyServiceServlet extends HttpServlet{
                            HttpServletResponse response) throws IOException{
 
         HttpSession session = request.getSession();
-        toServlet = "buyServicePage";
+        toServlet = "confirmationPage";
 
-        if(request.getParameter(("selectServicePackBTN")) != null){
-            System.out.println(request.getParameter("selectServicePackBTN"));
-            availablePackages = request.getParameter("servicePack");
+        String chosenPeriod = request.getParameter("chosenPeriod");
+        String[] chosenOptionalServices = request.getParameterValues("chosenOptionalServices");
+        String chosenStartDate = request.getParameter("chosenStartDate");
 
-            selectedPackages = userService.retrieveAvailableServicePackByID(Integer.parseInt(availablePackages)).get().getName();
-            periods = userService.retrieveServicePeriodID(Integer.parseInt(availablePackages));
-            optionalServices = userService.retrieveOptionalOfAvailablePackage(Integer.parseInt(availablePackages));
+        System.out.println(chosenPeriod);
+        for (int i = 0; i < chosenOptionalServices.length; i++) {
+            System.out.println(chosenOptionalServices[i]);
         }
-        else if(request.getParameter("buttonToConfirm") != null){
+        System.out.println(chosenStartDate);
 
-            String period = request.getParameter("period");
 
-            String[] optionalService = request.getParameterValues("optionalService");
-            String startDate = request.getParameter("startDate");
+            PeriodEntity periodOfValidity = userService.retrievePeriodID(Integer.parseInt(chosenPeriod)).get();
+            ArrayList<OptionalServiceEntity> optionalServices = new ArrayList<>();
 
-            LocalDate startLocalDate, endLocalDate;
-            java.sql.Date startDateInSQL, endDateInSQL;
-
-            AvailableServicePackEntity availableServicePack = userService.retrieveAvailableServicePackByID(Integer.parseInt(availablePackages)).get();
-            PeriodEntity periodOfValidity = userService.retrievePeriodID(Integer.parseInt(period)).get();
-
-            ArrayList<OptionalServiceEntity> optionalServices = null;
             int totalAmountOptionalServices = 0;
 
-            if(optionalService != null){
-                optionalServices = new ArrayList<>();
-                for (String optServ : optionalService){
+            if(chosenOptionalServices.length != 0){
+                for (String optServ : chosenOptionalServices){
                     optionalServices.add(userService.retrieveOptionalServicePackByID(Integer.parseInt(optServ)).get());
                 }
                 for (OptionalServiceEntity optionalService1: optionalServices)
@@ -75,7 +66,14 @@ public class BuyServiceServlet extends HttpServlet{
 
             int costPackage = periodOfValidity.getMonthlyFee() * periodOfValidity.getDuration();
 
-            startLocalDate = LocalDate.parse(startDate);
+        System.out.println("op serv " + totalAmountOptionalServices);
+        System.out.println("cost pac " + costPackage);
+
+            /*
+        LocalDate startLocalDate, endLocalDate;
+        java.sql.Date startDateInSQL, endDateInSQL;
+
+        startLocalDate = LocalDate.parse(startDate);
             endLocalDate = startLocalDate.plusMonths(periodOfValidity.getDuration());
 
             startDateInSQL = java.sql.Date.valueOf(startLocalDate);
@@ -84,14 +82,14 @@ public class BuyServiceServlet extends HttpServlet{
             servicePack = new ServicePackEntity(startDateInSQL,
                     endDateInSQL,
                     costPackage,
-                    totalAmountOptionalServices,
-                    availableServicePack,
-                    periodOfValidity,
-                    optionalServices);
+           totalAmountOptionalServices,
+            availableServicePack,
+            periodOfValidity,
+            optionalServices);
+*/
+        session.setAttribute("servicePack", servicePack);
+        toServlet = "confirmationPage";
 
-            session.setAttribute("servicePack", servicePack);
-            toServlet = "confirmationPage";
-        }
 
         response.sendRedirect(toServlet);
     }

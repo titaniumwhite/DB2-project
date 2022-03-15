@@ -57,8 +57,8 @@
                     <h2>Choose the period of the subscription</h2>
                     <% for (PeriodEntity p: periods) {%>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="periodRadio" id="periodRadio">>
-                        <label class="form-check-label" for="periodRadio">
+                        <input class="form-check-input" type="radio" name="chosenPeriod" id="chosenPeriod" value="<%=p.getPeriod_id()%>">
+                        <label class="form-check-label" for="chosenPeriod">
                             <%=p.getDuration()%> months (<%=p.getMonthlyFee()%> &euro;/month)
                         </label>
                     </div>
@@ -71,7 +71,7 @@
                     <ul class="list-group">
                         <% for (OptionalServiceEntity os: optionalServices) {%>
                         <li class="list-group-item">
-                            <input class="form-check-input me-1" type="checkbox" value="">
+                            <input class="form-check-input me-1" name="chosenOptionalServices" id="chosenOptionalServices" type="checkbox" value="<%=os.getId()%>">
                             <%=os.getName()%> (<%=os.getMonthly_fee()%> &euro;/month)
                         </li>
                         <% } %>
@@ -82,7 +82,7 @@
 
 
                     <label>Choose the start date:
-                        <input type="date" name="startDate" required>
+                        <input type="date" name="chosenStartDate" id="chosenStartDate" required>
                     </label>
 
                     <br><br>
