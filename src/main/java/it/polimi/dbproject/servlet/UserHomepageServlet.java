@@ -22,32 +22,30 @@ public class UserHomepageServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RequestDispatcher dispatcher = request.getRequestDispatcher("userHomepage.jsp");
-        String username = "guest";
-        String errorMessageSize = "There are no order here";
+        HttpSession session = request.getSession();
+        UserEntity user = null;
         List<OrderEntity> userOrders = null;
-        int user_id = -1;
+        List<OrderEntity> pendingOrders = null;
+
         try {
-            user_id = Integer.parseInt(request.getParameter("user_id"));
-            Optional<UserEntity> optionalUser = userService.retrieveUserThroughID(user_id);
-            UserEntity user = optionalUser.get();
-            username = user.getUsername();
-            request.setAttribute("username", username);
-            if (user.getUser_id() >= 1) {
+            user = (UserEntity) session.getAttribute("user");
+            Optional<UserEntity> optionalUser = userService.retrieveUserThroughID(user.getUser_id());
+            request.setAttribute("username", user.getUsername());
+            if (user != null) {
                 userOrders = userService.retrieveAllOrdersOfUser(user.getUser_id());
                 request.setAttribute("userOrders", userOrders);
-                System.out.println(userOrders);
-                if (userOrders.size() == 0) {
-                    request.setAttribute("There are no order here", errorMessageSize);
-                }
+
+                pendingOrders = userService.retrievePendingOrder(user.getUser_id());
+                request.setAttribute("pendingOrders", pendingOrders);
             }
         } catch (NumberFormatException e) {
             //the user accessed as a guest
             System.out.println("EXCEPTION");
-            user_id = -1;
+
         }
         List<AvailableServicePackEntity> availableServicePackages = userService.getAllServicePackages();
         request.setAttribute("availableServicePackages", availableServicePackages);
-        request.setAttribute("user_id", user_id);
+        request.setAttribute("user_id", user.getUser_id());
         dispatcher.forward(request, response);
     }
 

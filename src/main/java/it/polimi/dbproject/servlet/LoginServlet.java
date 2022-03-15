@@ -66,16 +66,16 @@ public class LoginServlet extends HttpServlet {
 
         } else {
             // It is logging a user
-            UserEntity u = null;
+            UserEntity user= null;
             try {
-                u = us.checkUser(username, pass);
-                id = u.getUser_id();
+                user= us.checkUser(username, pass);
+                id = user.getUser_id();
             } catch (Exception e) {
                 logger.log(Level.SEVERE, "An exception was thrown", e);
             }
 
-            if(u != null) {
-                session.setAttribute("user", u);
+            if(user!= null) {
+                session.setAttribute("user", user);
                 toServlet = "homepage";
             } else {
                 toServlet = "login?loginSucceed=false";

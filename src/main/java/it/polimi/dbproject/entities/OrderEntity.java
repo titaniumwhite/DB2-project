@@ -25,7 +25,7 @@ import java.sql.Timestamp;
         name = "Order.retrievePendingOrder",
         query = " SELECT distinct o FROM OrderEntity o "+
                 " JOIN o.servicePackageOrder s " +
-                " WHERE o.owner = :user AND o.isPlaceable = true AND s.startDate > CURRENT_TIMESTAMP "
+                " WHERE o.owner = :user AND o.isPlaceable = false"
 )
 @Table(name = "order", schema = "dbproject2022")
 public class OrderEntity implements Serializable {

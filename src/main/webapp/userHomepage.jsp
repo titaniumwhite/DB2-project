@@ -28,11 +28,11 @@
         <li class="nav-item"><a class="nav-link" href="./" style="color: white; float: left !important; display: flex">Logout</a></li>
     </ul>
     <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="display: inline-flex; width: 2%">
-        <%if(user != null){%>
-        <li class="nav-item" style="color: white; padding: 0.5rem; text-align: right !important; display: flex">${username}</li>
-        <% } else {%>
+        <% if(user != null){ %>
+        <li class="nav-item" style="color: white; padding: 0.5rem; text-align: right !important; display: flex"><%=user.getUsername()%></li>
+        <% } else { %>
         <li class="nav-item" style="color: white; padding: 0.5rem; text-align: right !important; display: flex">Guest</li>
-        <%}%>
+        <% } %>
     </ul>
 
 </nav>
@@ -66,12 +66,14 @@
                         </div>
                         </div>
                         <% } else {%>
-                        <div class="card-deck">
-                        <div class="card card-margin">
-                        <div class="card-body pt-0">
-                        You have not placed any order yet!
-                        </div>
-                        </div>
+                        <div class="col-lg-4 d-flex align-items-stretch"  style="padding-bottom: calc(1.5rem * 1.5);">
+                            <div class="card-deck">
+                                <div class="card card-margin">
+                                    <div class="card-body p-0.5">
+                                        <p style="text-align: center; justify-content: center; position: center;"><i>You have not placed any order yet!</i></p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <% } %>
 
@@ -79,13 +81,56 @@
         </div>
         </div>
 
+            <section>
+                <div class="container">
+                    <%
+                        List<OrderEntity> pendingOrders = (List<OrderEntity>) request.getAttribute("pendingOrders");
+                    %>
+                    <h2><b>My Pending Orders</b></h2>
+                    <div class="card-deck">
+                        <div class="row">
+                            <%
+                                if( user != null && pendingOrders != null && pendingOrders.size() != 0 ) {
+                                    System.out.println(userOrders);
+                                    for (OrderEntity o: pendingOrders){%>
+                            <div class="col-lg-4 d-flex align-items-stretch">
+                                <div class="card card-margin">
+                                    <div class="card-header no-border">
+                                        <h5 class="card-title"><%=o.getOrder_id()%></h5>
+                                    </div>
+                                </div>
+                                <% }} else if (user == null){%>
+                                <div class="col-lg-4 d-flex align-items-stretch"  style="padding-bottom: calc(1.5rem * 1.5);">
+                                    <div class="card-deck">
+                                        <div class="card card-margin">
+                                            <div class="card-body p-0.5">
+                                                <p style="text-align: center; justify-content: center; position: center;"><i>You need to login to place an order!</i></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <% } else {%>
+                                <div class="col-lg-4 d-flex align-items-stretch"  style="padding-bottom: calc(1.5rem * 1.5);">
+                                    <div class="card-deck">
+                                        <div class="card card-margin">
+                                            <div class="card-body p-0.5">
+                                                <p style="text-align: center; justify-content: center; position: center;"><i>CONGRATULATION! You do not have any pending order.</i></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <% } %>
+
+                            </div>
+                        </div>
+                    </div>
 
 
     <div class="container">
     <% List<AvailableServicePackEntity> servicePackages = (List<AvailableServicePackEntity>) request.getAttribute("availableServicePackages");
     %>
 
-        <h2><b>Service Packages</b></h2>
+        <h2><b>Available Service Packages</b></h2>
     <div class="card-deck">
         <div class="row">
     <%  if (servicePackages != null) {
