@@ -27,6 +27,7 @@ public class ConfirmationServlet extends HttpServlet {
         HttpSession session = request.getSession();
 
         UserEntity user = (UserEntity) session.getAttribute("user");
+        ServicePackEntity chosenServicePackage = (ServicePackEntity) session.getAttribute("servicePack");
 
 
     }
