@@ -131,4 +131,20 @@ public class ServicePackEntity implements Serializable{
     public AvailableServicePackEntity getAvailablePackages(){
         return availablePackages;
     }
+
+    @Override
+    public String toString() {
+        return "ServicePackEntity{" +
+                "servicePack_id=" + servicePack_id +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                ", cost=" + cost +
+                ", totalCostOptionalService=" + totalCostOptionalService +
+                ", availablePackages=" + availablePackages +
+                ", selectedOptionalServices=" + selectedOptionalServices +
+                ", chosenPeriod=" + chosenPeriod +
+                ", user_service_package=" + user_service_package +
+                ", order=" + order +
+                '}';
+    }
 }

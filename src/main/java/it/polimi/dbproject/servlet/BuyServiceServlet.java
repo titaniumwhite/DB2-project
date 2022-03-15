@@ -40,56 +40,46 @@ public class BuyServiceServlet extends HttpServlet{
         HttpSession session = request.getSession();
         toServlet = "confirmationPage";
 
+        AvailableServicePackEntity selectedPackage = (AvailableServicePackEntity)session.getAttribute("selectedPackage");
+
         String chosenPeriod = request.getParameter("chosenPeriod");
         String[] chosenOptionalServices = request.getParameterValues("chosenOptionalServices");
         String chosenStartDate = request.getParameter("chosenStartDate");
 
-        System.out.println(chosenPeriod);
-        for (int i = 0; i < chosenOptionalServices.length; i++) {
-            System.out.println(chosenOptionalServices[i]);
-        }
-        System.out.println(chosenStartDate);
+        PeriodEntity periodOfValidity = userService.retrievePeriodID(Integer.parseInt(chosenPeriod)).get();
+        ArrayList<OptionalServiceEntity> optionalServices = new ArrayList<>();
 
+        int totalAmountOptionalServices = 0;
 
-            PeriodEntity periodOfValidity = userService.retrievePeriodID(Integer.parseInt(chosenPeriod)).get();
-            ArrayList<OptionalServiceEntity> optionalServices = new ArrayList<>();
+        if(chosenOptionalServices.length != 0){
+            for (String optServ : chosenOptionalServices)
+                optionalServices.add(userService.retrieveOptionalServicePackByID(Integer.parseInt(optServ)).get());
 
-            int totalAmountOptionalServices = 0;
+            for (OptionalServiceEntity optionalService1: optionalServices)
+                totalAmountOptionalServices = totalAmountOptionalServices + optionalService1.getMonthly_fee() * periodOfValidity.getDuration();
+       }
 
-            if(chosenOptionalServices.length != 0){
-                for (String optServ : chosenOptionalServices){
-                    optionalServices.add(userService.retrieveOptionalServicePackByID(Integer.parseInt(optServ)).get());
-                }
-                for (OptionalServiceEntity optionalService1: optionalServices)
-                    totalAmountOptionalServices = totalAmountOptionalServices + optionalService1.getMonthly_fee() * periodOfValidity.getDuration();
-            }
+        int costPackage = periodOfValidity.getMonthlyFee() * periodOfValidity.getDuration();
 
-            int costPackage = periodOfValidity.getMonthlyFee() * periodOfValidity.getDuration();
-
-        System.out.println("op serv " + totalAmountOptionalServices);
-        System.out.println("cost pac " + costPackage);
-
-            /*
         LocalDate startLocalDate, endLocalDate;
         java.sql.Date startDateInSQL, endDateInSQL;
 
-        startLocalDate = LocalDate.parse(startDate);
-            endLocalDate = startLocalDate.plusMonths(periodOfValidity.getDuration());
+        startLocalDate = LocalDate.parse(chosenStartDate);
+        endLocalDate = startLocalDate.plusMonths(periodOfValidity.getDuration());
 
-            startDateInSQL = java.sql.Date.valueOf(startLocalDate);
-            endDateInSQL = java.sql.Date.valueOf(endLocalDate);
+        startDateInSQL = java.sql.Date.valueOf(startLocalDate);
+        endDateInSQL = java.sql.Date.valueOf(endLocalDate);
 
-            servicePack = new ServicePackEntity(startDateInSQL,
-                    endDateInSQL,
-                    costPackage,
-           totalAmountOptionalServices,
-            availableServicePack,
-            periodOfValidity,
-            optionalServices);
-*/
+        servicePack = new ServicePackEntity(startDateInSQL,
+                endDateInSQL,
+                costPackage,
+                totalAmountOptionalServices,
+                selectedPackage,
+                periodOfValidity,
+                optionalServices);
+
         session.setAttribute("servicePack", servicePack);
         toServlet = "confirmationPage";
-
 
         response.sendRedirect(toServlet);
     }
