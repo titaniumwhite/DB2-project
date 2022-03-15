@@ -15,7 +15,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.List;
 
-@WebServlet(name = "confirmationPage", value = "/confirmationPage")
+@WebServlet(name = "confirmationPage", value = "/confirmationpage")
 public class ConfirmationServlet extends HttpServlet {
 
     @EJB
@@ -29,7 +29,8 @@ public class ConfirmationServlet extends HttpServlet {
         UserEntity user = (UserEntity) session.getAttribute("user");
         ServicePackEntity chosenServicePackage = (ServicePackEntity) session.getAttribute("servicePack");
 
-
+        RequestDispatcher dispatcher = request.getRequestDispatcher("confirmationPage.jsp");
+        dispatcher.forward(request, response);
     }
 
 

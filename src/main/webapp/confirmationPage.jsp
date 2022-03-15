@@ -23,7 +23,8 @@
 
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
     <%
-        UserEntity user = (UserEntity) request.getSession().getAttribute("user");
+        ServicePackEntity servicePack = (ServicePackEntity) session.getAttribute("servicePack");
+        UserEntity user = (UserEntity) session.getAttribute("user");
     %>
     <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="display: inline-flex; width: 90%">
         <li class="nav-item"><a class="nav-link" href="./" style="color: white; float: left !important; display: flex">Logout</a></li>
@@ -37,10 +38,7 @@
     </ul>
 
 </nav>
-<%
-    ServicePackEntity servicePack = (ServicePackEntity) request.getAttribute("servicePack");
 
-%>
 <section>
     <div class="container d-flex" style="justify-content: center; align-content: center; padding-top: 1.5rem">
         <div class="col-lg-4">
@@ -68,41 +66,10 @@
 
 </div>
 
-
-<br> <br>
-
-
-
-
-
 </div>
 
 </section>
-    <%
-        if(user!=null){
-    %>
-    <div>
-       <form action="confirmationPage" method="post">
-           <button name="result" value="placeable" type="submit">BUY SERVICE</button>
-           <button name="result" value="notPlaceable" type="submit">BUY SERVICE</button>
-       </form>
-    </div>
-    <br>
-    <br>
-    <form action="confirmationPage" method="post">
-        <button name="result" value="random" type="submit">BUY SERVICE (Da vedere a che serve)</button>
-    </form>
 
-    <%
-        }
-        else {
-    %>
-    <form action="login" method="get">
-        <button type="submit">LOGIN/REGISTER</button>
-    </form>
-    <%
-        }
-    %>
 </div>
 </body>
 </html>

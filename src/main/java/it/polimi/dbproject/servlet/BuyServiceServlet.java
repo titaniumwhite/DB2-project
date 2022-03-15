@@ -38,7 +38,7 @@ public class BuyServiceServlet extends HttpServlet{
                            HttpServletResponse response) throws IOException{
 
         HttpSession session = request.getSession();
-        toServlet = "confirmationPage";
+        toServlet = "confirmationpage";
 
         AvailableServicePackEntity selectedPackage = (AvailableServicePackEntity)session.getAttribute("selectedPackage");
 
@@ -79,7 +79,7 @@ public class BuyServiceServlet extends HttpServlet{
                 optionalServices);
 
         session.setAttribute("servicePack", servicePack);
-        toServlet = "confirmationPage";
+        toServlet = "confirmationpage";
 
         response.sendRedirect(toServlet);
     }
