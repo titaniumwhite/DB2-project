@@ -23,7 +23,6 @@ public class EmployeeEntity implements Serializable {
     @Column(name = "username", unique = true, nullable = false)
     private String username;
 
-
     @Column(name = "password", nullable = false)
     private String password;
 
@@ -62,4 +61,11 @@ public class EmployeeEntity implements Serializable {
         this.email = email;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 }

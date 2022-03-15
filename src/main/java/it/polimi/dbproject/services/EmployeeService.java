@@ -9,6 +9,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.swing.text.html.Option;
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -78,5 +79,6 @@ public class EmployeeService {
     public List<PeriodEntity> getAllPeriods(){
         return em.createNamedQuery("Period.findAll", PeriodEntity.class).getResultList();
     }
+
 
 }

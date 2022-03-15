@@ -58,7 +58,7 @@ public class LoginServlet extends HttpServlet {
             }
 
             if(emp != null) {
-                request.getSession().setAttribute("employee_id", id);
+                session.setAttribute("employee", emp);
                 toServlet = "employeehomepage";
             } else {
                 toServlet = "login?loginSucceed=false";

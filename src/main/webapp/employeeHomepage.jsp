@@ -20,22 +20,32 @@
     <style><%@include file="style.css"%></style>
 
 </head>
-<body>
+<body style="background-color: #508bfc;">
 
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
 
-    <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="display: inline-flex; width: 90%">
+    <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="display: inline-flex; width: 60%">
         <li class="nav-item"><a class="nav-link" href="./" style="color: white; float: left !important; display: flex">Logout</a></li>
     </ul>
+
+    <a href="employeehomepage/salesreport" class="btn btn-outline-primary" role="button" >Sales Report</a>
+
+    <button type="button" class="btn btn-outline-primary" onclick="overlayOn()">New Optional Service</button>
+
     <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="display: inline-flex; width: 2%">
         <li class="nav-item" style="color: white; padding: 0.5rem; text-align: right !important; display: flex">${username}</li>
     </ul>
 
 </nav>
 
-<section style="background-color: #508bfc;">
-
-<div class="container">
+<section>
+    <div class="container d-flex" style="justify-content: center; align-content: center; padding-top: 1.5rem">
+        <div class="col-lg-8">
+            <div class="card card-margin">
+                <div class="card-header no-border">
+                    <h5 class="card-title" style="text-align: center">Create a new Service Package</h5>
+                </div>
+                <div class="card-text">
     <form action="createpackage" method="post">
         <br><br>
         Package Name <input type="text" name="name"/><br/><br/>
@@ -114,16 +124,21 @@
         <%String x = (String)request.getAttribute("creationPackageMessage");%>
         <br>${x}
         <input class="btn btn-primary" type="submit" value="Submit">
+                </div>
+            </div>
+        </div>
+    </div>
 
-
-
+</section>
 
 
     </form>
     <br><br>
 
     <div id="overlay">
-        <div class="card mx-auto" style="width: 600px;">
+        <div class="container h-100">
+            <div class="row h-100 justify-content-center align-items-center">
+        <div class="card mx-auto my-auto" style="width: 600px;">
             <button type="button" class="btn-close" onclick="overlayOff()"></button>
             <form action="createoptionalservice" method="post">
                 <h5 class="card-header">Create an Optional Service</h5>
@@ -136,15 +151,15 @@
                     <span class="input-group-text" id="optionalServiceFee">Monthly Fee &euro;</span>
                     <input type="number" name="fee" class="form-control" id="fee">
                 </div>
+
                 <input class="btn btn-primary" type="submit" value="Submit">
 
             </form>
         </div>
+            </div>
+        </div>
     </div>
 
-    <div>
-        <button type="button" class="btn btn-primary" onclick="overlayOn()">Create a new Optional Service</button>
-    </div>
 </div>
 </section>
 </body>
