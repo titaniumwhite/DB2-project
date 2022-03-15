@@ -24,11 +24,13 @@
 
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
 
-    <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="display: inline-flex; width: 70%">
+    <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="display: inline-flex; width: 60%">
         <li class="nav-item"><a class="nav-link" href="./" style="color: white; float: left !important; display: flex">Logout</a></li>
     </ul>
 
-    <button type="button" class="btn btn-primary" onclick="overlayOn()">New Optional Service</button>
+    <a href="employeehomepage/salesreport" class="btn btn-outline-primary" role="button" >Sales Report</a>
+
+    <button type="button" class="btn btn-outline-primary" onclick="overlayOn()">New Optional Service</button>
 
     <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="display: inline-flex; width: 2%">
         <li class="nav-item" style="color: white; padding: 0.5rem; text-align: right !important; display: flex">${username}</li>
@@ -149,7 +151,6 @@
                     <span class="input-group-text" id="optionalServiceFee">Monthly Fee &euro;</span>
                     <input type="number" name="fee" class="form-control" id="fee">
                 </div>
-
 
                 <input class="btn btn-primary" type="submit" value="Submit">
 
