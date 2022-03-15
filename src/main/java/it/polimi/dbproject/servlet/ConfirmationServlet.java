@@ -32,8 +32,6 @@ public class ConfirmationServlet extends HttpServlet {
 
         UserEntity user = (UserEntity) session.getAttribute("user");
 
-        List<OrderEntity> orders = userService.retrieveAllOrdersOfUser(user.getUser_id());
-
         String result = request.getParameter("result");
 
         String toServlet;

@@ -1,5 +1,5 @@
-<%@ page import="it.polimi.dbproject.entities.ServicePackEntity" %>
-<%@ page import="it.polimi.dbproject.entities.UserEntity" %><%--
+<%@ page import="java.util.List" %>
+<%@ page import="it.polimi.dbproject.entities.*" %><%--
   Created by IntelliJ IDEA.
   User: simbo
   Date: 10/03/2022
@@ -7,83 +7,106 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!DOCTYPE html>
 <html>
 <head>
-    <title>CONFIRMATION PAGE</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <style><%@include file="style.css"%></style>
+
 </head>
+<body style="background-color: #508bfc;">
 
-<body>
-
-<%
-    ServicePackEntity servicePack = (ServicePackEntity) request.getAttribute("servicePack");
-
-    UserEntity user = null;
-    String username = null;
-
-    if(request.getSession().getAttribute("user") != null){
-        user = (UserEntity) request.getSession().getAttribute("user");
-        username = user.getUsername();
-    }
-
-    if(username != null){
-
-
-%>
-        <p text-align="right"> User: ${user.username}</p>
-        // qui ci va il tasto per il logout
-        <%
-        }
-        else {
-        %>
-
-            <p text-align="right"><a href="${pageContext.request.contextPath}/login">LOGIN</a> </p>
-        <%
-            }
-        %>
-
-        <div>
-            <h1> ORDER DETAILS </h1>
-            <br>
-            <h3> Summary Specification: </h3>
-
-            <div>
-                <table>
-                    <tr>
-                        <td> Selected Package: </td>
-                        <td> Service Type: </td>
-                        <%
-                            if(servicePack.getSelectedOptionalServices() != null && servicePack.getSelectedOptionalServices().size()!=0){
-                        %>
-                        <td>Optional Services</td>
-                        <%
-                            }
-                        %>
-                        <td>Starting Date: </td>
-                        <td>Ending Date: </td>
-                        <td>Total Cost: </td>
-                    </tr>
-                    <tr>
-                        <td><%=servicePack.getAvailablePackages().getName()%></td>
-                        <td><%=servicePack.getAvailablePackages().getServices()%></td>
-                        <%
-                            if(servicePack.getSelectedOptionalServices()!=null && servicePack.getSelectedOptionalServices().size()!=0){
-                        %>
-                        <td><%=servicePack.getSelectedOptionalServices()%></td>
-                        <%
-                            }
-                        %>
-                        <td><%=servicePack.getStartDate()%></td>
-                        <td><%=servicePack.getEndDate()%></td>
-                        <td><%=servicePack.getTotalCost()%></td>
-                    </tr>
-                </table>
-            </div>
-            <br>
-            <br>
-        </div>
-<div>
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
     <%
-        if(username!=null){
+        UserEntity user = (UserEntity) request.getSession().getAttribute("user");
+    %>
+    <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="display: inline-flex; width: 90%">
+        <li class="nav-item"><a class="nav-link" href="./" style="color: white; float: left !important; display: flex">Logout</a></li>
+    </ul>
+    <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="display: inline-flex; width: 2%">
+        <% if(user != null){ %>
+        <li class="nav-item" style="color: white; padding: 0.5rem; text-align: right !important; display: flex"><%=user.getUsername()%></li>
+        <% } else { %>
+        <li class="nav-item" style="color: white; padding: 0.5rem; text-align: right !important; display: flex">Guest</li>
+        <% } %>
+    </ul>
+
+</nav>
+<%
+    AvailableServicePackEntity selectedPackage = (AvailableServicePackEntity) request.getAttribute("selectedPackage");
+    PeriodEntity period = (PeriodEntity) request.getAttribute("period");
+    List<OptionalServiceEntity> optionalServices = (List<OptionalServiceEntity>) request.getAttribute("optionalServices");
+%>
+<section>
+    <div class="container d-flex" style="justify-content: center; align-content: center; padding-top: 1.5rem">
+        <div class="col-lg-4">
+            <div class="card card-margin">
+                <div class="card-header no-border">
+                    <h5 class="card-title" style="text-align: center">Package to buy: <%=selectedPackage.getName()%></h5>
+
+
+<div class="card-text">
+    <form action="buyservice" method="post">
+        <p style="font-size: medium; text-align: center; justify-content: center"><b>Choose the period of the subscription</b></p>
+        <div class="row"  style="padding-left: 1.5rem">
+        <div class="form-check" style="padding-left: 3rem !important;">
+            <input class="form-check-input" type="radio" name="chosenPeriod" id="chosenPeriod" value="<%=period.getPeriod_id()%>">
+            <label class="form-check-label" for="chosenPeriod">
+                <%=period.getDuration()%> months (<%=period.getMonthlyFee()%> &euro;/month)
+            </label>
+        </div>
+</div>
+
+
+<br> <br>
+<p style="font-size: medium; text-align: center; justify-content: center"><b>Choose the optional services</b></p>
+
+<ul class="list-group">
+    <% for (OptionalServiceEntity os: optionalServices) {%>
+    <li class="list-group-item">
+        <input class="form-check-input me-1" name="chosenOptionalServices" id="chosenOptionalServices" type="checkbox" value="<%=os.getId()%>">
+        <%=os.getName()%> (<%=os.getMonthly_fee()%> &euro;/month)
+    </li>
+    <% } %>
+
+</ul
+
+<br><br>
+<p style="font-size: medium; text-align: center; justify-content: center"><b>Choose the start date</b></p>
+<input type="date" name="chosenStartDate" id="chosenStartDate" required>
+
+
+<br><br>
+
+<input class="btn btn-outline-primary" type="submit" value="Confirm"/>
+
+</form>
+
+</div>
+
+</div>
+</div>
+
+
+</div>
+
+
+<br> <br>
+
+
+
+
+
+</div>
+
+</section>
+    <%
+        if(user!=null){
     %>
     <div>
        <form action="confirmationPage" method="post">
