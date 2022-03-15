@@ -38,52 +38,25 @@
 
 </nav>
 <%
-    AvailableServicePackEntity selectedPackage = (AvailableServicePackEntity) request.getAttribute("selectedPackage");
-    PeriodEntity period = (PeriodEntity) request.getAttribute("period");
-    List<OptionalServiceEntity> optionalServices = (List<OptionalServiceEntity>) request.getAttribute("optionalServices");
+    ServicePackEntity servicePack = (ServicePackEntity) request.getAttribute("servicePack");
+
 %>
 <section>
     <div class="container d-flex" style="justify-content: center; align-content: center; padding-top: 1.5rem">
         <div class="col-lg-4">
             <div class="card card-margin">
                 <div class="card-header no-border">
-                    <h5 class="card-title" style="text-align: center">Package to buy: <%=selectedPackage.getName()%></h5>
+                    <h5 class="card-title" style="text-align: center">Package to buy: <%=servicePack.getAvailablePackage().getName()%></h5>
 
 
 <div class="card-text">
     <form action="buyservice" method="post">
-        <p style="font-size: medium; text-align: center; justify-content: center"><b>Choose the period of the subscription</b></p>
+        <p style="font-size: medium; text-align: center; justify-content: center"><b>Chosen period of subscription: </b></p>
         <div class="row"  style="padding-left: 1.5rem">
         <div class="form-check" style="padding-left: 3rem !important;">
-            <input class="form-check-input" type="radio" name="chosenPeriod" id="chosenPeriod" value="<%=period.getPeriod_id()%>">
-            <label class="form-check-label" for="chosenPeriod">
-                <%=period.getDuration()%> months (<%=period.getMonthlyFee()%> &euro;/month)
-            </label>
+            <p><%=servicePack.getChosenPeriod().getDuration()%> months (<%=servicePack.getChosenPeriod().getMonthlyFee()%> &euro;/month)</p>
         </div>
 </div>
-
-
-<br> <br>
-<p style="font-size: medium; text-align: center; justify-content: center"><b>Choose the optional services</b></p>
-
-<ul class="list-group">
-    <% for (OptionalServiceEntity os: optionalServices) {%>
-    <li class="list-group-item">
-        <input class="form-check-input me-1" name="chosenOptionalServices" id="chosenOptionalServices" type="checkbox" value="<%=os.getId()%>">
-        <%=os.getName()%> (<%=os.getMonthly_fee()%> &euro;/month)
-    </li>
-    <% } %>
-
-</ul
-
-<br><br>
-<p style="font-size: medium; text-align: center; justify-content: center"><b>Choose the start date</b></p>
-<input type="date" name="chosenStartDate" id="chosenStartDate" required>
-
-
-<br><br>
-
-<input class="btn btn-outline-primary" type="submit" value="Confirm"/>
 
 </form>
 

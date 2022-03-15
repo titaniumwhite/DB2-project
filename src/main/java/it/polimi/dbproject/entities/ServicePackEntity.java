@@ -116,6 +116,16 @@ public class ServicePackEntity implements Serializable{
         this.totalCostOptionalService = totalCostOptionalService;
     }
 
+    public void setAvailablePackage (AvailableServicePackEntity availablePackages){
+        this.availablePackages = availablePackages;
+    }
+
+    public PeriodEntity getChosenPeriod(){return this.chosenPeriod;}
+
+    public void setChosenPeriod(PeriodEntity chosenPeriod){ this.chosenPeriod=chosenPeriod; }
+
+    public AvailableServicePackEntity getAvailablePackage() { return this.availablePackages; }
+
     public void setUser(UserEntity user){
         this.user_service_package = user;
     }
@@ -128,9 +138,6 @@ public class ServicePackEntity implements Serializable{
         return selectedOptionalServices;
     }
 
-    public AvailableServicePackEntity getAvailablePackages(){
-        return availablePackages;
-    }
 
     @Override
     public String toString() {
