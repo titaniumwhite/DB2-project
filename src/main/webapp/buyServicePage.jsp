@@ -18,12 +18,18 @@
 <body style="background-color: #508bfc;">
 
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-
+    <%
+        UserEntity user = (UserEntity) request.getSession().getAttribute("user");
+    %>
     <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="display: inline-flex; width: 90%">
         <li class="nav-item"><a class="nav-link" href="./" style="color: white; float: left !important; display: flex">Logout</a></li>
     </ul>
     <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="display: inline-flex; width: 2%">
-        <li class="nav-item" style="color: white; padding: 0.5rem; text-align: right !important; display: flex">${username}</li>
+        <% if(user != null){ %>
+        <li class="nav-item" style="color: white; padding: 0.5rem; text-align: right !important; display: flex"><%=user.getUsername()%></li>
+        <% } else { %>
+        <li class="nav-item" style="color: white; padding: 0.5rem; text-align: right !important; display: flex">Guest</li>
+        <% } %>
     </ul>
 
 </nav>
@@ -34,7 +40,6 @@
     List<OptionalServiceEntity> optionalServices = (List<OptionalServiceEntity>) request.getAttribute("optionalServices");
     AvailableServicePackEntity selectedPackage = (AvailableServicePackEntity) request.getSession().getAttribute("selectedPackage");
 
-    UserEntity user;
     String username = null;
 
     if(request.getSession().getAttribute("user")!=null){
@@ -45,28 +50,28 @@
 %>
 
 <section>
-    <div class="container">
-        <div class="col-lg-4 d-flex align-items-stretch"  style="padding-bottom: calc(1.5rem * 1.5);">
+    <div class="container d-flex" style="justify-content: center; align-content: center; padding-top: 1.5rem">
+        <div class="col-lg-4">
             <div class="card card-margin">
                 <div class="card-header no-border">
-                    <h5 class="card-title">Package to buy: <%=selectedPackage.getName()%></h5>
+                    <h5 class="card-title" style="text-align: center">Package to buy: <%=selectedPackage.getName()%></h5>
                 </div>
 
                 <div class="card-text">
                     <form action="buyservice" method="post">
-                    <h2>Choose the period of the subscription</h2>
+                        <p style="font-size: medium; text-align: center; justify-content: center"><b>Choose the period of the subscription</b></p>
+                        <div class="row"  style="padding-left: 1.5rem"></div>
                     <% for (PeriodEntity p: periods) {%>
-                    <div class="form-check">
+                    <div class="form-check" style="padding-left: 3rem !important;">
                         <input class="form-check-input" type="radio" name="chosenPeriod" id="chosenPeriod" value="<%=p.getPeriod_id()%>">
                         <label class="form-check-label" for="chosenPeriod">
                             <%=p.getDuration()%> months (<%=p.getMonthlyFee()%> &euro;/month)
                         </label>
                     </div>
                     <% } %>
-
+                    </div>
                     <br> <br>
-
-                    Choose the optional services
+                <p style="font-size: medium; text-align: center; justify-content: center"><b>Choose the optional services</b></p>
 
                     <ul class="list-group">
                         <% for (OptionalServiceEntity os: optionalServices) {%>
@@ -79,11 +84,9 @@
                     </ul
 
                     <br><br>
-
-
-                    <label>Choose the start date:
+                <p style="font-size: medium; text-align: center; justify-content: center"><b>Choose the start date</b></p>
                         <input type="date" name="chosenStartDate" id="chosenStartDate" required>
-                    </label>
+
 
                     <br><br>
 
