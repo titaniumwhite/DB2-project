@@ -10,7 +10,7 @@ import java.io.Serializable;
 @Entity
 
 
-@Table(name = "purchasesperpackageandperiod", schema = "dbtelco")
+@Table(name = "purchasesperpackageandperiod", schema = "dbproject2022")
 public class PurchasesPerPackageAndPeriod implements Serializable {
 
     private static final long serialVersionUID = 1L;
