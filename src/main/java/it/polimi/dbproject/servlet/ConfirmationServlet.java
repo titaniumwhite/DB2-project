@@ -21,6 +21,9 @@ public class ConfirmationServlet extends HttpServlet {
     @EJB
     private UserService userService;
 
+    ServicePackEntity servicePack;
+    boolean createOrder = true;
+    String Id_OrderRejected;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -28,6 +31,39 @@ public class ConfirmationServlet extends HttpServlet {
 
         UserEntity user = (UserEntity) session.getAttribute("user");
         ServicePackEntity chosenServicePackage = (ServicePackEntity) session.getAttribute("servicePack");
+
+        String confirm = request.getParameter("buttonConfirm");
+        String toServlet;
+        OrderEntity order;
+
+        boolean isPlaceable;
+
+        switch (confirm) {
+            case "confirm":
+                isPlaceable = true;
+                break;
+
+            case "reject":
+                isPlaceable = false;
+                break;
+
+            default:
+                throw new IllegalStateException("EXCEPTION STATE: " + confirm);
+        }
+
+        if(createOrder){
+            try {
+                servicePack = userService.createServicePack(servicePack, user);
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            order = userService.createOrder(new Timestamp(System.currentTimeMillis()), user, servicePack, isPlaceable);
+        } else {
+            order = userService.retrieveOrderThroughID(Integer.parseInt(Id_OrderRejected)).get();
+            order = userService.orderUpdate(order, isPlaceable);
+        }
+
+
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("confirmationPage.jsp");
         dispatcher.forward(request, response);

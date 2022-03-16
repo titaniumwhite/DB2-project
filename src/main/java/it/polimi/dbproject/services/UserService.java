@@ -203,4 +203,15 @@ public class UserService {
                 .setParameter("user", user)
                 .getResultList();
     }
+
+    public ServicePackEntity createServicePack (ServicePackEntity servicePack, UserEntity user) throws SQLException {
+        servicePack.setUser(user);
+        try{
+            em.persist(servicePack);
+            em.flush();
+            return servicePack;
+        } catch (ConstraintViolationException ignored) {
+            return null;
+        }
+    }
 }
