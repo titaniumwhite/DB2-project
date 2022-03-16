@@ -89,7 +89,7 @@ public class ServicePackEntity implements Serializable{
     }
 
     public int getTotalCost(){
-        return this.cost;
+        return this.cost + this.totalCostOptionalService;
     }
 
     public java.sql.Date getStartDate() {
