@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.swing.text.html.Option;
 import java.io.IOException;
 
 import java.time.LocalDate;
@@ -96,7 +97,11 @@ public class BuyServiceServlet extends HttpServlet{
         List<PeriodEntity> periods = userService.retrieveAllPeriods();
         request.setAttribute("periods", periods);
 
-        List<OptionalServiceEntity> optionalServices = userService.retrieveAllOptionalServices();
+        ArrayList<OptionalServiceEntity> optionalServices = new ArrayList<>(userService.retrieveAllOptionalServices());
+        ArrayList<OptionalServiceEntity> includedOptionalServices = new ArrayList<>(selectedPackage.getOptionalServices());
+
+        optionalServices.removeAll(includedOptionalServices);
+
         request.setAttribute("optionalServices", optionalServices);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("buyServicePage.jsp");

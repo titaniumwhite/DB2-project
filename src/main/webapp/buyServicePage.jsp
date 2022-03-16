@@ -71,7 +71,10 @@
                     <% } %>
                     </div>
                     <br> <br>
-                <p style="font-size: medium; text-align: center; justify-content: center"><b>Choose the optional services</b></p>
+                    <%if (optionalServices.size() != 0) { %>
+                    <p style="font-size: medium; text-align: center; justify-content: center">
+                        <b>Choose additional optional services to include:</b>
+                    </p>
 
                     <ul class="list-group">
                         <% for (OptionalServiceEntity os: optionalServices) {%>
@@ -80,9 +83,12 @@
                             <%=os.getName()%> (<%=os.getMonthly_fee()%> &euro;/month)
                         </li>
                         <% } %>
-
+                    <%} else {%>
                     </ul
-
+                    <p style="font-size: medium; text-align: center; justify-content: center">
+                        <b>For this package, you can't include any other optional services.</b>
+                    </p>
+                <% } %>
                     <br><br>
                 <p style="font-size: medium; text-align: center; justify-content: center"><b>Choose the start date</b></p>
                         <input type="date" name="chosenStartDate" id="chosenStartDate" required>

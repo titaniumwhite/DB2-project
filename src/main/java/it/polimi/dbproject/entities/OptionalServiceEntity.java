@@ -5,11 +5,12 @@ import javax.persistence.*;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @NamedQuery(
         name = "OptionalService.findAll",
-        query = "SELECT os FROM OptionalServiceEntity os"
+        query = "SELECT os FROM OptionalServiceEntity os ORDER BY os.optionalService_id"
 )
 @NamedQuery(
         name = "OptionalService.findOptionalThroughPackage",
@@ -78,6 +79,19 @@ public class OptionalServiceEntity implements Serializable{
 
     public int getMonthly_fee(){
         return this.monthlyFee;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        OptionalServiceEntity that = (OptionalServiceEntity) o;
+        return optionalService_id == that.optionalService_id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(optionalService_id);
     }
 
     @Override
