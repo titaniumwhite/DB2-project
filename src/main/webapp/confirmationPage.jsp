@@ -87,6 +87,8 @@
                 <% if(user != null){ %>
                     <form action="confirmationpage" method="post">
                         <button class="btn btn-primary btn-lg btn-block" name="buttonConfirm" value="confirm" type="submit"> BUY (ACCEPTANCE) </button>
+                        <div style="justify-content: center; padding-top: 1rem">
+                        </div>
                         <button class="btn btn-primary btn-lg btn-block" name="buttonConfirm" value="confirm" type="submit"> BUY (REJECT) </button>
                     </form>
                     <% } else { %>
