@@ -7,11 +7,11 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "salesperpackage", schema = "dbtelco")
+@Table(name = "salesperpackage", schema = "dbproject2022")
 public class SalesPerPackage implements Serializable {
     @Id
     @Column(name = "salesperpackage_id", nullable = false)
-    private Long salesperpackage_id;
+    private int salesperpackage_id;
 
 
     @OneToOne
@@ -24,7 +24,7 @@ public class SalesPerPackage implements Serializable {
     @Column(name = "totalSalesNoOptional", nullable = false)
     private float totalSalesNoOptional;
 
-    public SalesPerPackage(Long salesperpackage_id, AvailableServicePackEntity availableServicePack, float totalSalesWithOptional, float totalSalesNoOptional) {
+    public SalesPerPackage(int salesperpackage_id, AvailableServicePackEntity availableServicePack, float totalSalesWithOptional, float totalSalesNoOptional) {
         this.salesperpackage_id = salesperpackage_id;
         this.availableServicePack = availableServicePack;
         this.totalSalesWithOptional = totalSalesWithOptional;
