@@ -67,15 +67,9 @@
                 <p style="font-size: medium; text-align: center; justify-content: center"><%=servicePack.getEndDate()%></p>
             </div>
         </div>
-        <p style="font-size: medium; text-align: center; justify-content: center"><b>Total cost for the duration of the subscription: </b></p>
-        <div class="row"  style="justify-content: center">
-            <div class="form-check">
-                <p style="font-size: medium; text-align: center; justify-content: center"><%=servicePack.getTotalCost()%>&euro;</p>
-            </div>
-        </div>
+
         <% if (servicePack.getSelectedOptionalServices().size() > 0) {%>
         <p style="font-size: medium; text-align: center; justify-content: center"><b>Additional optional services chosen:</b></p>
-
         <ul class="list-group">
             <% for (OptionalServiceEntity os: servicePack.getSelectedOptionalServices()) {%>
             <li class="list-group-item">
@@ -83,6 +77,16 @@
             </li>
             <% } %>
         </ul
+
+        <p style="font-size: medium; text-align: center; justify-content: center"><b>Total cost for the duration of the subscription: </b></p>
+        <div class="row"  style="justify-content: center">
+            <div class="form-check">
+                <p style="font-size: medium; text-align: center; justify-content: center"><%=servicePack.getTotalCost()%>&euro;</p>
+            </div>
+        </div>
+
+
+
         <%}%>
         </form>
             <div class="row" style="justify-content: center; padding-top: 1rem">
