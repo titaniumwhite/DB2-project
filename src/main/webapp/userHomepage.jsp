@@ -141,29 +141,39 @@
                         <h5 class="card-title"><%=sp.getName()%></h5>
                     </div>
                     <div class="card-body pt-0">
+                        Included services:
                         <ul>
                         <% for (ServiceEntity s: sp.getServices()) {%>
-                        <li><%String type=s.getType();%>
-                            <%=type%>
-                        <% if (Objects.equals(type, "mobile phone") ) {
-                            int minutes = s.getMinutes();
-                            int sms = s.getSms();
-                            int extra_minutes = s.getExtraMinutes_fee();
-                            int extra_sms = s.getExtraSms_fee();
-                        %>: <ul>
-                                <li><%=minutes%> minutes (afterwards <%=extra_minutes%>&euro;/min)</li>
-                                <li><%=sms%> sms (afterwards <%=extra_sms%>&euro;/sms)</li>
-                            </ul>
-                        <%}%>
-                        <% if (Objects.equals(type, "mobile internet") ) {
-                            int gigas = s.getGigas();
-                            int extra_gigas = s.getExtraGigas_fee();
-                        %>: <%=gigas%> gigas (afterwards <%=extra_gigas%>&euro;/giga) </li>
+                            <li><%String type=s.getType();%>
+                                <%=type%>
+                            <% if (Objects.equals(type, "mobile phone") ) {
+                                int minutes = s.getMinutes();
+                                int sms = s.getSms();
+                                int extra_minutes = s.getExtraMinutes_fee();
+                                int extra_sms = s.getExtraSms_fee();
+                            %>: <ul>
+                                    <li><%=minutes%> minutes (afterwards <%=extra_minutes%>&euro;/min)</li>
+                                    <li><%=sms%> sms (afterwards <%=extra_sms%>&euro;/sms)</li>
+                                </ul>
+                            <%}%>
+                            <% if (Objects.equals(type, "mobile internet") ) {
+                                int gigas = s.getGigas();
+                                int extra_gigas = s.getExtraGigas_fee();
+                            %>: <%=gigas%> gigas (afterwards <%=extra_gigas%>&euro;/giga) </li>
+
 
 
                         <% }} %>
+                        </ul>
+
+                        Included optional services:
+                        <ul>
+                            <% for (OptionalServiceEntity o: sp.getOptionalServices()) {%>
+                            <li><%=o.getName()%></li>
+                            <%}%>
+                        </ul>
+
                         </div>
-                    </ul>
                     </p>
 
                     <% int package_id = sp.getAvailableServicePack_id();%>

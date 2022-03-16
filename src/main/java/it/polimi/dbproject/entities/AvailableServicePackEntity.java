@@ -109,4 +109,19 @@ public class AvailableServicePackEntity implements Serializable {
         this.services = services;
     }
 
+    public List<PeriodEntity> getPeriods() {
+        return periods;
+    }
+
+    public void setPeriods(List<PeriodEntity> periods) {
+        this.periods = periods;
+    }
+
+    public List<OptionalServiceEntity> getOptionalServices() {
+        return optionalServices;
+    }
+
+    public void setOptionalServices(List<OptionalServiceEntity> optionalServices) {
+        this.optionalServices = optionalServices;
+    }
 }

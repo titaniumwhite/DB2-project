@@ -41,7 +41,7 @@
 
 <section>
     <div class="container d-flex" style="justify-content: center; align-content: center; padding-top: 1.5rem">
-        <div class="col-lg-4">
+        <div class="col-lg-8">
             <div class="card card-margin">
                 <div class="card-header no-border">
                     <h5 class="card-title" style="text-align: center"><b>Package to buy: <%=servicePack.getAvailablePackage().getName()%></b></h5>
