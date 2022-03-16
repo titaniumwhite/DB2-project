@@ -73,15 +73,17 @@
                 <p style="font-size: medium; text-align: center; justify-content: center"><%=servicePack.getTotalCost()%>&euro;</p>
             </div>
         </div>
-        <p style="font-size: medium; text-align: center; justify-content: center"><b>Chosen the optional services</b></p>
+        <% if (servicePack.getSelectedOptionalServices().size() > 0) {%>
+        <p style="font-size: medium; text-align: center; justify-content: center"><b>Additional optional services chosen:</b></p>
 
         <ul class="list-group">
             <% for (OptionalServiceEntity os: servicePack.getSelectedOptionalServices()) {%>
             <li class="list-group-item">
-                <p style="font-size: medium; text-align: center; justify-content: center" name="chosenOptionalServices" id="chosenOptionalServices" ><%=os.getName()%></p>
+                <p style="font-size: medium; text-align: center; justify-content: center" name="chosenOptionalServices" id="chosenOptionalServices" ><%=os.getName()%> (<%=os.getMonthly_fee()%> &euro;/month)</p>
             </li>
             <% } %>
         </ul
+        <%}%>
         </form>
             <div class="row" style="justify-content: center; padding-top: 1rem">
                 <% if(user != null){ %>

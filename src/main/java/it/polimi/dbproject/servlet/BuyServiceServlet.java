@@ -52,13 +52,13 @@ public class BuyServiceServlet extends HttpServlet{
 
         int totalAmountOptionalServices = 0;
 
-        if(chosenOptionalServices.length != 0){
+        if(chosenOptionalServices!= null){
             for (String optServ : chosenOptionalServices)
                 optionalServices.add(userService.retrieveOptionalServicePackByID(Integer.parseInt(optServ)).get());
 
             for (OptionalServiceEntity optionalService1: optionalServices)
                 totalAmountOptionalServices = totalAmountOptionalServices + optionalService1.getMonthly_fee() * periodOfValidity.getDuration();
-       }
+        }
 
         int costPackage = periodOfValidity.getMonthlyFee() * periodOfValidity.getDuration();
 
