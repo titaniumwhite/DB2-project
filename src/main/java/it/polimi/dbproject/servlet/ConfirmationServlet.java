@@ -26,13 +26,12 @@ public class ConfirmationServlet extends HttpServlet {
     String Id_OrderRejected;
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
 
         UserEntity user = (UserEntity) session.getAttribute("user");
-        ServicePackEntity chosenServicePackage = (ServicePackEntity) session.getAttribute("servicePack");
 
-        String confirm = request.getParameter("buttonConfirm");
+        String confirm = request.getParameter("confirm");
         String toServlet;
         OrderEntity order;
 
@@ -63,17 +62,42 @@ public class ConfirmationServlet extends HttpServlet {
             order = userService.orderUpdate(order, isPlaceable);
         }
 
+        if(!isPlaceable) user = userService.addFailedPayment(user);
 
+        if(user.getFailedPayments() == 3){
+            ErrorEntity error = new ErrorEntity(order.getCreation_ts(), user, order.getTotal_cost());
+            userService.createError(error);
+            user = userService.setFailedPayments(user);
+        }
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("confirmationPage.jsp");
-        dispatcher.forward(request, response);
+        if(userService.retrieveFailedOrderthroughUser(user.getUser_id()).size()>=1)
+            userService.userIsInsolvent(user, true);
+        else
+            userService.userIsInsolvent(user, false);
+
+        if(userService.retrievePendingOrder(user.getUser_id()).size() > 0) toServlet = "ActivationOfServiceServlet";
+        else toServlet = "homepage";
+
+        response.sendRedirect(toServlet);
+
     }
 
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession();
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        Id_OrderRejected = request.getParameter("OrderRejected");
 
+        if(Id_OrderRejected != null){
+            servicePack = userService.retrieveOrderThroughID(Integer.parseInt(Id_OrderRejected)).get().getChosenServicePackage();
+            createOrder = false;
+        } else {
+            servicePack = (ServicePackEntity) request.getSession(false).getAttribute("servicePack");
+            createOrder = true;
+        }
+
+        request.setAttribute("servicePack", servicePack);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("confirmationPage.jsp");
+        dispatcher.forward(request, response);
     }
 }

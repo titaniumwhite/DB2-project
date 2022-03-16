@@ -86,7 +86,7 @@
                     <%} else {%>
                     </ul
                     <p style="font-size: medium; text-align: center; justify-content: center">
-                        <b>For this package, you can't include any other optional services.</b>
+                        <b>For this package you can not include any other optional services.</b>
                     </p>
                 <% } %>
                     <br><br>
