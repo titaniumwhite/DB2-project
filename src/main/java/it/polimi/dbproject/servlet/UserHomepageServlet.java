@@ -29,23 +29,23 @@ public class UserHomepageServlet extends HttpServlet {
 
         try {
             user = (UserEntity) session.getAttribute("user");
+            if (user != null) {
             Optional<UserEntity> optionalUser = userService.retrieveUserThroughID(user.getUser_id());
             request.setAttribute("username", user.getUsername());
-            if (user != null) {
                 userOrders = userService.retrieveAllOrdersOfUser(user.getUser_id());
                 request.setAttribute("userOrders", userOrders);
 
                 pendingOrders = userService.retrievePendingOrder(user.getUser_id());
                 request.setAttribute("pendingOrders", pendingOrders);
+                request.setAttribute("user_id", user.getUser_id());
             }
         } catch (NumberFormatException e) {
             //the user accessed as a guest
             System.out.println("EXCEPTION");
-
+            request.setAttribute("user", user);
         }
         List<AvailableServicePackEntity> availableServicePackages = userService.getAllServicePackages();
         request.setAttribute("availableServicePackages", availableServicePackages);
-        request.setAttribute("user_id", user.getUser_id());
         dispatcher.forward(request, response);
     }
 

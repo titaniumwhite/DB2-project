@@ -42,7 +42,6 @@ public class LoginServlet extends HttpServlet {
 
         String username = request.getParameter("username");
         String pass = request.getParameter("password");
-        int id = -1;
         String toServlet = "login";
         HttpSession session = request.getSession();
 
@@ -52,7 +51,6 @@ public class LoginServlet extends HttpServlet {
             EmployeeEntity emp = null;
             try {
                 emp = es.checkEmployee(username, pass);
-                id = emp.getEmployee_id();
             } catch (Exception e) {
                 logger.log(Level.SEVERE, "An exception was thrown", e);
             }
@@ -69,7 +67,6 @@ public class LoginServlet extends HttpServlet {
             UserEntity user= null;
             try {
                 user= us.checkUser(username, pass);
-                id = user.getUser_id();
             } catch (Exception e) {
                 logger.log(Level.SEVERE, "An exception was thrown", e);
             }

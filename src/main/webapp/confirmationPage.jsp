@@ -44,20 +44,57 @@
         <div class="col-lg-4">
             <div class="card card-margin">
                 <div class="card-header no-border">
-                    <h5 class="card-title" style="text-align: center">Package to buy: <%=servicePack.getAvailablePackage().getName()%></h5>
+                    <h5 class="card-title" style="text-align: center"><b>Package to buy: <%=servicePack.getAvailablePackage().getName()%></b></h5>
 
 
 <div class="card-text">
     <form action="buyservice" method="post">
-        <p style="font-size: medium; text-align: center; justify-content: center"><b>Chosen period of subscription: </b></p>
-        <div class="row"  style="padding-left: 1.5rem">
-        <div class="form-check" style="padding-left: 3rem !important;">
-            <p><%=servicePack.getChosenPeriod().getDuration()%> months (<%=servicePack.getChosenPeriod().getMonthlyFee()%> &euro;/month)</p>
+        <p style="font-size: large; text-align: center; justify-content: center"><b>Chosen period of subscription: </b></p>
+        <div class="row"  style="justify-content: center">
+        <div class="form-check">
+            <p style="font-size: medium; text-align: center; justify-content: center"><%=servicePack.getChosenPeriod().getDuration()%> months</p>
         </div>
-</div>
+        </div>
+        <p style="font-size: medium; text-align: center; justify-content: center"><b>Start date of subscription: </b></p>
+        <div class="row"  style="justify-content: center">
+        <div class="form-check">
+            <p style="font-size: medium; text-align: center; justify-content: center"><%=servicePack.getStartDate()%></p>
+        </div>
+        </div>
+        <p style="font-size: medium; text-align: center; justify-content: center"><b>End date of subscription: </b></p>
+        <div class="row"  style="justify-content: center">
+            <div class="form-check">
+                <p style="font-size: medium; text-align: center; justify-content: center"><%=servicePack.getEndDate()%></p>
+            </div>
+        </div>
+        <p style="font-size: medium; text-align: center; justify-content: center"><b>Total cost for the duration of the subscription: </b></p>
+        <div class="row"  style="justify-content: center">
+            <div class="form-check">
+                <p style="font-size: medium; text-align: center; justify-content: center"><%=servicePack.getTotalCost()%>&euro;</p>
+            </div>
+        </div>
+        <p style="font-size: medium; text-align: center; justify-content: center"><b>Chosen the optional services</b></p>
 
-</form>
-
+        <ul class="list-group">
+            <% for (OptionalServiceEntity os: servicePack.getSelectedOptionalServices()) {%>
+            <li class="list-group-item">
+                <p style="font-size: medium; text-align: center; justify-content: center" name="chosenOptionalServices" id="chosenOptionalServices" ><%=os.getName()%></p>
+            </li>
+            <% } %>
+        </ul
+        </form>
+            <div class="row" style="justify-content: center; padding-top: 1rem">
+                <% if(user != null){ %>
+                    <form action="confirmationpage" method="post">
+                        <button class="btn btn-primary btn-lg btn-block" name="buttonConfirm" value="confirm" type="submit"> BUY (ACCEPTANCE) </button>
+                        <button class="btn btn-primary btn-lg btn-block" name="buttonConfirm" value="confirm" type="submit"> BUY (REJECT) </button>
+                    </form>
+                    <% } else { %>
+                    <form action="login" method="post">
+                        <button class="btn btn-primary btn-lg btn-block" name="noUser" value="confirm" type="submit"> LOGIN/REGISTER </button>
+                    </form>
+                    <% } %>
+            </div>
 </div>
 
 </div>
@@ -70,6 +107,5 @@
 
 </section>
 
-</div>
 </body>
 </html>
