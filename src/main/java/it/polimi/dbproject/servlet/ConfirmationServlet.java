@@ -20,8 +20,7 @@ public class ConfirmationServlet extends HttpServlet {
 
     @EJB
     private UserService userService;
-
-    ServicePackEntity servicePack;
+    private ServicePackEntity servicePack;
     boolean createOrder = true;
     String Id_OrderRejected;
 
@@ -34,6 +33,7 @@ public class ConfirmationServlet extends HttpServlet {
         String confirm = request.getParameter("confirm");
         String toServlet;
         OrderEntity order;
+        servicePack = (ServicePackEntity) session.getAttribute("servicePack");
 
         boolean isPlaceable;
 

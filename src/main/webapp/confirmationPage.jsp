@@ -89,17 +89,20 @@
 
         <%}%>
         </form>
-            <div class="row" style="justify-content: center; padding-top: 1rem">
+            <div class="row" style="text-align: center">
+
                 <% if(user != null){ %>
                     <form action="confirmationpage" method="post">
-                        <button class="btn btn-primary btn-lg btn-block" name="confirm" value="confirm" type="submit"> BUY (ACCEPTANCE) </button>
+                        <button class="btn btn-primary" name="confirm" value="confirm" type="submit"> BUY (ACCEPTANCE) </button>
+                    </form>
                         <div style="justify-content: center; padding-top: 1rem">
                         </div>
-                        <button class="btn btn-primary btn-lg btn-block" name="confirm" value="reject" type="submit"> BUY (REJECT) </button>
+                    <form>
+                        <button class="btn btn-primary" name="confirm" value="reject" type="submit"> BUY (REJECT) </button>
                     </form>
                     <% } else { %>
                     <form action="login" method="post">
-                        <button class="btn btn-primary btn-lg btn-block" type="submit"> LOGIN/REGISTER </button>
+                        <button class="btn btn-primary" type="submit"> LOGIN/REGISTER </button>
                     </form>
                     <% } %>
             </div>
