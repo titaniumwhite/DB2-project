@@ -52,6 +52,8 @@ public class ConfirmationServlet extends HttpServlet {
 
         if(createOrder){
             try {
+                System.out.println(servicePack.toString());
+                System.out.println(servicePack.getSelectedOptionalServices().toString());
                 servicePack = userService.createServicePack(servicePack, user);
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
