@@ -12,6 +12,8 @@ import java.util.List;
 @Table(name = "service_pack", schema = "dbproject2022")
 public class ServicePackEntity implements Serializable{
 
+    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "service_pack_id", nullable = false)
@@ -26,7 +28,7 @@ public class ServicePackEntity implements Serializable{
     @Column(name = "cost", nullable = false)
     private int cost;
 
-    @Column(name = "total_cost_optional_service", nullable = false)
+    @Column(name = "total_cost_optional_services", nullable = false)
     private int totalCostOptionalService;
 
     @ManyToOne (fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -42,7 +44,8 @@ public class ServicePackEntity implements Serializable{
     private List<OptionalServiceEntity> selectedOptionalServices;
 
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name ="period_service_pack")
     private PeriodEntity chosenPeriod;
 
     @ManyToOne (fetch = FetchType.EAGER, cascade = CascadeType.ALL)
