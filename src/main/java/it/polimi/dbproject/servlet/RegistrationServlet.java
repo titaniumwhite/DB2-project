@@ -8,6 +8,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -46,13 +47,20 @@ public class RegistrationServlet extends HttpServlet {
         String last_name = request.getParameter("last_name");
         String toServlet = "registration";
 
-        UserEntity u;
+        UserEntity u = null;
+        String guest = request.getParameter("guest");
+        HttpSession session = request.getSession();
 
         try {
             u = us.createUser(username, first_name, last_name, email, password);
 
-            if (u != null) toServlet = "registration?registrationDone=true";
+            if (u != null && !Objects.equals(guest, "guest")) toServlet = "registration?registrationDone=true";
+            else if (u != null && Objects.equals(guest, "guest")) {
+                toServlet = "confirmationpage";
+                session.setAttribute("user", u);
+            }
             else toServlet = "registration?registrationError=true";
+
         } catch (Exception e) {
             logger.log(Level.SEVERE, "An exception was thrown", e);
         }

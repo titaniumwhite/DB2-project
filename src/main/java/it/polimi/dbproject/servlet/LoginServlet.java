@@ -45,41 +45,60 @@ public class LoginServlet extends HttpServlet {
         String toServlet = "login";
         HttpSession session = request.getSession();
 
+        String guest = request.getParameter("guest");
 
-        if (username.matches("emp.*[0-9]{3}")) {
-            // It is logging an employee
-            EmployeeEntity emp = null;
-            try {
-                emp = es.checkEmployee(username, pass);
-            } catch (Exception e) {
-                logger.log(Level.SEVERE, "An exception was thrown", e);
-            }
+        // if it's not a guest
+        if (!Objects.equals(guest, "guest")) {
 
-            if(emp != null) {
-                session.setAttribute("employee", emp);
-                toServlet = "employeehomepage";
+            if (username.matches("emp.*[0-9]{3}")) {
+                // It is logging an employee
+                EmployeeEntity emp = null;
+                try {
+                    emp = es.checkEmployee(username, pass);
+                } catch (Exception e) {
+                    logger.log(Level.SEVERE, "An exception was thrown", e);
+                }
+
+                if (emp != null) {
+                    session.setAttribute("employee", emp);
+                    toServlet = "employeehomepage";
+                } else {
+                    toServlet = "login?loginSucceed=false";
+                }
+
             } else {
-                toServlet = "login?loginSucceed=false";
+                // It is logging a user
+                UserEntity user = null;
+                try {
+                    user = us.checkUser(username, pass);
+                } catch (Exception e) {
+                    logger.log(Level.SEVERE, "An exception was thrown", e);
+                }
+
+                if (user != null) {
+                    session.setAttribute("user", user);
+                    toServlet = "homepage";
+                } else {
+                    toServlet = "login?loginSucceed=false";
+                }
             }
+            response.sendRedirect(toServlet);
 
         } else {
-            // It is logging a user
-            UserEntity user= null;
+
+            UserEntity user = null;
+            toServlet = "confirmationpage";
             try {
-                user= us.checkUser(username, pass);
+                user = us.checkUser(username, pass);
+                session.setAttribute("user", user);
             } catch (Exception e) {
                 logger.log(Level.SEVERE, "An exception was thrown", e);
             }
 
-            if(user!= null) {
-                session.setAttribute("user", user);
-                toServlet = "homepage";
-            } else {
-                toServlet = "login?loginSucceed=false";
-            }
+            response.sendRedirect(toServlet);
         }
 
-        response.sendRedirect(toServlet);
+
 
     }
 }

@@ -136,7 +136,7 @@
     <br><br>
 
     <div id="overlay">
-        <div class="container h-100">
+        <div class="container" style="height: auto">
             <div class="row h-100 justify-content-center align-items-center">
         <div class="card mx-auto my-auto" style="width: 600px;">
             <button type="button" class="btn-close" onclick="overlayOff()"></button>

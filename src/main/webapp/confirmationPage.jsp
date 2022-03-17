@@ -101,22 +101,105 @@
                         <button class="btn btn-primary" name="confirm" value="reject" type="submit"> BUY (REJECT) </button>
                     </form>
                     <% } else { %>
-                    <form action="login" method="post">
-                        <button class="btn btn-primary" type="submit"> LOGIN/REGISTER </button>
-                    </form>
+
+                        <button class="btn btn-primary" type="submit" onclick="overlayOn()" > LOGIN/REGISTER </button>
+
                     <% } %>
             </div>
+    </div>
+
+                </div>
+            </div>
+
+
 </div>
 
 </div>
-</div>
 
-
-</div>
-
-</div>
 
 </section>
 
+<div id="overlay" style=" position: absolute; height: auto;">
+    <div class="container" style="height: auto">
+        <div class="row h-100 justify-content-center align-items-center">
+            <div class="card mx-auto my-auto" style="height: auto; width: 600px;">
+                <button type="button" class="btn-close" onclick="overlayOff()"></button>
+                <div class="card-body p-33 text-center">
+
+                    <h3 class="mb-3">Sign in</h3>
+
+                    ${registrationMessage}
+                    ${loginMessage}
+
+                    <br>
+                    <br>
+
+                    <form action="login" method="post">
+
+                        <div class="form-outline mb-4">
+                            <input type="text" name="username" id="typeUsername" class="form-control form-control-lg" />
+                            <label class="form-label" for="typeUsername">Username</label>
+
+                            <input type="password" id="typePassword" name="password" class="form-control form-control-lg"  />
+                            <label class="form-label" for="typePassword">Password</label>
+
+                        </div>
+
+                        <div class="form-outline mb-4">
+                        </div>
+
+
+                        <button class="btn btn-primary btn-lg btn-block" type="submit" name="guest" value="guest">Login</button>
+                        <br>
+                        <hr/>
+                    </form>
+
+                    If you don't have an account yet
+                    <br>
+                    <br>
+
+                    <form action="registration" method="post">
+
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="username">Username</span>
+                            <input type="text" name="username" class="form-control"  placeholder="Username" required/>
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="email">Email</span>
+                            <input type="email" name="email" class="form-control"  placeholder="Email" required/>
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="first_name">First name</span>
+                            <input type="text" name="first_name" class="form-control"  placeholder="First Name" required/>
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="last_name">Last name</span>
+                            <input type="text" name="last_name" class="form-control"  placeholder="Last Name" required/>
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="password">Password</span>
+                            <input type="password" name="password" class="form-control"  placeholder="Password" required/>
+                        </div>
+
+                        <button class="btn btn-primary btn-lg btn-block" type="submit" name="guest" value="guest">Submit</button>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
 </body>
+<script>
+    function overlayOn() {
+        document.getElementById("overlay").style.display = "block";
+    }
+
+    function overlayOff() {
+        document.getElementById("overlay").style.display = "none";
+    }
+</script>
+
 </html>
