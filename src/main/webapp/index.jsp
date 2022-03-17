@@ -50,7 +50,9 @@
                         <br>
                         <br>
 
-                        <a href="homepage" class="btn btn-outline-primary btn-lg btn-block" role="button" >Access as a guest</a>
+                        <form action="homepage" method="get">
+                            <button class="btn btn-outline-primary btn-lg btn-block" type="submit" name="guest" value="guest">Access as a guest</button>
+                        </form>
 
                         <div id="overlay">
                             <div class="col d-flex justify-content-center" style="padding-top: 55px;">
@@ -59,7 +61,6 @@
                                 <h5>Sign up</h5>
                                 <br>
                                 <form action="registration" method="post">
-
 
                                     <div class="input-group mb-3">
                                         <span class="input-group-text" id="username">Username</span>

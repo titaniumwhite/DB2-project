@@ -11,6 +11,7 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @WebServlet(name = "UserHomepageServlet", value = "/homepage")
@@ -27,23 +28,29 @@ public class UserHomepageServlet extends HttpServlet {
         List<OrderEntity> userOrders = null;
         List<OrderEntity> pendingOrders = null;
 
-        try {
-            user = (UserEntity) session.getAttribute("user");
-            if (user != null) {
-            Optional<UserEntity> optionalUser = userService.retrieveUserThroughID(user.getUser_id());
-            request.setAttribute("username", user.getUsername());
-                userOrders = userService.retrieveAllOrdersOfUser(user.getUser_id());
-                request.setAttribute("userOrders", userOrders);
+        if (Objects.equals(request.getParameter("guest"), "guest")) {
+            session.removeAttribute("user");
+        } else {
+            try {
+                user = (UserEntity) session.getAttribute("user");
+                if (user != null) {
+                    request.setAttribute("username", user.getUsername());
 
-                pendingOrders = userService.retrievePendingOrder(user.getUser_id());
-                request.setAttribute("pendingOrders", pendingOrders);
-                request.setAttribute("user_id", user.getUser_id());
+                    userOrders = userService.retrieveAllOrdersOfUser(user.getUser_id());
+                    request.setAttribute("userOrders", userOrders);
+
+                    pendingOrders = userService.retrievePendingOrder(user.getUser_id());
+                    request.setAttribute("pendingOrders", pendingOrders);
+                } else {
+
+                }
+            } catch (NumberFormatException e) {
+                //the user accessed as a guest
+                request.setAttribute("user", user);
             }
-        } catch (NumberFormatException e) {
-            //the user accessed as a guest
-            System.out.println("EXCEPTION");
-            request.setAttribute("user", user);
         }
+
+
         List<AvailableServicePackEntity> availableServicePackages = userService.getAllServicePackages();
         request.setAttribute("availableServicePackages", availableServicePackages);
         dispatcher.forward(request, response);
