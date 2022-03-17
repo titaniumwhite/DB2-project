@@ -46,7 +46,7 @@
         <div class="card-deck">
             <div class="row" style="width: auto !important;">
                 <%
-                    if( user != null && userOrders != null && userOrders.size() != 0 ) {
+                    if( user != null && userOrders != null && userOrders.size() != 0  ) {
                         System.out.println(userOrders);
                         for (OrderEntity o: userOrders){%>
                     <div class="col ">

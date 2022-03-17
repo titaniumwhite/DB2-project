@@ -138,7 +138,7 @@ public class ServicePackEntity implements Serializable{
     }
 
     public List<OptionalServiceEntity> getSelectedOptionalServices(){
-        return selectedOptionalServices;
+        return this.selectedOptionalServices;
     }
 
     public int getServicePack_id() {

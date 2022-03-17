@@ -9,7 +9,7 @@ import java.sql.Timestamp;
 @NamedQuery(
         name = "Order.retrieveAllUserOrderThroughID",
         query = " SELECT o FROM OrderEntity o" +
-                " WHERE o.owner = :user "
+                " WHERE o.owner = :user and o.isPlaceable = true "
 )
 @NamedQuery(
         name = "Order.retrieveThroughID",
