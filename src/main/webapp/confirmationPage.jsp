@@ -97,7 +97,7 @@
                     </form>
                         <div style="justify-content: center; padding-top: 1rem">
                         </div>
-                    <form>
+                    <form action="confirmationpage" method="post">
                         <button class="btn btn-primary" name="confirm" value="reject" type="submit"> BUY (REJECT) </button>
                     </form>
                     <% } else { %>

@@ -11,6 +11,7 @@ public class BestOptionalProduct implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "bestoptionalproduct_id", nullable = false)
     private int bestOptionalProduct_id;
 

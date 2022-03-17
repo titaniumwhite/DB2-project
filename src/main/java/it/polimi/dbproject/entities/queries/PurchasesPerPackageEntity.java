@@ -13,6 +13,7 @@ public class PurchasesPerPackageEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "purchasesperpackage_id", nullable = false)
     private int purchasesperpackage_id;
 

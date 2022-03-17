@@ -11,7 +11,7 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "ActivationOfServiceServlet", value = "/ActivationOfServiceServlet")
+@WebServlet(name = "ActivationOfServiceServlet", value = "/homepage")
 public class ActivationOfServiceServlet extends HttpServlet {
 
     @EJB
@@ -28,7 +28,7 @@ public class ActivationOfServiceServlet extends HttpServlet {
 
         request.setAttribute("pendingOrders", pendingOrders);
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("ActivationOfService.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("userHomepage.jsp");
         dispatcher.forward(request, response);
     }
 

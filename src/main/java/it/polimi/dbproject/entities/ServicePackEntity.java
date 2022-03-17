@@ -31,11 +31,11 @@ public class ServicePackEntity implements Serializable{
     @Column(name = "total_cost_optional_services", nullable = false)
     private int totalCostOptionalService;
 
-    @ManyToOne (fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne (fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "available_package")
     private AvailableServicePackEntity availablePackages;
 
-    @ManyToMany (fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany (fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(
             name="optional_services_selected",
             joinColumns={@JoinColumn(name="service_pack_id")},
@@ -141,6 +141,53 @@ public class ServicePackEntity implements Serializable{
         return selectedOptionalServices;
     }
 
+    public int getServicePack_id() {
+        return servicePack_id;
+    }
+
+    public void setServicePack_id(int servicePack_id) {
+        this.servicePack_id = servicePack_id;
+    }
+
+    public int getCost() {
+        return cost;
+    }
+
+    public void setCost(int cost) {
+        this.cost = cost;
+    }
+
+    public int getTotalCostOptionalService() {
+        return totalCostOptionalService;
+    }
+
+    public void setTotalCostOptionalService(int totalCostOptionalService) {
+        this.totalCostOptionalService = totalCostOptionalService;
+    }
+
+    public void setAvailablePackages(AvailableServicePackEntity availablePackages) {
+        this.availablePackages = availablePackages;
+    }
+
+    public void setSelectedOptionalServices(List<OptionalServiceEntity> selectedOptionalServices) {
+        this.selectedOptionalServices = selectedOptionalServices;
+    }
+
+    public UserEntity getUser_service_package() {
+        return user_service_package;
+    }
+
+    public void setUser_service_package(UserEntity user_service_package) {
+        this.user_service_package = user_service_package;
+    }
+
+    public OrderEntity getOrder() {
+        return order;
+    }
+
+    public void setOrder(OrderEntity order) {
+        this.order = order;
+    }
 
     @Override
     public String toString() {

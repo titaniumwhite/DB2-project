@@ -31,7 +31,7 @@ public class ConfirmationServlet extends HttpServlet {
         UserEntity user = (UserEntity) session.getAttribute("user");
 
         String confirm = request.getParameter("confirm");
-        String toServlet;
+        String toServlet = "homepage";
         OrderEntity order;
         servicePack = (ServicePackEntity) session.getAttribute("servicePack");
 
@@ -74,9 +74,6 @@ public class ConfirmationServlet extends HttpServlet {
             userService.userIsInsolvent(user, true);
         else
             userService.userIsInsolvent(user, false);
-
-        if(userService.retrievePendingOrder(user.getUser_id()).size() > 0) toServlet = "ActivationOfServiceServlet";
-        else toServlet = "homepage";
 
         response.sendRedirect(toServlet);
 

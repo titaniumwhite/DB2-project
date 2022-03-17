@@ -27,6 +27,8 @@ import java.util.Objects;
 @Table(name = "optional_service", schema = "dbproject2022")
 public class OptionalServiceEntity implements Serializable{
 
+    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "optional_service_id", unique = true, nullable = false)
@@ -40,7 +42,6 @@ public class OptionalServiceEntity implements Serializable{
 
     @ManyToMany(mappedBy = "optionalServices", fetch = FetchType.LAZY)
     private List<AvailableServicePackEntity> availableServicePackages;
-
 
     @ManyToMany(mappedBy = "selectedOptionalServices", fetch = FetchType.LAZY)
     private List<ServicePackEntity> servicePackages;

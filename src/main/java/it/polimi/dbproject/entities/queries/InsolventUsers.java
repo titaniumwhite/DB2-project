@@ -11,6 +11,7 @@ public class InsolventUsers implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "insolventusers_id", nullable = false)
     private int insolventusers_id;
 

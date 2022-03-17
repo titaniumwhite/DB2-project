@@ -10,6 +10,7 @@ import java.io.Serializable;
 @Table(name = "salesperpackage", schema = "dbproject2022")
 public class SalesPerPackage implements Serializable {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "salesperpackage_id", nullable = false)
     private int salesperpackage_id;
 
