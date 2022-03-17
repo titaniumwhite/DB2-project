@@ -53,6 +53,11 @@
                 <div class="card card-margin">
                     <div class="card-header no-border">
                         <h5 class="card-title"><%=o.getOrder_id()%></h5>
+                        <div class="card-body p-0.5">
+                            <p>Created: <%=o.getCreation_ts()%></p>
+                            <p>Total Cost: <%=o.getTotal_cost()%></p>
+                            <p>Service Pack: <%=o.getChosenServicePackage()%></p>
+                        </div>
                     </div>
                 </div>
                         <% }} else if (user == null){%>

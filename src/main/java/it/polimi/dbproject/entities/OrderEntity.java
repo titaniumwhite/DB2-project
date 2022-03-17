@@ -44,13 +44,6 @@ public class OrderEntity implements Serializable {
         this.owner = owner;
     }
 
-    public ServicePackEntity getChosenServicePackage() {
-        return servicePackageOrder;
-    }
-
-    public void setChosenServicePackage(ServicePackEntity service_package_order) {
-        this.servicePackageOrder = servicePackageOrder;
-    }
 
     @Column(name = "total_cost", nullable=false)
     private int totalCost;
@@ -62,7 +55,11 @@ public class OrderEntity implements Serializable {
     @JoinColumn(name = "owner")
     private UserEntity owner;
 
-    @OneToOne (fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = false)
+    @OneToOne (fetch = FetchType.LAZY, cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE,
+            CascadeType.REFRESH,
+            CascadeType.DETACH}, optional = false)
     @JoinColumn(name = "service_package_order")
     private ServicePackEntity servicePackageOrder;
 
@@ -79,6 +76,15 @@ public class OrderEntity implements Serializable {
         this.owner = owner;
         this.servicePackageOrder = servicePackageOrder;
     }
+
+    public ServicePackEntity getChosenServicePackage() {
+        return this.servicePackageOrder;
+    }
+
+    public void setChosenServicePackage(ServicePackEntity service_package_order) {
+        this.servicePackageOrder = servicePackageOrder;
+    }
+
 
     public Long getOrder_id() {
         return orderId;

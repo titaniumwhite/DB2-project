@@ -29,6 +29,7 @@ public class ConfirmationServlet extends HttpServlet {
         HttpSession session = request.getSession();
 
         UserEntity user = (UserEntity) session.getAttribute("user");
+        servicePack = (ServicePackEntity) session.getAttribute("servicePack");
 
         String confirm = request.getParameter("confirm");
         String toServlet = "homepage";
@@ -57,6 +58,7 @@ public class ConfirmationServlet extends HttpServlet {
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
+            System.out.println(servicePack.toString());
             order = userService.createOrder(new Timestamp(System.currentTimeMillis()), user, servicePack, isPlaceable);
         } else {
             order = userService.retrieveOrderThroughID(Integer.parseInt(Id_OrderRejected)).get();
