@@ -38,25 +38,25 @@
 </nav>
 
 <section>
-    <div class="container">
+<div class="container">
         <%
             List<OrderEntity> userOrders = (List<OrderEntity>) request.getAttribute("userOrders");
         %>
         <h2><b>My Orders</b></h2>
         <div class="card-deck">
-            <div class="row">
+            <div class="row" style="width: auto !important;">
                 <%
                     if( user != null && userOrders != null && userOrders.size() != 0 ) {
                         System.out.println(userOrders);
                         for (OrderEntity o: userOrders){%>
-                    <div class="col-lg-4 d-flex align-items-stretch">
+                    <div class="col ">
                 <div class="card card-margin">
                     <div class="card-header no-border">
                         <h5 class="card-title"><%=o.getOrder_id()%></h5>
                     </div>
                 </div>
                         <% }} else if (user == null){%>
-                        <div class="col-lg-4 d-flex align-items-stretch"  style="padding-bottom: calc(1.5rem * 1.5);">
+                        <div class="col d-flex align-items-stretch"  style="padding-bottom: calc(1.5rem * 1.5);">
                         <div class="card-deck">
                             <div class="card card-margin">
                                 <div class="card-body p-0.5">
@@ -66,7 +66,7 @@
                         </div>
                         </div>
                         <% } else {%>
-                        <div class="col-lg-4 d-flex align-items-stretch"  style="padding-bottom: calc(1.5rem * 1.5);">
+                        <div class="col d-flex align-items-stretch"  style="padding-bottom: calc(1.5rem * 1.5);">
                             <div class="card-deck">
                                 <div class="card card-margin">
                                     <div class="card-body p-0.5">
@@ -88,19 +88,19 @@
                     %>
                     <h2><b>My Pending Orders</b></h2>
                     <div class="card-deck">
-                        <div class="row">
+                        <div class="row" style="width: auto !important;">
                             <%
                                 if( user != null && pendingOrders != null && pendingOrders.size() != 0 ) {
                                     System.out.println(userOrders);
                                     for (OrderEntity o: pendingOrders){%>
-                            <div class="col-lg-4 d-flex align-items-stretch">
+                            <div class="col">
                                 <div class="card card-margin">
                                     <div class="card-header no-border">
                                         <h5 class="card-title"><%=o.getOrder_id()%></h5>
                                     </div>
                                 </div>
                                 <% }} else if (user == null){%>
-                                <div class="col-lg-4 d-flex align-items-stretch"  style="padding-bottom: calc(1.5rem * 1.5);">
+                                <div class="col d-flex align-items-stretch"  style="padding-bottom: calc(1.5rem * 1.5);">
                                     <div class="card-deck">
                                         <div class="card card-margin">
                                             <div class="card-body p-0.5">
@@ -110,7 +110,7 @@
                                     </div>
                                 </div>
                                 <% } else {%>
-                                <div class="col-lg-4 d-flex align-items-stretch"  style="padding-bottom: calc(1.5rem * 1.5);">
+                                <div class="col d-flex align-items-stretch"  style="padding-bottom: calc(1.5rem * 1.5);">
                                     <div class="card-deck">
                                         <div class="card card-margin">
                                             <div class="card-body p-0.5">
@@ -125,17 +125,18 @@
                         </div>
                     </div>
 
-
+    <br>
+                    <br>
     <div class="container">
     <% List<AvailableServicePackEntity> servicePackages = (List<AvailableServicePackEntity>) request.getAttribute("availableServicePackages");
     %>
 
         <h2><b>Available Service Packages</b></h2>
     <div class="card-deck">
-        <div class="row">
+        <div class="row" style="width: auto !important;">
     <%  if (servicePackages != null) {
             for (AvailableServicePackEntity sp: servicePackages) {%>
-            <div class="col-lg-4 d-flex align-items-stretch"  style="padding-bottom: calc(1.5rem * 1.5);">
+            <div class="col align-items-stretch"  style="padding-bottom: calc(1.5rem * 1.5);">
                 <div class="card card-margin">
                     <div class="card-header no-border">
                         <h5 class="card-title"><%=sp.getName()%></h5>
@@ -188,8 +189,8 @@
     </div>
 
     </div>
-    </div>
 
+                </div>
 </section>
 
 
