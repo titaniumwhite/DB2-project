@@ -54,7 +54,7 @@ public class EmployeeService {
     }
 
     public OptionalServiceEntity createOptionalService(String name, int fee) {
-        OptionalServiceEntity os = new OptionalServiceEntity(name, fee);
+        OptionalServiceEntity os = new OptionalServiceEntity(name, fee, null, null);
         System.out.println(os.toString());
 
         try{

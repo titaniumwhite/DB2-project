@@ -35,7 +35,7 @@ public class ServicePackEntity implements Serializable{
     @JoinColumn(name = "available_package")
     private AvailableServicePackEntity availablePackages;
 
-    @ManyToMany (fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany (fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinTable(
             name="optional_services_selected",
             joinColumns={@JoinColumn(name="service_pack_id")},
@@ -51,7 +51,6 @@ public class ServicePackEntity implements Serializable{
     @ManyToOne (fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_service_package")
     private UserEntity user_service_package;
-
 
     @OneToOne(mappedBy = "servicePackageOrder", cascade = CascadeType.ALL, orphanRemoval = true)
     private OrderEntity order;

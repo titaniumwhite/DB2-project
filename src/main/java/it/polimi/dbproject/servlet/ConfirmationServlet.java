@@ -33,7 +33,6 @@ public class ConfirmationServlet extends HttpServlet {
         String confirm = request.getParameter("confirm");
         String toServlet = "homepage";
         OrderEntity order;
-        servicePack = (ServicePackEntity) session.getAttribute("servicePack");
 
         boolean isPlaceable;
 
