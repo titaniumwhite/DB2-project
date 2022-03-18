@@ -95,7 +95,7 @@ public class BuyServiceServlet extends HttpServlet{
         session.setAttribute("selectedPackage", selectedPackage);
 
         List<PeriodEntity> periods = userService.retrieveAllPeriods();
-        request.setAttribute("periods", periods);
+        request.setAttribute("periods", selectedPackage.getPeriods());
 
         ArrayList<OptionalServiceEntity> optionalServices = new ArrayList<>(userService.retrieveAllOptionalServices());
         ArrayList<OptionalServiceEntity> includedOptionalServices = new ArrayList<>(selectedPackage.getOptionalServices());

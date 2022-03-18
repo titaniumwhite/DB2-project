@@ -42,12 +42,11 @@
         <%
             List<ErrorEntity> userErrors = (List<ErrorEntity>) request.getAttribute("userErrors");
         %>
-        <h2><b>My Errors</b></h2>
+        <% if (user != null && userErrors.size() != 0) { %>
         <div class="card-deck">
+            <h2><b>My Errors</b></h2>
             <div class="row" style="width: auto !important;">
-                <%
-                    if( user != null && userErrors != null && userErrors.size() != 0  ) {
-                        for (ErrorEntity o: userErrors){%>
+                <% for (ErrorEntity o: userErrors){%>
                 <div class="col ">
                     <div class="card card-margin">
                         <div class="card-header no-border">
@@ -58,31 +57,11 @@
                             </div>
                         </div>
                     </div>
-                    <% }} else if (user == null){%>
-                    <div class="col d-flex align-items-stretch"  style="padding-bottom: calc(1.5rem * 1.5);">
-                        <div class="card-deck">
-                            <div class="card card-margin">
-                                <div class="card-body p-0.5">
-                                    <p style="text-align: center; justify-content: center; position: center;"><i>You need to login to place an order!</i></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <% } else {%>
-                    <div class="col d-flex align-items-stretch"  style="padding-bottom: calc(1.5rem * 1.5);">
-                        <div class="card-deck">
-                            <div class="card card-margin">
-                                <div class="card-body p-0.5">
-                                    <p style="text-align: center; justify-content: center; position: center;"><i>You have not placed any order yet!</i></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <% } %>
-
+                    <% }%>
                 </div>
             </div>
         </div>
+        <% }%>
 
         <%
             List<OrderEntity> userOrders = (List<OrderEntity>) request.getAttribute("userOrders");

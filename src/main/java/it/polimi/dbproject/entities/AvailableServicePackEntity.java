@@ -42,7 +42,7 @@ public class AvailableServicePackEntity implements Serializable {
     )
     private List<ServiceEntity> services;
 
-    @ManyToMany(fetch=FetchType.LAZY)
+    @ManyToMany(fetch=FetchType.EAGER)
     @JoinTable(
             name="period_to_offer",
             joinColumns={@JoinColumn(name="available_service_pack_id")},
