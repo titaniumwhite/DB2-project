@@ -1,6 +1,7 @@
 package it.polimi.dbproject.servlet;
 
 import it.polimi.dbproject.entities.AvailableServicePackEntity;
+import it.polimi.dbproject.entities.ErrorEntity;
 import it.polimi.dbproject.entities.OrderEntity;
 import it.polimi.dbproject.entities.UserEntity;
 import it.polimi.dbproject.services.UserService;
@@ -27,6 +28,7 @@ public class UserHomepageServlet extends HttpServlet {
         UserEntity user = null;
         List<OrderEntity> userOrders = null;
         List<OrderEntity> pendingOrders = null;
+        List<ErrorEntity> userErrors = null;
 
         if (Objects.equals(request.getParameter("guest"), "guest")) {
             session.removeAttribute("user");
@@ -41,6 +43,11 @@ public class UserHomepageServlet extends HttpServlet {
 
                     pendingOrders = userService.retrievePendingOrder(user.getUser_id());
                     request.setAttribute("pendingOrders", pendingOrders);
+
+                    userErrors = userService.retrieveAllErrorsOfUser(user.getUser_id());
+                    request.setAttribute("userErrors", userErrors);
+
+                    System.out.println(userErrors.toString());
                 } else {
 
                 }

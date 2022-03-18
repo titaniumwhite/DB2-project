@@ -3,9 +3,12 @@ package it.polimi.dbproject.entities;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
-import java.util.List;
 
 @Entity
+@NamedQuery(
+        name = "Error.findAll",
+        query = "SELECT e FROM ErrorEntity e WHERE e.owner = :user "
+)
 @Table(name = "error", schema = "dbproject2022")
 public class ErrorEntity implements Serializable {
 
@@ -70,8 +73,15 @@ public class ErrorEntity implements Serializable {
         this.owner = owner;
     }
 
-    // METHODS //
-
+    @Override
+    public String toString() {
+        return "ErrorEntity{" +
+                "errorId=" + errorId +
+                ", totNumber=" + totNumber +
+                ", timestamp=" + timestamp +
+                ", owner=" + owner +
+                '}';
+    }
 }
 
 

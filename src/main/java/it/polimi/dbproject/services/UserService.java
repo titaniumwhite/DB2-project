@@ -127,9 +127,10 @@ public class UserService {
                 .getResultStream().findFirst();
     }
 
-    public boolean randomPayment(){
-        Random rd = new Random();
-        return rd.nextBoolean();
+    public List<ErrorEntity> retrieveAllErrorsOfUser(int userId){
+        return em.createNamedQuery("Error.findAll", ErrorEntity.class)
+                .setParameter("user", retrieveUserThroughID(userId).get())
+                .getResultList();
     }
 
     public ServicePackEntity addressServiceToUser(ServicePackEntity servicePack, UserEntity user) throws SQLException{
