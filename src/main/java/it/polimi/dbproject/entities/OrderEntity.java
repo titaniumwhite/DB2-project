@@ -27,6 +27,7 @@ import java.sql.Timestamp;
                 " JOIN o.servicePackageOrder s " +
                 " WHERE o.owner = :user AND o.isPlaceable = false"
 )
+
 @Table(name = "order", schema = "dbproject2022")
 public class OrderEntity implements Serializable {
 
@@ -89,7 +90,7 @@ public class OrderEntity implements Serializable {
 
 
     public Long getOrder_id() {
-        return orderId;
+        return this.orderId;
     }
 
     public void setOrder_id(Long orderId) {

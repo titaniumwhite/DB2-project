@@ -124,11 +124,16 @@
                             <div class="col">
                                 <div class="card card-margin">
                                     <div class="card-header no-border">
-                                        <h5 class="card-title"><%=o.getOrder_id()%></h5>
+
+                                        <h5 class="card-title"><% long order_id = o.getOrder_id();%></h5>
                                         <div class="card-body p-0.5">
                                             <p>Created: <%=o.getCreation_ts()%></p>
                                             <p>Total Cost: <%=o.getTotal_cost()%></p>
+                                            <form action="homepage" method="post" >
+                                                <a><button class="btn btn-outline-primary" name="reOrder"value="reOrder" type="submit"><c:out value="<%=order_id%>"/>Re-Order</button></a>
+                                            </form>
                                         </div>
+
                                     </div>
                                 </div>
                                 <% }} else if (user == null){%>

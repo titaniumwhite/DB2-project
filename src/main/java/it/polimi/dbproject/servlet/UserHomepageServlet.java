@@ -1,9 +1,6 @@
 package it.polimi.dbproject.servlet;
 
-import it.polimi.dbproject.entities.AvailableServicePackEntity;
-import it.polimi.dbproject.entities.ErrorEntity;
-import it.polimi.dbproject.entities.OrderEntity;
-import it.polimi.dbproject.entities.UserEntity;
+import it.polimi.dbproject.entities.*;
 import it.polimi.dbproject.services.UserService;
 
 import javax.ejb.EJB;
@@ -29,6 +26,7 @@ public class UserHomepageServlet extends HttpServlet {
         List<OrderEntity> userOrders = null;
         List<OrderEntity> pendingOrders = null;
         List<ErrorEntity> userErrors = null;
+
 
         if (Objects.equals(request.getParameter("guest"), "guest")) {
             session.removeAttribute("user");
@@ -57,14 +55,33 @@ public class UserHomepageServlet extends HttpServlet {
             }
         }
 
-
         List<AvailableServicePackEntity> availableServicePackages = userService.getAllServicePackages();
         request.setAttribute("availableServicePackages", availableServicePackages);
+
+
+
         dispatcher.forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
 
+        String toServlet = "confirmationpage";
+        String reOrder = request.getParameter("reOrder");
+        System.out.println("ciaoooo");
+        long order_id = Long.parseLong(request.getParameter("order_id"));
+
+        if(reOrder.equals("reOrder")){
+                System.out.println("weeeeee");
+                //System.out.println("order_id = " + order_id);
+                Optional<ServicePackEntity> optionalServicePack = userService.retrieveServicePackThroughOrderId(order_id);
+                ServicePackEntity servicePack = optionalServicePack.get();
+                System.out.println(servicePack);
+                session.setAttribute("servicePack", servicePack);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("confirmationPage.jsp");
+                dispatcher.forward(request, response);
+                response.sendRedirect(toServlet);
+        }
     }
 }

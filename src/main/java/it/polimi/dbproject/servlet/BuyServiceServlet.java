@@ -80,6 +80,7 @@ public class BuyServiceServlet extends HttpServlet{
                 optionalServices);
 
         session.setAttribute("servicePack", servicePack);
+
         toServlet = "confirmationpage";
 
         response.sendRedirect(toServlet);

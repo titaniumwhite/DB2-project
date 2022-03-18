@@ -8,6 +8,12 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+@NamedQuery(
+        name = "ServicePack.retrievePackageThroughOrderID",
+        query = " SELECT s FROM ServicePackEntity s" +
+                " WHERE s.order.orderId = :orderId"
+)
+
 @Entity
 @Table(name = "service_pack", schema = "dbproject2022")
 public class ServicePackEntity implements Serializable{

@@ -191,6 +191,12 @@ public class UserService {
                 .getResultList();
     }
 
+    public Optional<ServicePackEntity> retrieveServicePackThroughOrderId(Long orderId){
+        return em.createNamedQuery("ServicePack.retrievePackageThroughOrderID", ServicePackEntity.class)
+                .setParameter("orderId", orderId)
+                .getResultStream().findFirst();
+    }
+
     public void userIsInsolvent(UserEntity user, boolean isInsolvent){
         UserEntity user1 = em.find(UserEntity.class, user.getUser_id());
         user1.setInsolvent(isInsolvent);
