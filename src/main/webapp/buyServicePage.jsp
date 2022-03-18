@@ -62,8 +62,8 @@
                         <p style="font-size: medium; text-align: center; justify-content: center"><b>Choose the period of the subscription</b></p>
                         <div class="row"  style="padding-left: 1.5rem"></div>
                     <% for (PeriodEntity p: periods) {%>
-                    <div class="form-check" style="padding-left: 3rem !important;">
-                        <input class="form-check-input" type="radio" name="chosenPeriod" id="chosenPeriod" value="<%=p.getPeriod_id()%>">
+                    <div class="form-check" style="padding-left: 3rem !important;" >
+                        <input class="form-check-input" type="radio" name="chosenPeriod" id="chosenPeriod" value="<%=p.getPeriod_id()%>" required>
                         <label class="form-check-label" for="chosenPeriod">
                             <%=p.getDuration()%> months (<%=p.getMonthlyFee()%> &euro;/month)
                         </label>
