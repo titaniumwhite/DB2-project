@@ -92,9 +92,9 @@
             <div class="row" style="text-align: center">
 
                 <% if(user != null){ %>
-                    <form action="confirmationpage" method="post">
-                        <button class="btn btn-primary" name="confirm" value="confirm" type="submit"> BUY (ACCEPTANCE) </button>
-                    </form>
+
+                    <button class="btn btn-primary"type="submit" onclick="actScheduleOverlayOn()"> BUY (ACCEPTANCE) </button>
+
                         <div style="justify-content: center; padding-top: 1rem">
                         </div>
                     <form action="confirmationpage" method="post">
@@ -106,18 +106,54 @@
 
                     <% } %>
             </div>
-    </div>
+        </div>
+                </div>
 
+
+</div>
+    </div>
+</div>
+
+    <div id="overlay2" style=" position: absolute; height: auto;">
+        <div class="container" style="height: auto">
+            <div class="row h-100 justify-content-center align-items-center">
+                <div class="card mx-auto my-auto" style="height: auto; width: 600px;">
+                    <form action="confirmationpage" method="post">
+                        <button type="submit" class="btn-close" name="confirm" value="confirm" onclick="actScheduleOverlayOff()"></button>
+                    </form>
+                    <div class="card-body p-33 text-center">
+
+                        <h3 class="mb-3">Activation Schedule</h3>
+                        <h2 class="mb-2">The payment has been confirmed</h2>
+                        <p style="font-size: large; text-align: center; justify-content: center"><b>The following package will be activated the <%=servicePack.getStartDate()%>:</b></p>
+                        <div class="row"  style="justify-content: center">
+                            <div class="form-check">
+                                <p style="font-size: medium; text-align: center; justify-content: center"><%=servicePack.getAvailablePackage().getName()%></p>
+                            </div>
+                        </div>
+
+                        <div class="row"  style="justify-content: center">
+                            <% if (servicePack.getSelectedOptionalServices().size() > 0) {%>
+                            <p style="font-size: large; text-align: center; justify-content: center"><b>The same day the following optional services will be activated:</b></p>
+                            <ul class="list-group">
+                                <% for (OptionalServiceEntity os: servicePack.getSelectedOptionalServices()) {%>
+                                <li class="list-group-item">
+                                    <p style="font-size: medium; text-align: center; justify-content: center" name="chosenOptionalServices" ><%=os.getName()%></p>
+                                </li>
+                                <% }} %>
+                            </ul
+                        </div>
+                    </div>
                 </div>
             </div>
-
-
-</div>
-
-</div>
+        </div>
+    </div>
 
 
 </section>
+
+
+
 
 <div id="overlay" style=" position: absolute; height: auto;">
     <div class="container" style="height: auto">
@@ -145,8 +181,7 @@
 
                         </div>
 
-                        <div class="form-outline mb-4">
-                        </div>
+                        <div class="form-outline mb-4"></div>
 
 
                         <button class="btn btn-primary btn-lg btn-block" type="submit" name="guest" value="guest">Login</button>
@@ -188,17 +223,28 @@
             </div>
         </div>
     </div>
-
 </div>
+
 
 </body>
 <script>
     function overlayOn() {
+        console.log("IO STO QUAAA")
+        console.log(document.getElementById("overlay"))
         document.getElementById("overlay").style.display = "block";
+        console.log(document.getElementById("overlay").style.display)
     }
 
     function overlayOff() {
         document.getElementById("overlay").style.display = "none";
+    }
+
+    function actScheduleOverlayOn() {
+        document.getElementById("overlay2").style.display = "block";
+    }
+
+    function actScheduleOverlayOff() {
+        document.getElementById("overlay2").style.display = "none";
     }
 </script>
 
