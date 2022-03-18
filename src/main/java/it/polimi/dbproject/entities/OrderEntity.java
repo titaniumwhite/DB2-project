@@ -69,10 +69,12 @@ public class OrderEntity implements Serializable {
 
     public OrderEntity(Timestamp timestampCreation,
                        int totalCost,
+                       boolean isPlaceable,
                        UserEntity owner,
                        ServicePackEntity servicePackageOrder) {
         this.timestampCreation = timestampCreation;
         this.totalCost = totalCost;
+        this.isPlaceable = isPlaceable;
         this.owner = owner;
         this.servicePackageOrder = servicePackageOrder;
     }
