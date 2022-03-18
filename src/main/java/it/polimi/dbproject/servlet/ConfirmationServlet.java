@@ -83,6 +83,7 @@ public class ConfirmationServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
 
         if (request.getParameter("order") == null ) {
 
@@ -105,6 +106,14 @@ public class ConfirmationServlet extends HttpServlet {
             int service_pack_id = Integer.parseInt(request.getParameter("service"));
             System.out.println("Spero funzioni " + order_id + "  " + service_pack_id);
 
+            servicePack = userService.retrieveServicePackThroughId(service_pack_id).get();
+
+            System.out.println(servicePack);
+
+            session.setAttribute("servicePack", servicePack);
+
+            RequestDispatcher dispatcher = request.getRequestDispatcher("confirmationPage.jsp");
+            dispatcher.forward(request, response);
         }
     }
 }

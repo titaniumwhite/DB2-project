@@ -191,9 +191,15 @@ public class UserService {
                 .getResultList();
     }
 
-    public Optional<ServicePackEntity> retrieveServicePackThroughOrderId(Long orderId){
+    public Optional<ServicePackEntity> retrieveServicePackThroughOrderId(int orderId){
         return em.createNamedQuery("ServicePack.retrievePackageThroughOrderID", ServicePackEntity.class)
                 .setParameter("orderId", orderId)
+                .getResultStream().findFirst();
+    }
+
+    public Optional<ServicePackEntity> retrieveServicePackThroughId(int servicePackId){
+        return em.createNamedQuery("ServicePack.retrievePackageThroughID", ServicePackEntity.class)
+                .setParameter("servicePackId", servicePackId)
                 .getResultStream().findFirst();
     }
 

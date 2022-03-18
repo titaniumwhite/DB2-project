@@ -36,7 +36,7 @@ public class PeriodEntity implements Serializable{
     @Column(name = "monthly_fee", nullable = false)
     private int monthlyFee;
 
-    @ManyToMany(mappedBy = "periods", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "periods", fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     private List<AvailableServicePackEntity> availableServicePackages;
 
     public PeriodEntity() {    }

@@ -14,6 +14,12 @@ import java.util.List;
                 " WHERE s.order.orderId = :orderId"
 )
 
+@NamedQuery(
+        name = "ServicePack.retrievePackageThroughID",
+        query = " SELECT s FROM ServicePackEntity s" +
+                " WHERE s.servicePack_id = :servicePackId"
+)
+
 @Entity
 @Table(name = "service_pack", schema = "dbproject2022")
 public class ServicePackEntity implements Serializable{
@@ -41,7 +47,7 @@ public class ServicePackEntity implements Serializable{
     @JoinColumn(name = "available_package")
     private AvailableServicePackEntity availablePackages;
 
-    @ManyToMany (fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    @ManyToMany (fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name="optional_services_selected",
             joinColumns={@JoinColumn(name="service_pack_id")},
@@ -50,7 +56,7 @@ public class ServicePackEntity implements Serializable{
     private List<OptionalServiceEntity> selectedOptionalServices;
 
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name ="period_service_pack")
     private PeriodEntity chosenPeriod;
 
@@ -58,11 +64,7 @@ public class ServicePackEntity implements Serializable{
     @JoinColumn(name = "user_service_package")
     private UserEntity user_service_package;
 
-    @OneToOne(mappedBy = "servicePackageOrder", cascade = {
-            CascadeType.PERSIST,
-            CascadeType.MERGE,
-            CascadeType.REFRESH,
-            CascadeType.DETACH}, orphanRemoval = true)
+    @OneToOne(mappedBy = "servicePackageOrder", cascade = CascadeType.MERGE, orphanRemoval = true)
     private OrderEntity order;
 
     public ServicePackEntity(){}
