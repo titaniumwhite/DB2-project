@@ -58,7 +58,11 @@ public class ServicePackEntity implements Serializable{
     @JoinColumn(name = "user_service_package")
     private UserEntity user_service_package;
 
-    @OneToOne(mappedBy = "servicePackageOrder", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(mappedBy = "servicePackageOrder", cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE,
+            CascadeType.REFRESH,
+            CascadeType.DETACH}, orphanRemoval = true)
     private OrderEntity order;
 
     public ServicePackEntity(){}

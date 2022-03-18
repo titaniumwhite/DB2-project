@@ -36,7 +36,7 @@ public class OrderEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "order_id", nullable = false)
-    private Long orderId;
+    private int orderId;
 
     @Column(name = "timestamp_creation", nullable=false)
     private Timestamp timestampCreation;
@@ -56,7 +56,7 @@ public class OrderEntity implements Serializable {
     @JoinColumn(name = "owner")
     private UserEntity owner;
 
-    @OneToOne (fetch = FetchType.LAZY, cascade = {
+    @OneToOne (fetch = FetchType.EAGER, cascade = {
             CascadeType.PERSIST,
             CascadeType.MERGE,
             CascadeType.REFRESH,
@@ -89,11 +89,11 @@ public class OrderEntity implements Serializable {
     }
 
 
-    public Long getOrder_id() {
+    public int getOrder_id() {
         return this.orderId;
     }
 
-    public void setOrder_id(Long orderId) {
+    public void setOrder_id(int orderId) {
         this.orderId = orderId;
     }
 

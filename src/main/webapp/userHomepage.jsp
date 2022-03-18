@@ -125,12 +125,12 @@
                                 <div class="card card-margin">
                                     <div class="card-header no-border">
 
-                                        <h5 class="card-title"><% long order_id = o.getOrder_id();%></h5>
+                                        <h5 class="card-title"><% int order_id = o.getOrder_id(); int service_pack_id = o.getChosenServicePackage().getServicePack_id(); %></h5>
                                         <div class="card-body p-0.5">
                                             <p>Created: <%=o.getCreation_ts()%></p>
                                             <p>Total Cost: <%=o.getTotal_cost()%></p>
-                                            <form action="homepage" method="post" >
-                                                <a><button class="btn btn-outline-primary" name="reOrder"value="reOrder" type="submit"><c:out value="<%=order_id%>"/>Re-Order</button></a>
+                                            <form action="homepage" method="post"  >
+                                                <a href="confirmationpage?order=<%=order_id%>&service=<%=service_pack_id%>" class="btn btn-outline-primary" onclick="document.getElementById('myform').submit();"><c:out value="<%=order_id%>"/>Re-Order</a>
                                             </form>
                                         </div>
 

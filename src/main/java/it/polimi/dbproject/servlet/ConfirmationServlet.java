@@ -84,18 +84,27 @@ public class ConfirmationServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        Id_OrderRejected = request.getParameter("OrderRejected");
+        if (request.getParameter("order") == null ) {
 
-        if(Id_OrderRejected != null){
-            servicePack = userService.retrieveOrderThroughID(Integer.parseInt(Id_OrderRejected)).get().getChosenServicePackage();
-            createOrder = false;
+            Id_OrderRejected = request.getParameter("OrderRejected");
+
+            if (Id_OrderRejected != null) {
+                servicePack = userService.retrieveOrderThroughID(Integer.parseInt(Id_OrderRejected)).get().getChosenServicePackage();
+                createOrder = false;
+            } else {
+                servicePack = (ServicePackEntity) request.getSession(false).getAttribute("servicePack");
+                createOrder = true;
+            }
+
+            request.setAttribute("servicePack", servicePack);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("confirmationPage.jsp");
+            dispatcher.forward(request, response);
+
         } else {
-            servicePack = (ServicePackEntity) request.getSession(false).getAttribute("servicePack");
-            createOrder = true;
-        }
+            int order_id = Integer.parseInt(request.getParameter("order"));
+            int service_pack_id = Integer.parseInt(request.getParameter("service"));
+            System.out.println("Spero funzioni " + order_id + "  " + service_pack_id);
 
-        request.setAttribute("servicePack", servicePack);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("confirmationPage.jsp");
-        dispatcher.forward(request, response);
+        }
     }
 }

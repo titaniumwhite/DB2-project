@@ -65,7 +65,7 @@ public class UserHomepageServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession();
+        /*HttpSession session = request.getSession();
 
         String toServlet = "confirmationpage";
         String reOrder = request.getParameter("reOrder");
@@ -82,6 +82,6 @@ public class UserHomepageServlet extends HttpServlet {
                 RequestDispatcher dispatcher = request.getRequestDispatcher("confirmationPage.jsp");
                 dispatcher.forward(request, response);
                 response.sendRedirect(toServlet);
-        }
+        }*/
     }
 }
