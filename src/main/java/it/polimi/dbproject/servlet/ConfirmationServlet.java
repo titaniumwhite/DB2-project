@@ -52,11 +52,12 @@ public class ConfirmationServlet extends HttpServlet {
 
         if(createOrder){
             try {
+                if (servicePack.getUser() == null)
                 servicePack = userService.createServicePack(servicePack, user);
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
-            
+
             order = userService.createOrder(new Timestamp(System.currentTimeMillis()), user, servicePack, isPlaceable);
         } else {
             order = userService.retrieveOrderThroughID(Integer.parseInt(Id_OrderRejected)).get();
