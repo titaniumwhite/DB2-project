@@ -56,7 +56,7 @@ public class ConfirmationServlet extends HttpServlet {
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
-            System.out.println(servicePack.toString());
+            
             order = userService.createOrder(new Timestamp(System.currentTimeMillis()), user, servicePack, isPlaceable);
         } else {
             order = userService.retrieveOrderThroughID(Integer.parseInt(Id_OrderRejected)).get();
@@ -107,8 +107,6 @@ public class ConfirmationServlet extends HttpServlet {
             System.out.println("Spero funzioni " + order_id + "  " + service_pack_id);
 
             servicePack = userService.retrieveServicePackThroughId(service_pack_id).get();
-
-            System.out.println(servicePack);
 
             session.setAttribute("servicePack", servicePack);
 
