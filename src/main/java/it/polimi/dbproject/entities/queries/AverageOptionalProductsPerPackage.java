@@ -1,21 +1,23 @@
 package it.polimi.dbproject.entities.queries;
 
+import it.polimi.dbproject.entities.ServicePackEntity;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
-@Table(name = "averageoptionalproductsperpackage", schema = "dbproject2022")
+@Table(name = "average_optional_products_perpackage", schema = "dbproject2022")
 public class AverageOptionalProductsPerPackage implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "averageoptionalproductsperpackage_id", nullable = false)
+    @Column(name = "average_optional_products_perpackage_id", nullable = false)
     private int package_id;
 
     @OneToOne
-    @JoinColumn(name = "package_id")
-    private AverageOptionalProductsPerPackage servicePackage;
+    @JoinColumn(name = "service_pack_id")
+    private ServicePackEntity servicePackage;
 
     @Column(name = "average", nullable = false)
     private float average;
@@ -24,7 +26,7 @@ public class AverageOptionalProductsPerPackage implements Serializable {
     public AverageOptionalProductsPerPackage() {
     }
 
-    public AverageOptionalProductsPerPackage(int package_id, AverageOptionalProductsPerPackage servicePackage, float average) {
+    public AverageOptionalProductsPerPackage(int package_id, ServicePackEntity servicePackage, float average) {
         this.package_id = package_id;
         this.servicePackage = servicePackage;
         this.average = average;
@@ -38,11 +40,11 @@ public class AverageOptionalProductsPerPackage implements Serializable {
         this.package_id = package_id;
     }
 
-    public AverageOptionalProductsPerPackage getServicePackage() {
+    public ServicePackEntity getServicePackage() {
         return servicePackage;
     }
 
-    public void setServicePackage(AverageOptionalProductsPerPackage servicePackage) {
+    public void setServicePackage(ServicePackEntity servicePackage) {
         this.servicePackage = servicePackage;
     }
 

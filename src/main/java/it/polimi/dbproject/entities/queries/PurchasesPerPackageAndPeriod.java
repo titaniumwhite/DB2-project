@@ -10,14 +10,14 @@ import java.io.Serializable;
 @Entity
 
 
-@Table(name = "purchasesperpackageandperiod", schema = "dbproject2022")
+@Table(name = "purchases_per_package_and_period", schema = "dbproject2022")
 public class PurchasesPerPackageAndPeriod implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "purchasesperpackageandperiod_id", nullable = false)
+    @Column(name = "purchases_per_package_and_period_id", nullable = false)
     private int purchasesperpackageandperiod;
 
     @OneToOne

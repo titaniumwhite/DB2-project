@@ -8,13 +8,13 @@ import java.io.Serializable;
 
 @Entity
 
-@Table(name = "purchasesperpackage", schema = "dbproject2022")
+@Table(name = "purchases_per_package", schema = "dbproject2022")
 public class PurchasesPerPackageEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "purchasesperpackage_id", nullable = false)
+    @Column(name = "purchases_per_package_id", nullable = false)
     private int purchasesperpackage_id;
 
     @OneToOne
@@ -22,7 +22,7 @@ public class PurchasesPerPackageEntity implements Serializable {
     private AvailableServicePackEntity availableServicePack;
 
 
-    @Column(name = "totalPurchases", nullable = false)
+    @Column(name = "total_purchases", nullable = false)
     private int totalPurchases;
 
 

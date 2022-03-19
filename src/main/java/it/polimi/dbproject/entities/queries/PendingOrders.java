@@ -12,15 +12,15 @@ import java.io.Serializable;
         query = "SELECT po FROM PendingOrders po "
 )
 
-@Table(name = "pendingorders", schema = "dbproject2022")
+@Table(name = "pending_orders", schema = "dbproject2022")
 public class PendingOrders implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "suspendedorders_id", nullable = false)
-    private int suspendedorders_id;
+    @Column(name = "pending_orders_Id", nullable = false)
+    private int pendingOrders_Id;
 
     @OneToOne
     @JoinColumn(name = "order_id")
