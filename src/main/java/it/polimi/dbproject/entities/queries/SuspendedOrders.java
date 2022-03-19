@@ -5,6 +5,13 @@ import it.polimi.dbproject.entities.OrderEntity;
 import javax.persistence.*;
 import java.io.Serializable;
 
+@Entity
+
+@NamedQuery(
+        name = "PendingOrders.retrievePendingOrder",
+        query = "SELECT po FROM PendingOrders po "
+)
+
 @Table(name = "suspendedorders", schema = "dbproject2022")
 public class SuspendedOrders implements Serializable {
 

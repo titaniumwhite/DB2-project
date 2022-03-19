@@ -5,6 +5,13 @@ import it.polimi.dbproject.entities.ErrorEntity;
 import javax.persistence.*;
 import java.io.Serializable;
 
+@Entity
+
+@NamedQuery(
+        name = "Errors.retrieveAll",
+        query = "SELECT e FROM Errors e "
+)
+
 @Table(name = "errors", schema = "dbproject2022")
 public class Errors implements Serializable {
 
@@ -22,5 +29,9 @@ public class Errors implements Serializable {
     public Errors(int errors_id, ErrorEntity alert) {
         this.errors_id = errors_id;
         this.alert = alert;
+    }
+
+    public Errors() {
+
     }
 }

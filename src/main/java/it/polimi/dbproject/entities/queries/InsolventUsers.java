@@ -5,6 +5,13 @@ import it.polimi.dbproject.entities.UserEntity;
 import javax.persistence.*;
 import java.io.Serializable;
 
+@Entity
+
+@NamedQuery(
+        name = "InolventUsers.retrieveInsolventUser",
+        query = "SELECT iu FROM InsolventUsers iu "
+)
+
 @Table(name = "insolventusers", schema = "dbproject2022")
 public class InsolventUsers implements Serializable {
 
@@ -22,5 +29,9 @@ public class InsolventUsers implements Serializable {
     public InsolventUsers(int insolventusers_id, UserEntity user) {
         this.insolventusers_id = insolventusers_id;
         this.user = user;
+    }
+
+    public InsolventUsers() {
+
     }
 }
