@@ -5,6 +5,13 @@ import it.polimi.dbproject.entities.OptionalServiceEntity;
 import javax.persistence.*;
 import java.io.Serializable;
 
+@Entity
+
+@NamedQuery(
+        name = "BestOptionalProduct.retrieveBes",
+        query = "SELECT bop FROM BestOptionalProduct bop "
+)
+
 @Table(name = "bestoptionalproduct", schema = "dbproject2022")
 public class BestOptionalProduct implements Serializable {
 
@@ -26,5 +33,9 @@ public class BestOptionalProduct implements Serializable {
         this.bestOptionalProduct_id = bestOptionalProduct_id;
         this.optionalService = optionalService;
         this.numberOfSales = numberOfSales;
+    }
+
+    public BestOptionalProduct() {
+
     }
 }
