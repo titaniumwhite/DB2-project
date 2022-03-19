@@ -1,6 +1,7 @@
 package it.polimi.dbproject.services;
 
 import it.polimi.dbproject.entities.*;
+import it.polimi.dbproject.entities.queries.BestOptionalProduct;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityExistsException;
@@ -80,5 +81,34 @@ public class EmployeeService {
         return em.createNamedQuery("Period.findAll", PeriodEntity.class).getResultList();
     }
 
+    public List<AvailableServicePackEntity> retrieveAllAvailableServicePackages(){
+        return em.createNamedQuery("AvailableServicePackage.findAll", AvailableServicePackEntity.class)
+                .getResultList();
+    }
 
+    public List<UserEntity> retrieveAllInsolventusers(){
+        return em.createNamedQuery("User.retrieveInsolventUser", UserEntity.class)
+                .getResultList();
+    }
+
+    public List<OrderEntity> retrieveAllPendingOrders(){
+        return em.createNamedQuery("Order.retrievePendingOrder", OrderEntity.class)
+                .getResultList();
+    }
+
+    public List<ErrorEntity> retrieveAllErrors(){
+        return em.createNamedQuery("Error.findAll", ErrorEntity.class)
+                .getResultList();
+    }
+
+    public BestOptionalProduct retrieveBestOptionalProduct(){
+        BestOptionalProduct bestOP = null;
+        try {
+            if(em.createNamedQuery("BestOptionalProduct.retrieveBest", BestOptionalProduct.class)
+                    .getResultList().size() != 0)
+                bestOP = em.createNamedQuery("BestOptionalProduct.retrieveBest", BestOptionalProduct.class).getSingleResult();
+        }catch(NoResultException ignored){}
+
+        return bestOP;
+    }
 }

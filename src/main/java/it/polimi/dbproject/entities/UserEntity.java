@@ -11,6 +11,12 @@ import java.util.List;
                 "WHERE u.id = :id"
 )
 
+@NamedQuery(
+        name = "User.retrieveInsolventUser",
+        query = "SELECT u FROM UserEntity u " +
+                "WHERE u.isInsolvent = true"
+)
+
 @Entity
 @Table(name = "user", schema = "dbproject2022")
 @NamedQuery(name = "User.loginUser", query = "SELECT u FROM UserEntity u WHERE u.username = :usn and u.password = :psw")

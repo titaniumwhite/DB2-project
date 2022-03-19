@@ -5,6 +5,11 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
+@NamedQuery(
+        name = "Service.retrieveAllAvailableServicePackages",
+        query = "SELECT s FROM ServiceEntity s"
+)
+
 @Entity
 @Table(name = "service", schema = "dbproject2022")
 public class ServiceEntity implements Serializable{
