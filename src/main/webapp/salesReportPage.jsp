@@ -1,7 +1,10 @@
 <%@ page import="it.polimi.dbproject.entities.OptionalServiceEntity" %>
 <%@ page import="java.util.List" %>
 <%@ page import="javax.swing.text.html.Option" %>
-<%@ page import="it.polimi.dbproject.entities.PeriodEntity" %><%--
+<%@ page import="it.polimi.dbproject.entities.PeriodEntity" %>
+<%@ page import="it.polimi.dbproject.entities.AvailableServicePackEntity" %>
+<%@ page import="it.polimi.dbproject.entities.ServicePackEntity" %>
+<%@ page import="it.polimi.dbproject.entities.queries.*" %><%--
   Created by IntelliJ IDEA.
   User: gabri
   Date: 09/03/2022
@@ -21,6 +24,28 @@
 
 </head>
 <body style="background-color: #508bfc;">
+<%
+    List<AvailableServicePackEntity> availablePackages = (List<AvailableServicePackEntity>) request.getAttribute("availablePackages");
+    ServicePackEntity choosenPackage = (ServicePackEntity)request.getAttribute("choosenPackage");
+
+    PurchasesPerPackageEntity purchasesPerPackage = (PurchasesPerPackageEntity) request.getAttribute("purchasesPerPackage");
+    PurchasesPerPackageAndPeriod purchasesPerPackageAndPeriod = (PurchasesPerPackageAndPeriod) request.getAttribute("purchasesPerPackageAndPeriod");
+
+    List<PeriodEntity> periods = (List<PeriodEntity>) request.getAttribute("periods");
+
+    SalesPerPackage salesPerPackage = (SalesPerPackage) request.getAttribute("salesPerPackage");
+
+    AverageOptionalProductsPerPackage averageOptionalProductsPerPackage = (AverageOptionalProductsPerPackage) request.getAttribute("averageOptionalProductsPerPackage");
+
+    List<Errors> errors = (List<Errors>) request.getAttribute("errors");
+    List<PendingOrders> pendingOrders = (List<PendingOrders>) request.getAttribute("pendingOrders");
+    List<InsolventUsers> insolventUsers = (List<InsolventUsers>) request.getAttribute("insolventUsers");
+
+    BestOptionalProduct bestOptionalProduct = (BestOptionalProduct) request.getAttribute("bestOptionalProduct");
+
+%>
+
+
 
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
 
@@ -35,12 +60,58 @@
 
 <section>
     <div class="container d-flex" style="justify-content: center; align-content: center; padding-top: 1.5rem">
-        <div class="col-lg-8">
+        <div class="col-lg-12">
             <div class="card card-margin">
                 <div class="card-header no-border">
                     <h5 class="card-title" style="text-align: center">Sales Report</h5>
                 </div>
-                <div class="card-text"></div>
+
+                <div class="row">
+
+                    <form action="salesReportPage" method="post">
+                        <label for="srvPackageWithValPeriod">Choose a service package:</label>
+                        <select name="srvPackageWithValPeriod" id="srvPackageWithValPeriod">
+                            <%
+                                for (AvailableServicePackEntity servicePackage: availablePackages) {
+                            %>
+                            <option value="<%=servicePackage.getAvailableServicePack_id()%>"><%=servicePackage.getName() %></option>
+                            <%
+                                }
+                            %>
+                        </select>
+                        <br><br>
+                        <button class="btn btn-primary" type="submit">Select the service package</button>
+                        <br><br>
+                    </form>
+
+                    <form action="salesReportPage" method="post">
+                        <br><br>
+                        <label for="valPeriod">Choose a validity period:</label>
+                        <select name="valPeriod" id="valPeriod">
+                            <%
+                                for (PeriodEntity period: periods) {
+                            %>
+                            <option value="<%=period.getPeriod_id()%>"><%=period.getDuration()%></option>
+                            <%
+                                }
+                            %>
+                        </select>
+                        <br><br>
+                        <button class="btn btn-primary" type="submit">Select period</button>
+                    </form>
+                </div>
+
+                <div class="card-text"><h3>Total Purchases per Package</h3></div>
+                <div class="card-text"><h3>Total Purchases per Package and Period</h3></div>
+                <div class="card-text"><h3>Total Value of sales with Optional Products</h3></div>
+                <div class="card-text"><h3>Total Value of sales without Optional Products</h3></div>
+                <div class="card-text"><h3>Average number of Optional Services sold together with each Service Package</h3></div>
+                <div class="card-text"><h3>List of Insolvent Users</h3></div>
+                <div class="card-text"><h3>List of Suspended Orders</h3></div>
+                <div class="card-text"><h3>List of Errors</h3></div>
+                <div class="card-text"><h3>Best Seller Optional Service</h3></div>
+
+
             </div>
         </div>
     </div>
