@@ -28,7 +28,7 @@
         <li class="nav-item"><a class="nav-link" href="./" style="color: white; float: left !important; display: flex">Logout</a></li>
     </ul>
 
-    <a href="employeehomepage/salesreport" class="btn btn-outline-primary" role="button" >Sales Report</a>
+    <a href="salesreport" class="btn btn-outline-primary" role="button" >Sales Report</a>
 
     <button type="button" class="btn btn-outline-primary" onclick="overlayOn()">New Optional Service</button>
 

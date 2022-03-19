@@ -118,9 +118,6 @@
         <div class="container" style="height: auto">
             <div class="row h-100 justify-content-center align-items-center">
                 <div class="card mx-auto my-auto" style="height: auto; width: 600px;">
-                    <form action="confirmationpage" method="post">
-                        <button type="submit" class="btn-close" name="confirm" value="confirm" onclick="actScheduleOverlayOff()"></button>
-                    </form>
                     <div class="card-body p-33 text-center">
 
                         <h3 class="mb-3">Activation Schedule</h3>
@@ -143,6 +140,11 @@
                                 <% }} %>
                             </ul
                         </div>
+
+                        <form action="confirmationpage" method="post">
+                            <button type="submit" class="btn btn-outline-primary" name="confirm" value="confirm" onclick="actScheduleOverlayOff()">Return to homepage</button>
+                        </form>
+
                     </div>
                 </div>
             </div>

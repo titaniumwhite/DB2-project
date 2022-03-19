@@ -8,7 +8,7 @@ import java.io.Serializable;
 @Entity
 
 @NamedQuery(
-        name = "BestOptionalProduct.retrieveBes",
+        name = "BestOptionalProduct.retrieveBest",
         query = "SELECT bop FROM BestOptionalProduct bop "
 )
 

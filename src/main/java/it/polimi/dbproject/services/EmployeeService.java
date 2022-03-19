@@ -2,7 +2,9 @@ package it.polimi.dbproject.services;
 
 import it.polimi.dbproject.entities.*;
 import it.polimi.dbproject.entities.queries.BestOptionalProduct;
+import it.polimi.dbproject.entities.queries.Errors;
 import it.polimi.dbproject.entities.queries.InsolventUsers;
+import it.polimi.dbproject.entities.queries.PendingOrders;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityExistsException;
@@ -87,7 +89,7 @@ public class EmployeeService {
                 .getResultList();
     }
 
-    public List<InsolventUsers> retrieveAllInsolventusers(){
+    public List<InsolventUsers> retrieveAllInsolventUsers(){
         return em.createNamedQuery("InolventUsers.retrieveInsolventUser", InsolventUsers.class)
                 .getResultList();
     }
@@ -97,7 +99,7 @@ public class EmployeeService {
                 .getResultList();
     }
 
-    public List<ErrorsEntity> retrieveAllErrors(){
+    public List<Errors> retrieveAllErrors(){
         return em.createNamedQuery("Errors.retrieveAll", Errors.class)
                 .getResultList();
     }

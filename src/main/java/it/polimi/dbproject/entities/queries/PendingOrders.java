@@ -12,8 +12,8 @@ import java.io.Serializable;
         query = "SELECT po FROM PendingOrders po "
 )
 
-@Table(name = "suspendedorders", schema = "dbproject2022")
-public class SuspendedOrders implements Serializable {
+@Table(name = "pendingorders", schema = "dbproject2022")
+public class PendingOrders implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -26,10 +26,10 @@ public class SuspendedOrders implements Serializable {
     @JoinColumn(name = "order_id")
     private OrderEntity order;
 
-    public SuspendedOrders() {
+    public PendingOrders() {
     }
 
-    public SuspendedOrders(OrderEntity order) {
+    public PendingOrders(OrderEntity order) {
         this.order = order;
     }
 }
