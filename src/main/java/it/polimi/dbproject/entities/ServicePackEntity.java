@@ -47,7 +47,7 @@ public class ServicePackEntity implements Serializable{
     @JoinColumn(name = "available_package")
     private AvailableServicePackEntity availablePackages;
 
-    @ManyToMany (fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany (fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinTable(
             name="optional_services_selected",
             joinColumns={@JoinColumn(name="service_pack_id")},
