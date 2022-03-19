@@ -80,12 +80,7 @@
                             %>
                         </select>
                         <br><br>
-                        <button class="btn btn-primary" type="submit">Select the service package</button>
-                        <br><br>
-                    </form>
 
-                    <form action="salesReportPage" method="post">
-                        <br><br>
                         <label for="valPeriod">Choose a validity period:</label>
                         <select name="valPeriod" id="valPeriod">
                             <%
@@ -97,7 +92,7 @@
                             %>
                         </select>
                         <br><br>
-                        <button class="btn btn-primary" type="submit">Select period</button>
+                        <button class="btn btn-primary" type="submit">Submit</button>
                     </form>
                 </div>
 
