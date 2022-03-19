@@ -38,14 +38,14 @@ public class UserHomepageServlet extends HttpServlet {
 
                     userOrders = userService.retrieveAllOrdersOfUser(user.getUser_id());
                     request.setAttribute("userOrders", userOrders);
+                    session.setAttribute("userOrders", userOrders);
 
                     pendingOrders = userService.retrievePendingOrder(user.getUser_id());
                     request.setAttribute("pendingOrders", pendingOrders);
+                    session.setAttribute("pendingOrders", pendingOrders);
 
                     userErrors = userService.retrieveAllErrorsOfUser(user.getUser_id());
                     request.setAttribute("userErrors", userErrors);
-
-                    System.out.println(userErrors.toString());
                 } else {
 
                 }
@@ -57,8 +57,7 @@ public class UserHomepageServlet extends HttpServlet {
 
         List<AvailableServicePackEntity> availableServicePackages = userService.getAllServicePackages();
         request.setAttribute("availableServicePackages", availableServicePackages);
-
-
+        session.setAttribute("availableServicePackages", availableServicePackages);
 
         dispatcher.forward(request, response);
     }

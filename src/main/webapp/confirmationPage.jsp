@@ -229,7 +229,6 @@
 </body>
 <script>
     function overlayOn() {
-        console.log("IO STO QUAAA")
         console.log(document.getElementById("overlay"))
         document.getElementById("overlay").style.display = "block";
         console.log(document.getElementById("overlay").style.display)

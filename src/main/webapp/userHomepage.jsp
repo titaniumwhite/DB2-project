@@ -3,6 +3,7 @@
 <%@ page import="it.polimi.dbproject.entities.*" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Objects" %>
+<%@ page import="org.w3c.dom.html.HTMLTableCaptionElement" %>
 <!doctype html>
 
 <html lang="en">
@@ -54,7 +55,7 @@
                     <h5 class="card-title">ID ORDER: <%=o.getOrder_id()%></h5>
                 </div>
                 <div class="card-body text-success">
-                    <p class="card-text">Chosen Service Package: <%=o.getChosenServicePackage().getAvailablePackage().getName()%></p>
+                    <!--<p class="card-text">Chosen Service Package: <%//=o.getChosenServicePackage().getAvailablePackage().getName()%></p> -->
                     <p class="card-text">Created: <%=o.getCreation_ts()%></p>
                     <p class="card-text">Total Cost: <%=o.getTotal_cost()%></p>
                 </div>
@@ -85,7 +86,7 @@
     </div>
 
         <%
-                List<OrderEntity> pendingOrders = (List<OrderEntity>) request.getAttribute("pendingOrders");
+                List<OrderEntity> pendingOrders = (List<OrderEntity>) request.getSession().getAttribute("pendingOrders");
         %>
     <h2><b>My Pending Orders</b></h2>
     <div class="row">
@@ -100,7 +101,7 @@
                     <% int order_id = o.getOrder_id(); int service_pack_id = o.getChosenServicePackage().getServicePack_id(); %>
                 </div>
                 <div class="card-body text-warning">
-                    <p class="card-text">Chosen Service Package: <%=o.getChosenServicePackage().getAvailablePackage().getName()%></p>
+                    <!-- <p class="card-text">Chosen Service Package: <%//=o.getChosenServicePackage().getAvailablePackage().getName()%></p> -->
                     <p class="card-text">Created: <%=o.getCreation_ts()%></p>
                     <p class="card-text">Total Cost: <%=o.getTotal_cost()%></p>
                     <form action="homepage" method="post"  >
@@ -177,7 +178,7 @@
         <br><br>
 
             <%
-                List<AvailableServicePackEntity> servicePackages = (List<AvailableServicePackEntity>) request.getAttribute("availableServicePackages");
+                List<AvailableServicePackEntity> servicePackages = (List<AvailableServicePackEntity>) request.getSession().getAttribute("availableServicePackages");
             %>
             <h2><b>Available Service Packages</b></h2>
             <div class="row">

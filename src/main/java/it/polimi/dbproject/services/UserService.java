@@ -226,4 +226,11 @@ public class UserService {
             return null;
         }
     }
+
+    public OrderEntity updateOrder (OrderEntity order, boolean isPlaceable){
+        OrderEntity orderEntity = em.find(OrderEntity.class, order.getOrder_id());
+        orderEntity.setPlaceable(isPlaceable);
+        em.merge(orderEntity);
+        return orderEntity;
+    }
 }

@@ -43,7 +43,11 @@ public class ServicePackEntity implements Serializable{
     @Column(name = "total_cost_optional_services", nullable = false)
     private int totalCostOptionalService;
 
-    @ManyToOne (fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne (fetch = FetchType.EAGER, cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE,
+            CascadeType.REFRESH,
+            CascadeType.DETACH})
     @JoinColumn(name = "available_package")
     private AvailableServicePackEntity availablePackages;
 
@@ -203,15 +207,7 @@ public class ServicePackEntity implements Serializable{
     @Override
     public String toString() {
         return "ServicePackEntity{" +
-                "servicePack_id=" + servicePack_id +
-                ", startDate=" + startDate +
-                ", endDate=" + endDate +
-                ", cost=" + cost +
-                ", totalCostOptionalService=" + totalCostOptionalService +
-                ", availablePackages=" + availablePackages +
-                ", selectedOptionalServices=" + selectedOptionalServices +
-                ", chosenPeriod=" + chosenPeriod +
-                ", user_service_package=" + user_service_package +
+                ", availablePackages=" + availablePackages   +
                 ", order=" + order +
                 '}';
     }

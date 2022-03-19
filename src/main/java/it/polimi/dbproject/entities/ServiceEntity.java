@@ -42,7 +42,7 @@ public class ServiceEntity implements Serializable{
 
     }
 
-    public ServiceEntity(String type,
+        public ServiceEntity(String type,
                          int numOfMinutes,
                          int numOfSMS,
                          int numOfGiga,

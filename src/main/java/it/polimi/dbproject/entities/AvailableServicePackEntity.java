@@ -28,7 +28,11 @@ public class AvailableServicePackEntity implements Serializable {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @OneToMany(mappedBy="availablePackages", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy="availablePackages", fetch = FetchType.EAGER, cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE,
+            CascadeType.REFRESH,
+            CascadeType.DETACH})
     private List<ServicePackEntity> offeredToPackage;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -123,5 +127,13 @@ public class AvailableServicePackEntity implements Serializable {
 
     public void setOptionalServices(List<OptionalServiceEntity> optionalServices) {
         this.optionalServices = optionalServices;
+    }
+
+    @Override
+    public String toString() {
+        return "AvailableServicePackEntity{" +
+                "availableServicePackId=" + availableServicePackId +
+                ", name='" + name + '\'' +
+                '}';
     }
 }

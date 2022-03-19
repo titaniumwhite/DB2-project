@@ -1,5 +1,6 @@
 package it.polimi.dbproject.servlet;
 
+
 import it.polimi.dbproject.entities.ErrorEntity;
 import it.polimi.dbproject.entities.ServicePackEntity;
 import it.polimi.dbproject.entities.UserEntity;
@@ -13,7 +14,9 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @WebServlet(name = "confirmationPage", value = "/confirmationpage")
 public class ConfirmationServlet extends HttpServlet {
@@ -30,11 +33,27 @@ public class ConfirmationServlet extends HttpServlet {
 
         UserEntity user = (UserEntity) session.getAttribute("user");
         servicePack = (ServicePackEntity) session.getAttribute("servicePack");
-        List<OrderEntity> pendingOrders = null;
+        List<OrderEntity> userOrdersList = (List<OrderEntity>)session.getAttribute("userOrders");
+        List<OrderEntity> pendingOrdersList = (List<OrderEntity>)session.getAttribute("pendingOrders");
+
+        ArrayList<OrderEntity> userOrders = new ArrayList<>(userOrdersList);
+        ArrayList<OrderEntity> pendingOrders = new ArrayList<>(pendingOrdersList);
+
+        /*System.out.println("ORDERS");
+        for (OrderEntity userOrder : userOrders) {
+            System.out.println(userOrder.toString());
+        }
+
+        System.out.println("PENDING ORDERS");
+        for (OrderEntity pendingOrder : pendingOrders) {
+            System.out.println(pendingOrder.toString());
+        }*/
 
         String confirm = request.getParameter("confirm");
         String toServlet = "homepage";
-        OrderEntity order;
+        OrderEntity order = null;
+        Optional<OrderEntity> optionalOrder = null;
+        int order_id = -1;
 
         boolean isPlaceable;
 
@@ -53,18 +72,53 @@ public class ConfirmationServlet extends HttpServlet {
 
         if(createOrder){
             try {
-                if (servicePack.getUser() == null)
-                servicePack = userService.createServicePack(servicePack, user);
-                else {
+                if (servicePack.getUser() == null) {
+                    servicePack = userService.createServicePack(servicePack, user);
+                }
+                /*else {
                     pendingOrders = (List<OrderEntity>) request.getAttribute("pendingOrders");
                     pendingOrders.remove(servicePack);
-                }
+                }*/
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
 
-            order = userService.createOrder(new Timestamp(System.currentTimeMillis()), user, servicePack, isPlaceable);
+
+            if (session.getAttribute("order_id") != null) {
+                order_id = (int) session.getAttribute("order_id");
+                optionalOrder = userService.retrieveOrderThroughID(order_id);
+                System.out.println("Ho preso l'ordine dal db");
+            }
+
+            boolean alreadyExist = false;
+
+            if (optionalOrder != null && optionalOrder.isPresent()) {
+                System.out.println("L'ordine effttivamente già esiste");
+                order = optionalOrder.get();
+                alreadyExist = true;
+            }
+
+
+            System.out.println("Il rebuy order è "+ order_id);
+
+            if (alreadyExist && isPlaceable) {
+                System.out.println("era un rejected order ed è stato accettato sta botta");
+
+                pendingOrders.remove(order);
+                userOrders.add(order);
+                session.setAttribute("userOrders", userOrders);
+                session.setAttribute("pendingOrders", pendingOrders);
+
+                userService.updateOrder(order, true);
+            } else if (!alreadyExist){
+                System.out.println("entro qua222 e creo nuovo ordine");
+                order = userService.createOrder(new Timestamp(System.currentTimeMillis()), user, servicePack, isPlaceable);
+            }
+
+
         } else {
+            System.out.println("entro qua 3");
+
             order = userService.retrieveOrderThroughID(Integer.parseInt(Id_OrderRejected)).get();
             order = userService.orderUpdate(order, isPlaceable);
         }
@@ -94,6 +148,8 @@ public class ConfirmationServlet extends HttpServlet {
         if (request.getParameter("order") == null ) {
 
             Id_OrderRejected = request.getParameter("OrderRejected");
+            session.setAttribute("order_id", Id_OrderRejected);
+
 
             if (Id_OrderRejected != null) {
                 servicePack = userService.retrieveOrderThroughID(Integer.parseInt(Id_OrderRejected)).get().getChosenServicePackage();
@@ -110,7 +166,9 @@ public class ConfirmationServlet extends HttpServlet {
         } else {
             int order_id = Integer.parseInt(request.getParameter("order"));
             int service_pack_id = Integer.parseInt(request.getParameter("service"));
-            System.out.println("Spero funzioni " + order_id + "  " + service_pack_id);
+
+            session.setAttribute("order_id", order_id);
+            session.setAttribute("rebuy_servicepack_id", service_pack_id);
 
             servicePack = userService.retrieveServicePackThroughId(service_pack_id).get();
 
