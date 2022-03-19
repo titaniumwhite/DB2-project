@@ -39,16 +39,6 @@ public class ConfirmationServlet extends HttpServlet {
         ArrayList<OrderEntity> userOrders = new ArrayList<>(userOrdersList);
         ArrayList<OrderEntity> pendingOrders = new ArrayList<>(pendingOrdersList);
 
-        /*System.out.println("ORDERS");
-        for (OrderEntity userOrder : userOrders) {
-            System.out.println(userOrder.toString());
-        }
-
-        System.out.println("PENDING ORDERS");
-        for (OrderEntity pendingOrder : pendingOrders) {
-            System.out.println(pendingOrder.toString());
-        }*/
-
         String confirm = request.getParameter("confirm");
         String toServlet = "homepage";
         OrderEntity order = null;
@@ -75,10 +65,6 @@ public class ConfirmationServlet extends HttpServlet {
                 if (servicePack.getUser() == null) {
                     servicePack = userService.createServicePack(servicePack, user);
                 }
-                /*else {
-                    pendingOrders = (List<OrderEntity>) request.getAttribute("pendingOrders");
-                    pendingOrders.remove(servicePack);
-                }*/
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
@@ -87,22 +73,17 @@ public class ConfirmationServlet extends HttpServlet {
             if (session.getAttribute("order_id") != null) {
                 order_id = (int) session.getAttribute("order_id");
                 optionalOrder = userService.retrieveOrderThroughID(order_id);
-                System.out.println("Ho preso l'ordine dal db");
             }
 
             boolean alreadyExist = false;
 
             if (optionalOrder != null && optionalOrder.isPresent()) {
-                System.out.println("L'ordine effttivamente già esiste");
                 order = optionalOrder.get();
                 alreadyExist = true;
             }
 
 
-            System.out.println("Il rebuy order è "+ order_id);
-
             if (alreadyExist && isPlaceable) {
-                System.out.println("era un rejected order ed è stato accettato sta botta");
 
                 pendingOrders.remove(order);
                 userOrders.add(order);

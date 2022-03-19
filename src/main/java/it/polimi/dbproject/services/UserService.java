@@ -145,7 +145,7 @@ public class UserService {
     }
 
     public OrderEntity createOrder(Timestamp ts, UserEntity user, ServicePackEntity sp, boolean isPlaceable){
-        int cost = sp.getTotalCost() + sp.getOptionalServicesFee();
+        int cost = sp.getTotalCost();
         OrderEntity order = new OrderEntity(ts, cost, isPlaceable, user, sp);
 
         try {
