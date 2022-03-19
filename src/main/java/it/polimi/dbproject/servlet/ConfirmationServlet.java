@@ -30,6 +30,7 @@ public class ConfirmationServlet extends HttpServlet {
 
         UserEntity user = (UserEntity) session.getAttribute("user");
         servicePack = (ServicePackEntity) session.getAttribute("servicePack");
+        List<OrderEntity> pendingOrders = null;
 
         String confirm = request.getParameter("confirm");
         String toServlet = "homepage";
@@ -54,6 +55,10 @@ public class ConfirmationServlet extends HttpServlet {
             try {
                 if (servicePack.getUser() == null)
                 servicePack = userService.createServicePack(servicePack, user);
+                else {
+                    pendingOrders = (List<OrderEntity>) request.getAttribute("pendingOrders");
+                    pendingOrders.remove(servicePack);
+                }
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }

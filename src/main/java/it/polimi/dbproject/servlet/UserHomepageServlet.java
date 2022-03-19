@@ -65,23 +65,6 @@ public class UserHomepageServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        /*HttpSession session = request.getSession();
 
-        String toServlet = "confirmationpage";
-        String reOrder = request.getParameter("reOrder");
-        System.out.println("ciaoooo");
-        long order_id = Long.parseLong(request.getParameter("order_id"));
-
-        if(reOrder.equals("reOrder")){
-                System.out.println("weeeeee");
-                //System.out.println("order_id = " + order_id);
-                Optional<ServicePackEntity> optionalServicePack = userService.retrieveServicePackThroughOrderId(order_id);
-                ServicePackEntity servicePack = optionalServicePack.get();
-                System.out.println(servicePack);
-                session.setAttribute("servicePack", servicePack);
-                RequestDispatcher dispatcher = request.getRequestDispatcher("confirmationPage.jsp");
-                dispatcher.forward(request, response);
-                response.sendRedirect(toServlet);
-        }*/
     }
 }
