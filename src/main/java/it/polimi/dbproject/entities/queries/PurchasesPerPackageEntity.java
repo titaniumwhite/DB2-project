@@ -1,12 +1,19 @@
 package it.polimi.dbproject.entities.queries;
 
 import it.polimi.dbproject.entities.AvailableServicePackEntity;
+import it.polimi.dbproject.entities.ServicePackEntity;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
 
 @Entity
+
+@NamedQuery(
+        name = "PurchasesPerPackageEntity.retrievePurchasesByPackId",
+        query = "SELECT p FROM PurchasesPerPackageEntity p " +
+                "WHERE p.purchasesperpackage_id = :package_id"
+)
 
 @Table(name = "purchases_per_package", schema = "dbproject2022")
 public class PurchasesPerPackageEntity implements Serializable {
@@ -19,7 +26,7 @@ public class PurchasesPerPackageEntity implements Serializable {
 
     @OneToOne
     @JoinColumn(name = "package_id")
-    private AvailableServicePackEntity availableServicePack;
+    private ServicePackEntity servicePack;
 
 
     @Column(name = "total_purchases", nullable = false)
@@ -29,9 +36,9 @@ public class PurchasesPerPackageEntity implements Serializable {
     public PurchasesPerPackageEntity() {
     }
 
-    public PurchasesPerPackageEntity(int purchasesperpackage_id, AvailableServicePackEntity availableServicePack) {
+    public PurchasesPerPackageEntity(int purchasesperpackage_id, ServicePackEntity servicePack) {
         this.purchasesperpackage_id = purchasesperpackage_id;
-        this.availableServicePack = availableServicePack;
+        this.servicePack = servicePack;
         totalPurchases=0;
     }
 

@@ -25,7 +25,7 @@ public class AverageOptionalProductsPerPackage implements Serializable {
 
     @OneToOne
     @JoinColumn(name = "service_pack_id")
-    private ServicePackEntity servicePackage;
+    private ServicePackEntity servicePack;
 
     @Column(name = "average", nullable = false)
     private float average;
@@ -34,9 +34,9 @@ public class AverageOptionalProductsPerPackage implements Serializable {
     public AverageOptionalProductsPerPackage() {
     }
 
-    public AverageOptionalProductsPerPackage(int package_id, ServicePackEntity servicePackage) {
+    public AverageOptionalProductsPerPackage(int package_id, ServicePackEntity servicePack) {
         this.package_id = package_id;
-        this.servicePackage = servicePackage;
+        this.servicePack = servicePack;
         this.average = 0;
     }
 
@@ -49,11 +49,11 @@ public class AverageOptionalProductsPerPackage implements Serializable {
     }
 
     public ServicePackEntity getServicePackage() {
-        return servicePackage;
+        return servicePack;
     }
 
-    public void setServicePackage(ServicePackEntity servicePackage) {
-        this.servicePackage = servicePackage;
+    public void setServicePackage(ServicePackEntity servicePack) {
+        this.servicePack = servicePack;
     }
 
     public float getAverage() {

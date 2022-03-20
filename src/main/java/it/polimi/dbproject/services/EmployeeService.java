@@ -164,4 +164,13 @@ public class EmployeeService {
         }
     }
 
+    public PurchasesPerPackageEntity purchasesPerPackage(int package_id){
+        try {
+            return em.createNamedQuery("PurchasesPerPackageEntity.retrievePurchasesByPackId", PurchasesPerPackageEntity.class)
+                    .setParameter("package_id", package_id).getResultList().stream().findFirst().get();
+        } catch (NoSuchElementException exception){
+            return new PurchasesPerPackageEntity(package_id, retrievePackageThroughID(package_id).get());
+        }
+    }
+
 }

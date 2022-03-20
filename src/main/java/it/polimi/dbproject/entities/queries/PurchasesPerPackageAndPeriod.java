@@ -29,7 +29,7 @@ public class PurchasesPerPackageAndPeriod implements Serializable {
 
     @OneToOne
     @JoinColumn(name = "package_id")
-    private ServicePackEntity package_id;
+    private ServicePackEntity servicePack;
 
     @Column(name = "period_id", nullable = false)
     private int period_id;
@@ -41,12 +41,12 @@ public class PurchasesPerPackageAndPeriod implements Serializable {
     @Column(name = "purchases", nullable = false)
     private int purchases;
 
-    public PurchasesPerPackageAndPeriod(int purchasesperpackageandperiod, ServicePackEntity package_id, int period_id, PeriodEntity period) {
-        this.purchasesperpackageandperiod_id = purchasesperpackageandperiod;
-        this.package_id = package_id;
+    public PurchasesPerPackageAndPeriod(int purchasesperpackageandperiod_id, ServicePackEntity servicePack, int period_id, PeriodEntity period) {
+        this.purchasesperpackageandperiod_id = purchasesperpackageandperiod_id;
+        this.servicePack = servicePack;
         this.period_id = period_id;
         this.period = period;
-        this.purchases = purchases;
+        this.purchases = 0;
     }
 
 
