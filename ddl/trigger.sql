@@ -1,3 +1,39 @@
+DROP TABLE IF EXISTS totalorderpackage;
+DROP TRIGGER IF EXISTS insertNewOrderOfPack;
+DROP TRIGGER IF EXISTS updateServiceOrder;
+DROP TRIGGER IF EXISTS createNewAvailableServicePack_P1;
+
+DROP TABLE IF EXISTS totalorderpackagewithperiod;
+DROP TRIGGER IF EXISTS createNewServPackWithPeriod;
+DROP TRIGGER IF EXISTS insertNewPackageWithPeriod;
+DROP TRIGGER IF EXISTS updateNewPackageWithPeriod;
+
+DROP TABLE IF EXISTS sa;
+DROP TRIGGER IF EXISTS insertSale;
+DROP TRIGGER IF EXISTS updateSale;
+DROP TRIGGER IF EXISTS createNewAvailableServicePack_P2;
+
+DROP TABLE IF EXISTS totalNumOptionalService;
+DROP TABLE IF EXISTS AVG_numOptionServPerServPack;
+DROP TRIGGER IF EXISTS createNewAvailableServicePack_P3;
+DROP TRIGGER IF EXISTS insertOptionalService;
+DROP TRIGGER IF EXISTS updateOptionalService;
+
+DROP TABLE IF EXISTS pending_orders;
+DROP TABLE IF EXISTS errors;
+DROP TABLE IF EXISTS insolventUsers;
+DROP TRIGGER IF EXISTS insertError;
+DROP TRIGGER IF EXISTS updateInsolventUsers;
+DROP TRIGGER IF EXISTS insertUnplaceableOrder;
+DROP TRIGGER IF EXISTS updateUnplaceableOrder;
+
+DROP TABLE IF EXISTS orderPerOptionalService;
+DROP TABLE IF EXISTS bestOptionalService;
+DROP TABLE IF EXISTS sales_per_package;
+DROP TRIGGER IF EXISTS insertOptionalService;
+DROP TRIGGER IF EXISTS insertSaleOptionalService;
+DROP TRIGGER IF EXISTS updateSaleOptionalService;
+
 CREATE TABLE totalOrderPackage(
     servicePack_id int not null primary key,
     totalOrder int default 0 not null,
@@ -72,7 +108,12 @@ CREATE TABLE bestOptionalService
 
 );
 
-
+CREATE TABLE sales_per_package(
+      sales_per_package_id int not null,
+      total_sales_with_optional int not null,
+      total_sales_no_optional int not null,
+      constraint sales_per_package_fk foreign key (sales_per_package_id) references available_service_package (available_service_pack_id)
+);
 
 CREATE DEFINER = CURRENT_USER TRIGGER updateServiceOrder AFTER UPDATE ON `order` FOR EACH ROW
 BEGIN
@@ -123,7 +164,7 @@ end;
 
 CREATE DEFINER = CURRENT_USER TRIGGER createNewAvailableServicePack_P2 AFTER INSERT ON available_service_package FOR EACH ROW
 BEGIN
-    INSERT INTO dbproject2022.AVG_numOptionServPerServPack(servicePack_id) VALUES (New.available_service_pack_id);
+    INSERT INTO dbproject2022.average_optional_products_perpackage(average_optional_products_perpackage_id) VALUES (New.available_service_pack_id);
 end;
 
 CREATE DEFINER = CURRENT_USER TRIGGER insertOptionalService AFTER INSERT ON `order` FOR EACH ROW
@@ -151,7 +192,7 @@ BEGIN
                                                                           WHERE s.service_pack_id = NEW.service_package_order);
 
         INSERT INTO AVG_numOptionServPerServPack
-        SELECT t.servicePack_id, IFNULL((o2.totalNumber / t.totalOrder), 0.0)
+        SELECT t.servicePack_id, IFNULL((o2.average / t.totalOrder), 0.0)
         FROM dbproject2022.totalorderpackage AS t
              LEFT OUTER JOIN dbproject2022.totalNumOptionalService AS o2 ON t.servicePack_id = o2.optionalServ_id
         WHERE t.servicePack_id IN (SELECT s.available_package
@@ -185,7 +226,7 @@ BEGIN
                                                                   WHERE s.service_pack_id = NEW.service_package_order);
 
         INSERT INTO AVG_numOptionServPerServPack
-        SELECT t.servicePack_id, IFNULL((o2.totalNumber / t.totalOrder), 0.0)
+        SELECT t.servicePack_id, IFNULL((o2.average / t.totalOrder), 0.0)
         FROM dbproject2022.totalorderpackage AS t
                  LEFT OUTER JOIN dbproject2022.totalNumOptionalService AS o2 ON t.servicePack_id = o2.optionalServ_id
         WHERE t.servicePack_id IN (SELECT s.available_package
@@ -300,3 +341,95 @@ BEGIN
     VALUES(NEW.optional_service_id);
 end;
 
+CREATE DEFINER = CURRENT_USER TRIGGER insertSale AFTER INSERT ON `order` FOR EACH ROW
+BEGIN
+    DECLARE a, b int;
+    IF NEW.isPlaceable = true THEN
+        SELECT s.cost, s.total_cost_optional_services INTO a, b
+        FROM service_pack s
+        WHERE s.service_pack_id = NEW.service_package_order;
+
+        UPDATE sales_per_package spp
+        SET spp.total_sales_with_optional = spp.total_sales_with_optional + a + b, spp.total_sales_no_optional = spp.total_sales_no_optional + a
+        WHERE spp.sales_per_package_id IN ( SELECT s1.available_package
+                                            FROM  service_pack s1
+                                            WHERE s1.service_pack_id = NEW.service_package_order);
+    end if;
+end;
+
+CREATE DEFINER = CURRENT_USER TRIGGER updateSale AFTER UPDATE ON `order` FOR EACH ROW
+BEGIN
+    DECLARE a, b int;
+    IF NEW.isPlaceable = true THEN
+        SELECT s.cost, s.total_cost_optional_services INTO a, b
+        FROM service_pack s
+        WHERE s.service_pack_id = NEW.service_package_order;
+
+        UPDATE sales_per_package spp
+        SET spp.total_sales_with_optional = spp.total_sales_with_optional + a + b, spp.total_sales_no_optional = spp.total_sales_no_optional + a
+        WHERE spp.sales_per_package_id IN ( SELECT s1.available_package
+                                            FROM  service_pack s1
+                                            WHERE s1.service_pack_id = NEW.service_package_order);
+    end if;
+end;
+
+CREATE DEFINER = CURRENT_USER TRIGGER createNewAvailableServicePack_P3 AFTER INSERT ON available_service_package FOR EACH ROW
+BEGIN
+    INSERT INTO dbproject2022.average_optional_products_perpackage(average_optional_products_perpackage_id)
+    VALUES (NEW.available_service_pack_id);
+end;
+
+CREATE DEFINER = CURRENT_USER TRIGGER updateInsolventUsers AFTER UPDATE ON user FOR EACH ROW
+BEGIN
+    IF NEW.isInsolvent = true THEN
+        IF(NEW.user_id NOT IN (SELECT iu.user_id FROM insolventUsers iu)) THEN
+            INSERT INTO insolventUsers VALUES (NEW.user_id);
+        end if;
+    end if;
+end;
+
+CREATE DEFINER = CURRENT_USER TRIGGER insertSaleOptionalService AFTER INSERT ON `order` FOR EACH ROW
+BEGIN
+    IF NEW.isPlaceable = true THEN DELETE FROM orderPerOptionalService; INSERT INTO orderPerOptionalService
+        SELECT os.optional_service_id, (os.monthly_fee * p.duration)
+        FROM `order` o
+        JOIN service_pack s ON s.service_pack_id = o.service_package_order
+        JOIN optional_services_selected oss ON oss.service_pack_id = s.service_pack_id
+        JOIN period p ON p.period_id = s.period_service_pack
+        JOIN optional_service os ON os.optional_service_id = oss.optional_service_id
+        WHERE s.service_pack_id = NEW.service_package_order;
+
+        UPDATE salesPerOptionalService s, orderPerOptionalService ops
+        SET s.sales = s.sales + ops.sales
+        WHERE s.optional_service_id = ops.optional_service_id;
+
+        DELETE FROM bestOptionalService;
+        INSERT INTO bestOptionalService
+        SELECT s1.optional_service_id, s1.sales
+        FROM salesPerOptionalService s1
+        WHERE s1.optional_service_id is not null AND s1.sales IN (SELECT MAX(S2.sales) FROM salesPerOptionalService s2);
+    END IF;
+end;
+
+CREATE DEFINER = CURRENT_USER TRIGGER updateSaleOptionalService AFTER UPDATE ON `order` FOR EACH ROW
+BEGIN
+    IF NEW.isPlaceable = true THEN DELETE FROM orderPerOptionalService; INSERT INTO orderPerOptionalService
+                                                                        SELECT os.optional_service_id, (os.monthly_fee * p.duration)
+                                                                        FROM `order` o
+                                                                                 JOIN service_pack s ON s.service_pack_id = o.service_package_order
+                                                                                 JOIN optional_services_selected oss ON oss.service_pack_id = s.service_pack_id
+                                                                                 JOIN period p ON p.period_id = s.period_service_pack
+                                                                                 JOIN optional_service os ON os.optional_service_id = oss.optional_service_id
+                                                                        WHERE s.service_pack_id = NEW.service_package_order;
+
+    UPDATE salesPerOptionalService s, orderPerOptionalService ops
+    SET s.sales = s.sales + ops.sales
+    WHERE s.optional_service_id = ops.optional_service_id;
+
+    DELETE FROM bestOptionalService;
+    INSERT INTO bestOptionalService
+    SELECT s1.optional_service_id, s1.sales
+    FROM salesPerOptionalService s1
+    WHERE s1.optional_service_id is not null AND s1.sales IN (SELECT MAX(S2.sales) FROM salesPerOptionalService s2);
+    END IF;
+end;

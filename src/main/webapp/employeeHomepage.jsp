@@ -38,7 +38,7 @@
 
 </nav>
 
-<section>
+<>
     <div class="container d-flex" style="justify-content: center; align-content: center; padding-top: 1.5rem">
         <div class="col-lg-8">
             <div class="card card-margin">
@@ -47,6 +47,7 @@
                 </div>
                 <div class="card-text">
     <form action="createpackage" method="post">
+        <div class="form-group">
         <br><br>
         Package Name <input type="text" name="name"/><br/><br/>
         Services
@@ -129,7 +130,7 @@
         </div>
     </div>
 
-</section>
+    </div>
 
 
     </form>
