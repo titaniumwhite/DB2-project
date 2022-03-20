@@ -1,7 +1,16 @@
 package it.polimi.dbproject.entities.queries;
 
+import it.polimi.dbproject.entities.ServicePackEntity;
+
 import javax.persistence.*;
 import java.io.Serializable;
+@Entity
+
+@NamedQuery(
+        name = "AverageOptionalProductsPerPackage.findByPackageId",
+        query = "SELECT n FROM AverageOptionalProductsPerPackage n " +
+                "WHERE n.package_id = :package_id"
+)
 
 @Table(name = "averageoptionalproductsperpackage", schema = "dbproject2022")
 public class AverageOptionalProductsPerPackage implements Serializable {
@@ -15,7 +24,7 @@ public class AverageOptionalProductsPerPackage implements Serializable {
 
     @OneToOne
     @JoinColumn(name = "package_id")
-    private AverageOptionalProductsPerPackage servicePackage;
+    private ServicePackEntity servicePack;
 
     @Column(name = "average", nullable = false)
     private float average;
@@ -24,10 +33,10 @@ public class AverageOptionalProductsPerPackage implements Serializable {
     public AverageOptionalProductsPerPackage() {
     }
 
-    public AverageOptionalProductsPerPackage(int package_id, AverageOptionalProductsPerPackage servicePackage, float average) {
+    public AverageOptionalProductsPerPackage(int package_id, ServicePackEntity servicePack) {
         this.package_id = package_id;
-        this.servicePackage = servicePackage;
-        this.average = average;
+        this.servicePack = servicePack;
+        this.average = 0;
     }
 
     public int getPackage_id() {
@@ -38,12 +47,12 @@ public class AverageOptionalProductsPerPackage implements Serializable {
         this.package_id = package_id;
     }
 
-    public AverageOptionalProductsPerPackage getServicePackage() {
-        return servicePackage;
+    public ServicePackEntity getServicePackage() {
+        return servicePack;
     }
 
-    public void setServicePackage(AverageOptionalProductsPerPackage servicePackage) {
-        this.servicePackage = servicePackage;
+    public void setServicePackage(ServicePackEntity servicePack) {
+        this.servicePack = servicePack;
     }
 
     public float getAverage() {

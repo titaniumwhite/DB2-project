@@ -31,13 +31,17 @@ public class SalesReportServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         List<AvailableServicePackEntity> availablePackages = employeeService.retrieveAllAvailableServicePackages();
-
         request.setAttribute("availablePackages", availablePackages);
 
+        List<PeriodEntity> periods = employeeService.retrieveAllPeriods();
+        request.setAttribute("periods", periods);
+
+        //List<PurchasesPerPackageEntity> purchasesPerPackage = ???
         request.setAttribute("purchasesPerPackage", purchasesPerPackage);
 
-        request.setAttribute("choosenPackage", choosenPackage);
-        request.setAttribute("periods", periods);
+        //request.setAttribute("choosenPackage", choosenPackage);
+
+        //List<PurchasesPerPackageAndPeriod> purchasesPerPackageAndPeriods = ???
         request.setAttribute("purchagesPerPackageAndPeriod", purchasesPerPackageAndPeriod);
 
         request.setAttribute("salesPerPackage", salesPerPackage);

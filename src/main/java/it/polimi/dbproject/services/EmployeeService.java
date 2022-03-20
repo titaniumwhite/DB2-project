@@ -1,10 +1,7 @@
 package it.polimi.dbproject.services;
 
 import it.polimi.dbproject.entities.*;
-import it.polimi.dbproject.entities.queries.BestOptionalProduct;
-import it.polimi.dbproject.entities.queries.Errors;
-import it.polimi.dbproject.entities.queries.InsolventUsers;
-import it.polimi.dbproject.entities.queries.PendingOrders;
+import it.polimi.dbproject.entities.queries.*;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityExistsException;
@@ -13,6 +10,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.swing.text.html.Option;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -114,4 +112,56 @@ public class EmployeeService {
 
         return bestOP;
     }
+
+    public List<PeriodEntity> retrieveAllPeriods(){
+        return em.createNamedQuery("Period.findAll", PeriodEntity.class)
+                .getResultList();
+    }
+
+    public Optional<ServicePackEntity> retrievePackageThroughID(int servicePack_id) {
+        return em.createNamedQuery("ServicePack.retrievePackageThroughID", ServicePackEntity.class)
+                .setParameter("servicePackId", servicePack_id)
+                .getResultStream().findFirst();
+    }
+
+    public AverageOptionalProductsPerPackage retrieveAverageOptionalProductsPerPackage (int package_id) {
+
+        try {
+            return em.createNamedQuery("AverageOptionalProductsPerPackage.findByPackageId", AverageOptionalProductsPerPackage.class)
+                    .setParameter("package_id", package_id)
+                    .getResultList().stream().findFirst().get();
+        } catch (NoSuchElementException e) {
+            return new AverageOptionalProductsPerPackage(package_id, retrievePackageThroughID(package_id).get());
+        }
+
+    }
+
+    public SalesPerPackage retrieveSalesPerPackage(int package_id) {
+        try{
+            return em.createNamedQuery("SalesPerPackage.retrieveByPackageId", SalesPerPackage.class)
+                    .setParameter("package_id", package_id)
+                    .getResultList().stream().findFirst().get();
+        }catch (NoSuchElementException exception){
+            return new SalesPerPackage(package_id, retrievePackageThroughID(package_id).get());
+        }
+    }
+
+    public Optional<PeriodEntity> retrievePeriodById(int period_id) {
+        return em.createNamedQuery("Period.findPeriodThroughID", PeriodEntity.class)
+                .setParameter("periodId", period_id)
+                .getResultStream().findFirst();
+    }
+
+
+    public PurchasesPerPackageAndPeriod retrievePurchasesPerPackageAndPeriod(int package_id, int period_id){
+        try{
+            return em.createNamedQuery("PurchasesPerPackageAndPeriod.retrieveByPackageAndPeriod", PurchasesPerPackageAndPeriod.class)
+                    .setParameter("package_id", package_id)
+                    .setParameter("period_id", period_id)
+                    .getResultList().stream().findFirst().get();
+        }catch (NoSuchElementException exception){
+            return new PurchasesPerPackageAndPeriod(package_id, retrievePackageThroughID(package_id).get(), period_id, retrievePeriodById(period_id).get());
+        }
+    }
+
 }

@@ -12,7 +12,7 @@ import java.io.Serializable;
         query = "SELECT iu FROM InsolventUsers iu "
 )
 
-@Table(name = "insolventusers", schema = "dbproject2022")
+@Table(name = "insolvent_users", schema = "dbproject2022")
 public class InsolventUsers implements Serializable {
 
     private static final long serialVersionUID = 1L;
