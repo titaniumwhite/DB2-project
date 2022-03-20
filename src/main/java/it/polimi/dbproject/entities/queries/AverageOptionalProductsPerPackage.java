@@ -1,7 +1,17 @@
 package it.polimi.dbproject.entities.queries;
 
+import it.polimi.dbproject.entities.ServicePackEntity;
+
 import javax.persistence.*;
 import java.io.Serializable;
+
+@Entity
+
+@NamedQuery(
+        name = "AverageOptionalProductsPerPackage.findByPackageId",
+        query = "SELECT n FROM AverageOptionalProductsPerPackage n " +
+                "WHERE n.package_id = :package_id"
+)
 
 @Table(name = "average_optional_products_perpackage", schema = "dbproject2022")
 public class AverageOptionalProductsPerPackage implements Serializable {
@@ -24,7 +34,7 @@ public class AverageOptionalProductsPerPackage implements Serializable {
     public AverageOptionalProductsPerPackage() {
     }
 
-    public AverageOptionalProductsPerPackage(int package_id, ServicePackEntity servicePackage, float average) {
+    public AverageOptionalProductsPerPackage(int package_id, ServicePackEntity servicePackage) {
         this.package_id = package_id;
         this.servicePackage = servicePackage;
         this.average = 0;

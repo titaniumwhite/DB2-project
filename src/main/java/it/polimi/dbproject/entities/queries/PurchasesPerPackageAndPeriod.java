@@ -3,6 +3,7 @@ package it.polimi.dbproject.entities.queries;
 
 import it.polimi.dbproject.entities.AvailableServicePackEntity;
 import it.polimi.dbproject.entities.PeriodEntity;
+import it.polimi.dbproject.entities.ServicePackEntity;
 
 import javax.persistence.*;
 import java.io.Serializable;
