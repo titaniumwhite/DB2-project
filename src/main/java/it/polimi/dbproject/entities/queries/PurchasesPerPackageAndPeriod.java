@@ -3,12 +3,19 @@ package it.polimi.dbproject.entities.queries;
 
 import it.polimi.dbproject.entities.AvailableServicePackEntity;
 import it.polimi.dbproject.entities.PeriodEntity;
+import it.polimi.dbproject.entities.ServicePackEntity;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
 
+@NamedQuery(
+        name = "PurchasesPerPackageAndPeriod.retrieveByPackageAndPeriod",
+        query = "SELECT p FROM PurchasesPerPackageAndPeriod p " +
+                "WHERE p.purchasesperpackageandperiod_id = :package_id AND " +
+                "p.period_id =: period_id "
+)
 
 @Table(name = "purchases_per_package_and_period", schema = "dbproject2022")
 public class PurchasesPerPackageAndPeriod implements Serializable {
@@ -17,12 +24,12 @@ public class PurchasesPerPackageAndPeriod implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "purchases_per_package_and_period_id", nullable = false)
-    private int purchasesperpackageandperiod;
+    @Column(name = "purchasesperpackageandperiod_id", nullable = false)
+    private int purchasesperpackageandperiod_id;
 
     @OneToOne
     @JoinColumn(name = "package_id")
-    private AvailableServicePackEntity availableServicePack;
+    private ServicePackEntity servicePack;
 
     @Column(name = "period_id", nullable = false)
     private int period_id;
@@ -34,12 +41,12 @@ public class PurchasesPerPackageAndPeriod implements Serializable {
     @Column(name = "purchases", nullable = false)
     private int purchases;
 
-    public PurchasesPerPackageAndPeriod(int purchasesperpackageandperiod, AvailableServicePackEntity availableServicePack, int period_id, PeriodEntity period, int purchases) {
-        this.purchasesperpackageandperiod = purchasesperpackageandperiod;
-        this.availableServicePack = availableServicePack;
+    public PurchasesPerPackageAndPeriod(int purchasesperpackageandperiod_id, ServicePackEntity servicePack, int period_id, PeriodEntity period) {
+        this.purchasesperpackageandperiod_id = purchasesperpackageandperiod_id;
+        this.servicePack = servicePack;
         this.period_id = period_id;
         this.period = period;
-        this.purchases = purchases;
+        this.purchases = 0;
     }
 
 
