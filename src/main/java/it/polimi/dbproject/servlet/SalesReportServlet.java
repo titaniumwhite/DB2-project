@@ -1,6 +1,7 @@
 package it.polimi.dbproject.servlet;
 
 import it.polimi.dbproject.entities.AvailableServicePackEntity;
+import it.polimi.dbproject.entities.EmployeeEntity;
 import it.polimi.dbproject.entities.ErrorEntity;
 import it.polimi.dbproject.entities.PeriodEntity;
 import it.polimi.dbproject.entities.queries.*;
@@ -48,17 +49,17 @@ public class SalesReportServlet extends HttpServlet {
 
         request.setAttribute("averageOptionalProductsPerPackage", averageOptionalProductsPerPackage);
 
-        List<InsolventUsers> insolventUsers = employeeService.retrieveAllInsolventUsers();
-        request.setAttribute("insolventUsers", insolventUsers);
+        //List<InsolventUsers> insolventUsers = employeeService.retrieveAllInsolventUsers();
+        //request.setAttribute("insolventUsers", insolventUsers);
 
-        List<PendingOrders> pendingOrders = employeeService.retrieveAllPendingOrders();
-        request.setAttribute("pendingOrders", pendingOrders);
+        //List<PendingOrders> pendingOrders = employeeService.retrieveAllPendingOrders();
+        //request.setAttribute("pendingOrders", pendingOrders);
 
-        List<Errors> errors = employeeService.retrieveAllErrors();
-        request.setAttribute("errors", errors);
+        //List<Errors> errors = employeeService.retrieveAllErrors();
+        //request.setAttribute("errors", errors);
 
-        BestOptionalProduct bestOptionalProduct = employeeService.retrieveBestOptionalProduct();
-        request.setAttribute("bestOptionalProduct", bestOptionalProduct);
+        //BestOptionalProduct bestOptionalProduct = employeeService.retrieveBestOptionalProduct();
+        //request.setAttribute("bestOptionalProduct", bestOptionalProduct);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("salesReportPage.jsp");
         dispatcher.forward(request, response);
@@ -66,9 +67,17 @@ public class SalesReportServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String servicePackage = request.getParameter("servicePackage");
 
-        String servicePackagePerPeriod = request.getParameter("servicePackagePerPeriod");
+        int servicePackage_id = Integer.parseInt(request.getParameter("servicePackage"));
+        int period_id = Integer.parseInt(request.getParameter("period"));
+        String toServlet = "salesreport?package=" + servicePackage_id + "&period=" + period_id;
 
+        System.out.println(servicePackage_id + "   " + period_id);
+
+        PurchasesPerPackageEntity purchases = employeeService.purchasesPerPackage(servicePackage_id);
+
+        System.out.println(purchases);
+
+        response.sendRedirect(toServlet);
     }
 }

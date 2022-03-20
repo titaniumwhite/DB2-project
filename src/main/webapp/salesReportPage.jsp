@@ -39,7 +39,7 @@
 
     List<Errors> errors = (List<Errors>) request.getAttribute("errors");
     List<PendingOrders> pendingOrders = (List<PendingOrders>) request.getAttribute("pendingOrders");
-    List<InsolventUsers> insolventUsers = (List<InsolventUsers>) request.getAttribute("insolventUsers");
+    //List<InsolventUsers> insolventUsers = (List<InsolventUsers>) request.getAttribute("insolventUsers");
 
     BestOptionalProduct bestOptionalProduct = (BestOptionalProduct) request.getAttribute("bestOptionalProduct");
 
@@ -68,9 +68,9 @@
 
                 <div class="row">
 
-                    <form action="salesReportPage" method="post">
-                        <label for="srvPackageWithValPeriod">Choose a service package:</label>
-                        <select name="srvPackageWithValPeriod" id="srvPackageWithValPeriod">
+                    <form action="salesreport" method="post">
+                        <label for="servicePackage">Choose a service package:</label>
+                        <select name="servicePackage" id="servicePackage">
                             <%
                                 for (AvailableServicePackEntity servicePackage: availablePackages) {
                             %>
@@ -81,8 +81,8 @@
                         </select>
                         <br><br>
 
-                        <label for="valPeriod">Choose a validity period:</label>
-                        <select name="valPeriod" id="valPeriod">
+                        <label for="period">Choose a validity period:</label>
+                        <select name="period" id="period">
                             <%
                                 for (PeriodEntity period: periods) {
                             %>
