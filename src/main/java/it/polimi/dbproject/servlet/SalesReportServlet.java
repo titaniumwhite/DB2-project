@@ -24,7 +24,7 @@ public class SalesReportServlet extends HttpServlet {
     private PurchasesPerPackageEntity purchasesPerPackage;
     private PurchasesPerPackageAndPeriod purchasesPerPackageAndPeriod;
     private SalesPerPackage salesPerPackage;
-    private AverageOptionalProductsPerPackage averageOptionalProductsPerPackage;
+    private AVG_numOptionServPerServPack AVG_numOptionServPerServPack;
     private AvailableServicePackEntity choosenPackage;
     private List<PeriodEntity> periods;
 
@@ -47,7 +47,7 @@ public class SalesReportServlet extends HttpServlet {
 
         request.setAttribute("salesPerPackage", salesPerPackage);
 
-        request.setAttribute("averageOptionalProductsPerPackage", averageOptionalProductsPerPackage);
+        request.setAttribute("AVG_numOptionServPerServPack", AVG_numOptionServPerServPack);
 
         //List<InsolventUsers> insolventUsers = employeeService.retrieveAllInsolventUsers();
         //request.setAttribute("insolventUsers", insolventUsers);
@@ -74,9 +74,45 @@ public class SalesReportServlet extends HttpServlet {
 
         System.out.println(servicePackage_id + "   " + period_id);
 
-        PurchasesPerPackageEntity purchases = employeeService.purchasesPerPackage(servicePackage_id);
+        int test = 6;
 
-        System.out.println(purchases);
+        if (test == 1) {
+            // 1st
+            PurchasesPerPackageEntity purchasesPerPackage = employeeService.purchasesPerPackage(servicePackage_id);
+            System.out.println(purchasesPerPackage);
+        } else if (test == 2) {
+            // 2nd
+            PurchasesPerPackageAndPeriod purchasesPerPackageAndPeriod = employeeService.retrievePurchasesPerPackageAndPeriod(servicePackage_id, period_id);
+            System.out.println(purchasesPerPackageAndPeriod);
+        } else if (test == 3) {
+
+
+            // 3rd
+        } else if (test == 4) {
+
+            // 4th
+            AVG_numOptionServPerServPack averageOptionalProductsPerPackage = employeeService.retrieveAverageOptionalProductsPerPackage(servicePackage_id);
+            System.out.println(averageOptionalProductsPerPackage);
+        } else if (test == 5) {
+
+            // 5th
+            List<PendingOrders> pendingOrders = employeeService.retrieveAllPendingOrders();
+            System.out.println(pendingOrders);
+
+
+            List<InsolventUsers> insolventUsers = employeeService.retrieveAllInsolventUsers();
+            System.out.println(insolventUsers);
+
+            List<Errors> errors = employeeService.retrieveAllErrors();
+            System.out.println(errors);
+        } else if (test == 6) {
+
+            // 6th
+            BestOptionalProduct bestOptionalProducts = employeeService.retrieveBestOptionalProduct();
+            System.out.println(bestOptionalProducts);
+        }
+
+
 
         response.sendRedirect(toServlet);
     }

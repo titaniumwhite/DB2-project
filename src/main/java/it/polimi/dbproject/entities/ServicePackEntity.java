@@ -17,7 +17,7 @@ import java.util.List;
 @NamedQuery(
         name = "ServicePack.retrievePackageThroughID",
         query = " SELECT s FROM ServicePackEntity s" +
-                " WHERE s.servicePack_id = :servicePackId"
+                " WHERE s.servicePackId = :servicePackId"
 )
 
 @Entity
@@ -29,7 +29,7 @@ public class ServicePackEntity implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "service_pack_id", nullable = false)
-    private int servicePack_id;
+    private int servicePackId;
 
     @Column(name = "start_date", nullable = false)
     private java.sql.Date startDate;
@@ -94,12 +94,12 @@ public class ServicePackEntity implements Serializable{
 
     // GETTER AND SETTER //
 
-    public void setId(int servicePack_id){
-        this.servicePack_id = servicePack_id;
+    public void setId(int servicePackId){
+        this.servicePackId = servicePackId;
     }
 
     public int getId(){
-        return servicePack_id;
+        return servicePackId;
     }
 
     public void setTotalCost(int cost){
@@ -157,11 +157,11 @@ public class ServicePackEntity implements Serializable{
     }
 
     public int getServicePack_id() {
-        return servicePack_id;
+        return servicePackId;
     }
 
-    public void setServicePack_id(int servicePack_id) {
-        this.servicePack_id = servicePack_id;
+    public void setServicePack_id(int servicePackId) {
+        this.servicePackId = servicePackId;
     }
 
     public int getCost() {

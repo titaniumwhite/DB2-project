@@ -12,22 +12,21 @@ import java.io.Serializable;
         query = "SELECT iu FROM InsolventUsers iu "
 )
 
-@Table(name = "insolvent_users", schema = "dbproject2022")
+@Table(name = "insolventUsers", schema = "dbproject2022")
 public class InsolventUsers implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "insolvent_users_id", nullable = false)
-    private int insolventusers_id;
+    @Column(name = "user_id", nullable = false)
+    private int user_id;
 
     @OneToOne
     @JoinColumn(name = "user_id")
     private UserEntity user;
 
-    public InsolventUsers(int insolventusers_id, UserEntity user) {
-        this.insolventusers_id = insolventusers_id;
+    public InsolventUsers(UserEntity user) {
         this.user = user;
     }
 

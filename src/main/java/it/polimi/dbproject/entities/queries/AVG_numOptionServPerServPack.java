@@ -8,44 +8,44 @@ import java.io.Serializable;
 @Entity
 
 @NamedQuery(
-        name = "AverageOptionalProductsPerPackage.findByPackageId",
-        query = "SELECT n FROM AverageOptionalProductsPerPackage n " +
-                "WHERE n.package_id = :package_id"
+        name = "AVG_numOptionServPerServPack.findByPackageId",
+        query = "SELECT n FROM AVG_numOptionServPerServPack n " +
+                "WHERE n.servicePack_id = :package_id"
 )
 
-@Table(name = "average_optional_products_perpackage", schema = "dbproject2022")
-public class AverageOptionalProductsPerPackage implements Serializable {
+@Table(name = "avg_numoptionservperservpack", schema = "dbproject2022")
+public class AVG_numOptionServPerServPack implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "average_optional_products_perpackage_id", nullable = false)
-    private int package_id;
+    @Column(name = "servicePack_id", nullable = false)
+    private int servicePack_id;
 
     @OneToOne
-    @JoinColumn(name = "service_pack_id")
+    @JoinColumn(name = "servicePack_id")
     private ServicePackEntity servicePack;
 
-    @Column(name = "average", nullable = false)
+    @Column(name = "avgNum", nullable = false)
     private float average;
 
 
-    public AverageOptionalProductsPerPackage() {
+    public AVG_numOptionServPerServPack() {
     }
 
-    public AverageOptionalProductsPerPackage(int package_id, ServicePackEntity servicePack) {
-        this.package_id = package_id;
+    public AVG_numOptionServPerServPack(int servicePack_id, ServicePackEntity servicePack) {
+        this.servicePack_id = servicePack_id;
         this.servicePack = servicePack;
         this.average = 0;
     }
 
     public int getPackage_id() {
-        return package_id;
+        return servicePack_id;
     }
 
-    public void setPackage_id(int package_id) {
-        this.package_id = package_id;
+    public void setPackage_id(int servicePack_id) {
+        this.servicePack_id = servicePack_id;
     }
 
     public ServicePackEntity getServicePackage() {

@@ -19,11 +19,11 @@ public class PendingOrders implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "pending_orders_Id", nullable = false)
+    @Column(name = "pending_order_id", nullable = false)
     private int pendingOrders_Id;
 
     @OneToOne
-    @JoinColumn(name = "order_id")
+    @JoinColumn(name = "pending_order_id")
     private OrderEntity order;
 
     public PendingOrders() {

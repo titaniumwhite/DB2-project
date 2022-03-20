@@ -19,18 +19,18 @@ public class BestOptionalProduct implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "best_optional_product_id", nullable = false)
-    private int bestOptionalProduct_id;
+    @Column(name = "optional_service_id", nullable = false)
+    private int optional_service_id;
 
     @OneToOne
     @JoinColumn(name = "optional_service_id")
     private OptionalServiceEntity optionalService;
 
-    @Column(name = "number_of_sales", nullable = false)
+    @Column(name = "sales", nullable = false)
     private int numberOfSales;
 
-    public BestOptionalProduct(int bestOptionalProduct_id, OptionalServiceEntity optionalService, int numberOfSales) {
-        this.bestOptionalProduct_id = bestOptionalProduct_id;
+    public BestOptionalProduct(int optional_service_id, OptionalServiceEntity optionalService, int numberOfSales) {
+        this.optional_service_id = optional_service_id;
         this.optionalService = optionalService;
         this.numberOfSales = numberOfSales;
     }

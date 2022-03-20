@@ -13,22 +13,22 @@ import java.io.Serializable;
 @NamedQuery(
         name = "PurchasesPerPackageAndPeriod.retrieveByPackageAndPeriod",
         query = "SELECT p FROM PurchasesPerPackageAndPeriod p " +
-                "WHERE p.purchasesperpackageandperiod_id = :package_id AND " +
+                "WHERE p.servicePack_id = :package_id AND " +
                 "p.period_id =: period_id "
 )
 
-@Table(name = "purchases_per_package_and_period", schema = "dbproject2022")
+@Table(name = "totalOrderPackageWithPeriod", schema = "dbproject2022")
 public class PurchasesPerPackageAndPeriod implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "purchasesperpackageandperiod_id", nullable = false)
-    private int purchasesperpackageandperiod_id;
+    @Column(name = "servicePack_id", nullable = false)
+    private int servicePack_id;
 
     @OneToOne
-    @JoinColumn(name = "package_id")
+    @JoinColumn(name = "servicePack_id")
     private ServicePackEntity servicePack;
 
     @Column(name = "period_id", nullable = false)
@@ -38,15 +38,15 @@ public class PurchasesPerPackageAndPeriod implements Serializable {
     @JoinColumn(name = "period_id")
     private PeriodEntity period;
 
-    @Column(name = "purchases", nullable = false)
-    private int purchases;
+    @Column(name = "totalNumber", nullable = false)
+    private int totalNumber;
 
-    public PurchasesPerPackageAndPeriod(int purchasesperpackageandperiod_id, ServicePackEntity servicePack, int period_id, PeriodEntity period) {
-        this.purchasesperpackageandperiod_id = purchasesperpackageandperiod_id;
+    public PurchasesPerPackageAndPeriod(int servicePack_id, ServicePackEntity servicePack, int period_id, PeriodEntity period) {
+        this.servicePack_id = servicePack_id;
         this.servicePack = servicePack;
         this.period_id = period_id;
         this.period = period;
-        this.purchases = 0;
+        this.totalNumber = 0;
     }
 
 

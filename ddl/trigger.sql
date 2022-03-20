@@ -73,6 +73,13 @@ CREATE TABLE insolventUsers
         foreign key (user_id) references user (user_id)
 );
 
+CREATE TABLE pending_orders
+(
+    pending_order_id int not null,
+    constraint pendingOrders_fk0
+        foreign key (pending_order_id) references `order`  (order_id)
+);
+
 create index insolventUsers_fk0_idx
     on insolventusers (user_id);
 

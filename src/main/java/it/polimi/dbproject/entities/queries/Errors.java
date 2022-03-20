@@ -19,16 +19,15 @@ public class Errors implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "errors_id", nullable = false)
-    private int errors_id;
+    @Column(name = "error_id", nullable = false)
+    private int error_id;
 
     @OneToOne
     @JoinColumn(name = "error_id")
     private ErrorEntity error;
 
-    public Errors(int errors_id, ErrorEntity alert) {
-        this.errors_id = errors_id;
-        this.error = alert;
+    public Errors(ErrorEntity error) {
+        this.error = error;
     }
 
     public Errors() {

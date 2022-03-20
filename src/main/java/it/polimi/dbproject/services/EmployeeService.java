@@ -118,20 +118,20 @@ public class EmployeeService {
                 .getResultList();
     }
 
-    public Optional<ServicePackEntity> retrievePackageThroughID(int servicePack_id) {
+    public Optional<ServicePackEntity> retrievePackageThroughID(int servicePackId) {
         return em.createNamedQuery("ServicePack.retrievePackageThroughID", ServicePackEntity.class)
-                .setParameter("servicePackId", servicePack_id)
+                .setParameter("servicePackId", servicePackId)
                 .getResultStream().findFirst();
     }
 
-    public AverageOptionalProductsPerPackage retrieveAverageOptionalProductsPerPackage (int package_id) {
+    public AVG_numOptionServPerServPack retrieveAverageOptionalProductsPerPackage (int package_id) {
 
         try {
-            return em.createNamedQuery("AverageOptionalProductsPerPackage.findByPackageId", AverageOptionalProductsPerPackage.class)
+            return em.createNamedQuery("AVG_numOptionServPerServPack.findByPackageId", AVG_numOptionServPerServPack.class)
                     .setParameter("package_id", package_id)
                     .getResultList().stream().findFirst().get();
         } catch (NoSuchElementException e) {
-            return new AverageOptionalProductsPerPackage(package_id, retrievePackageThroughID(package_id).get());
+            return new AVG_numOptionServPerServPack(package_id, retrievePackageThroughID(package_id).get());
         }
 
     }
@@ -160,7 +160,11 @@ public class EmployeeService {
                     .setParameter("period_id", period_id)
                     .getResultList().stream().findFirst().get();
         }catch (NoSuchElementException exception){
-            return new PurchasesPerPackageAndPeriod(package_id, retrievePackageThroughID(package_id).get(), period_id, retrievePeriodById(period_id).get());
+            ServicePackEntity pack = retrievePackageThroughID(package_id).get();
+            System.out.println("il pack "+ pack);
+            PeriodEntity period = retrievePeriodById(period_id).get();
+            System.out.println("il period "+period);
+            return new PurchasesPerPackageAndPeriod(package_id, pack, period_id, period);
         }
     }
 
@@ -169,7 +173,9 @@ public class EmployeeService {
             return em.createNamedQuery("PurchasesPerPackageEntity.retrievePurchasesByPackId", PurchasesPerPackageEntity.class)
                     .setParameter("package_id", package_id).getResultList().stream().findFirst().get();
         } catch (NoSuchElementException exception){
-            return new PurchasesPerPackageEntity(package_id, retrievePackageThroughID(package_id).get());
+            ServicePackEntity pack = retrievePackageThroughID(package_id).get();
+            System.out.println("il pack è " + pack);
+            return new PurchasesPerPackageEntity(package_id, pack);
         }
     }
 

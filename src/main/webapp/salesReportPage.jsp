@@ -35,7 +35,7 @@
 
     SalesPerPackage salesPerPackage = (SalesPerPackage) request.getAttribute("salesPerPackage");
 
-    AverageOptionalProductsPerPackage averageOptionalProductsPerPackage = (AverageOptionalProductsPerPackage) request.getAttribute("averageOptionalProductsPerPackage");
+    AVG_numOptionServPerServPack averageOptionalProductsPerPackage = (AVG_numOptionServPerServPack) request.getAttribute("AVG_numOptionServPerServPack");
 
     List<Errors> errors = (List<Errors>) request.getAttribute("errors");
     List<PendingOrders> pendingOrders = (List<PendingOrders>) request.getAttribute("pendingOrders");

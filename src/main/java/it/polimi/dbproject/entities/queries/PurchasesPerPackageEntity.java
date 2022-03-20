@@ -12,34 +12,34 @@ import java.io.Serializable;
 @NamedQuery(
         name = "PurchasesPerPackageEntity.retrievePurchasesByPackId",
         query = "SELECT p FROM PurchasesPerPackageEntity p " +
-                "WHERE p.purchasesperpackage_id = :package_id"
+                "WHERE p.servicePack_id = :package_id"
 )
 
-@Table(name = "purchases_per_package", schema = "dbproject2022")
+@Table(name = "totalOrderPackage", schema = "dbproject2022")
 public class PurchasesPerPackageEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "purchases_per_package_id", nullable = false)
-    private int purchasesperpackage_id;
+    @Column(name = "servicePack_id", nullable = false)
+    private int servicePack_id;
 
     @OneToOne
-    @JoinColumn(name = "package_id")
+    @JoinColumn(name = "servicePack_id")
     private ServicePackEntity servicePack;
 
 
-    @Column(name = "total_purchases", nullable = false)
-    private int totalPurchases;
+    @Column(name = "totalOrder", nullable = false)
+    private int totalOrder;
 
 
     public PurchasesPerPackageEntity() {
     }
 
-    public PurchasesPerPackageEntity(int purchasesperpackage_id, ServicePackEntity servicePack) {
-        this.purchasesperpackage_id = purchasesperpackage_id;
+    public PurchasesPerPackageEntity(int servicePack_id, ServicePackEntity servicePack) {
+        this.servicePack_id = servicePack_id;
         this.servicePack = servicePack;
-        totalPurchases=0;
+        totalOrder=0;
     }
 
 
