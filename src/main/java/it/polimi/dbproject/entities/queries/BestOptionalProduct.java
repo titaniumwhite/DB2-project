@@ -12,21 +12,21 @@ import java.io.Serializable;
         query = "SELECT bop FROM BestOptionalProduct bop "
 )
 
-@Table(name = "bestoptionalproduct", schema = "dbproject2022")
+@Table(name = "best_optional_product", schema = "dbproject2022")
 public class BestOptionalProduct implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "bestoptionalproduct_id", nullable = false)
+    @Column(name = "best_optional_product_id", nullable = false)
     private int bestOptionalProduct_id;
 
     @OneToOne
-    @JoinColumn(name = "optionalService_id")
+    @JoinColumn(name = "optional_service_id")
     private OptionalServiceEntity optionalService;
 
-    @Column(name = "numberofsales", nullable = false)
+    @Column(name = "number_of_sales", nullable = false)
     private int numberOfSales;
 
     public BestOptionalProduct(int bestOptionalProduct_id, OptionalServiceEntity optionalService, int numberOfSales) {

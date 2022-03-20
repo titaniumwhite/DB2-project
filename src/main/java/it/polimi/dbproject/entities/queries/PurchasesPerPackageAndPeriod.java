@@ -3,7 +3,6 @@ package it.polimi.dbproject.entities.queries;
 
 import it.polimi.dbproject.entities.AvailableServicePackEntity;
 import it.polimi.dbproject.entities.PeriodEntity;
-import it.polimi.dbproject.entities.ServicePackEntity;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -17,7 +16,7 @@ import java.io.Serializable;
                 "p.period_id =: period_id "
 )
 
-@Table(name = "purchasesperpackageandperiod", schema = "dbproject2022")
+@Table(name = "purchases_per_package_and_period", schema = "dbproject2022")
 public class PurchasesPerPackageAndPeriod implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -46,7 +45,7 @@ public class PurchasesPerPackageAndPeriod implements Serializable {
         this.package_id = package_id;
         this.period_id = period_id;
         this.period = period;
-        this.purchases = 0;
+        this.purchases = purchases;
     }
 
 

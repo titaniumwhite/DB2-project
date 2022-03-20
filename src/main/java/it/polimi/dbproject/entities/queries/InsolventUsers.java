@@ -19,7 +19,7 @@ public class InsolventUsers implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "insolventusers_id", nullable = false)
+    @Column(name = "insolvent_users_id", nullable = false)
     private int insolventusers_id;
 
     @OneToOne

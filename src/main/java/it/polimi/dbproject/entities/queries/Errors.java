@@ -24,11 +24,11 @@ public class Errors implements Serializable {
 
     @OneToOne
     @JoinColumn(name = "error_id")
-    private ErrorEntity alert;
+    private ErrorEntity error;
 
     public Errors(int errors_id, ErrorEntity alert) {
         this.errors_id = errors_id;
-        this.alert = alert;
+        this.error = alert;
     }
 
     public Errors() {

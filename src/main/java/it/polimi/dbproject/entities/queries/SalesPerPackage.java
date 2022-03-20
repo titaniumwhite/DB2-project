@@ -2,7 +2,6 @@ package it.polimi.dbproject.entities.queries;
 
 
 import it.polimi.dbproject.entities.AvailableServicePackEntity;
-import it.polimi.dbproject.entities.ServicePackEntity;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -16,24 +15,25 @@ import java.io.Serializable;
 )
 
 
-@Table(name = "salesperpackage", schema = "dbproject2022")
+@Table(name = "sales_per_package", schema = "dbproject2022")
 public class SalesPerPackage implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "salesperpackage_id", nullable = false)
+    @Column(name = "sales_per_package_id", nullable = false)
     private int salesperpackage_id;
+
 
     @OneToOne
     @JoinColumn(name = "package_id")
     private ServicePackEntity servicePack;
 
-    @Column(name = "totalSalesWithOptional", nullable = false)
+    @Column(name = "total_sales_with_optional", nullable = false)
     private float totalSalesWithOptional;
 
-    @Column(name = "totalSalesNoOptional", nullable = false)
+    @Column(name = "total_sales_no_optional", nullable = false)
     private float totalSalesNoOptional;
 
-    public SalesPerPackage(int salesperpackage_id, ServicePackEntity servicePack) {
+    public SalesPerPackage(int salesperpackage_id, AvailableServicePackEntity availableServicePack, float totalSalesWithOptional, float totalSalesNoOptional) {
         this.salesperpackage_id = salesperpackage_id;
         this.servicePack = servicePack;
         this.totalSalesWithOptional = 0;

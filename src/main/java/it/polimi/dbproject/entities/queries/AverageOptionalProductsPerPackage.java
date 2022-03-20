@@ -1,30 +1,21 @@
 package it.polimi.dbproject.entities.queries;
 
-import it.polimi.dbproject.entities.ServicePackEntity;
-
 import javax.persistence.*;
 import java.io.Serializable;
-@Entity
 
-@NamedQuery(
-        name = "AverageOptionalProductsPerPackage.findByPackageId",
-        query = "SELECT n FROM AverageOptionalProductsPerPackage n " +
-                "WHERE n.package_id = :package_id"
-)
-
-@Table(name = "averageoptionalproductsperpackage", schema = "dbproject2022")
+@Table(name = "average_optional_products_perpackage", schema = "dbproject2022")
 public class AverageOptionalProductsPerPackage implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "averageoptionalproductsperpackage_id", nullable = false)
+    @Column(name = "average_optional_products_perpackage_id", nullable = false)
     private int package_id;
 
     @OneToOne
-    @JoinColumn(name = "package_id")
-    private ServicePackEntity servicePack;
+    @JoinColumn(name = "service_pack_id")
+    private ServicePackEntity servicePackage;
 
     @Column(name = "average", nullable = false)
     private float average;
@@ -33,9 +24,9 @@ public class AverageOptionalProductsPerPackage implements Serializable {
     public AverageOptionalProductsPerPackage() {
     }
 
-    public AverageOptionalProductsPerPackage(int package_id, ServicePackEntity servicePack) {
+    public AverageOptionalProductsPerPackage(int package_id, ServicePackEntity servicePackage, float average) {
         this.package_id = package_id;
-        this.servicePack = servicePack;
+        this.servicePackage = servicePackage;
         this.average = 0;
     }
 
@@ -48,11 +39,11 @@ public class AverageOptionalProductsPerPackage implements Serializable {
     }
 
     public ServicePackEntity getServicePackage() {
-        return servicePack;
+        return servicePackage;
     }
 
-    public void setServicePackage(ServicePackEntity servicePack) {
-        this.servicePack = servicePack;
+    public void setServicePackage(ServicePackEntity servicePackage) {
+        this.servicePackage = servicePackage;
     }
 
     public float getAverage() {
