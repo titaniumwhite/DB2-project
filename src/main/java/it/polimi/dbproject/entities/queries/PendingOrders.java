@@ -8,7 +8,7 @@ import java.io.Serializable;
 @Entity
 
 @NamedQuery(
-        name = "PendingOrders.retrievePendingOrder",
+        name = "PendingOrders.retrievePendingOrders",
         query = "SELECT po FROM PendingOrders po "
 )
 
@@ -18,7 +18,6 @@ public class PendingOrders implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "pending_order_id", nullable = false)
     private int pendingOrders_Id;
 

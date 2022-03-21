@@ -21,7 +21,7 @@ public class SalesReportServlet extends HttpServlet {
     @EJB
     private EmployeeService employeeService;
 
-    private PurchasesPerPackageEntity purchasesPerPackage;
+    private PurchasesPerPackage purchasesPerPackage;
     private PurchasesPerPackageAndPeriod purchasesPerPackageAndPeriod;
     private SalesPerPackage salesPerPackage;
     private AVG_numOptionServPerServPack AVG_numOptionServPerServPack;
@@ -74,11 +74,11 @@ public class SalesReportServlet extends HttpServlet {
 
         System.out.println(servicePackage_id + "   " + period_id);
 
-        int test = 6;
+        int test = 5;
 
         if (test == 1) {
             // 1st
-            PurchasesPerPackageEntity purchasesPerPackage = employeeService.purchasesPerPackage(servicePackage_id);
+            PurchasesPerPackage purchasesPerPackage = employeeService.purchasesPerPackage(servicePackage_id);
             System.out.println(purchasesPerPackage);
         } else if (test == 2) {
             // 2nd
@@ -108,8 +108,8 @@ public class SalesReportServlet extends HttpServlet {
         } else if (test == 6) {
 
             // 6th
-            BestOptionalProduct bestOptionalProducts = employeeService.retrieveBestOptionalProduct();
-            System.out.println(bestOptionalProducts);
+            BestOptionalService bestOptionalService = employeeService.retrieveBestOptionalProduct();
+            System.out.println(bestOptionalService);
         }
 
 

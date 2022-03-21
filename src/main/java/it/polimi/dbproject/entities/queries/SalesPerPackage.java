@@ -19,13 +19,12 @@ import java.io.Serializable;
 @Table(name = "sales_per_package", schema = "dbproject2022")
 public class SalesPerPackage implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "sales_per_package_id", nullable = false)
-    private int salesperpackage_id;
+    @Column(name = "availableServicePack_id", nullable = false)
+    private int availableServicePack_id;
 
     @OneToOne
     @JoinColumn(name = "package_id")
-    private ServicePackEntity servicePack;
+    private AvailableServicePackEntity availableServicePack;
 
     @Column(name = "total_sales_with_optional", nullable = false)
     private float totalSalesWithOptional;
@@ -33,9 +32,9 @@ public class SalesPerPackage implements Serializable {
     @Column(name = "total_sales_no_optional", nullable = false)
     private float totalSalesNoOptional;
 
-    public SalesPerPackage(int salesperpackage_id, ServicePackEntity servicePack) {
-        this.salesperpackage_id = salesperpackage_id;
-        this.servicePack = servicePack;
+    public SalesPerPackage(int availableServicePack_id, AvailableServicePackEntity availableServicePack) {
+        this.availableServicePack_id = availableServicePack_id;
+        this.availableServicePack = availableServicePack;
         this.totalSalesWithOptional = 0;
         this.totalSalesNoOptional = 0;
     }

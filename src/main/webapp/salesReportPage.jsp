@@ -28,7 +28,7 @@
     List<AvailableServicePackEntity> availablePackages = (List<AvailableServicePackEntity>) request.getAttribute("availablePackages");
     ServicePackEntity choosenPackage = (ServicePackEntity)request.getAttribute("choosenPackage");
 
-    PurchasesPerPackageEntity purchasesPerPackage = (PurchasesPerPackageEntity) request.getAttribute("purchasesPerPackage");
+    PurchasesPerPackage purchasesPerPackage = (PurchasesPerPackage) request.getAttribute("purchasesPerPackage");
     PurchasesPerPackageAndPeriod purchasesPerPackageAndPeriod = (PurchasesPerPackageAndPeriod) request.getAttribute("purchasesPerPackageAndPeriod");
 
     List<PeriodEntity> periods = (List<PeriodEntity>) request.getAttribute("periods");
@@ -41,7 +41,7 @@
     List<PendingOrders> pendingOrders = (List<PendingOrders>) request.getAttribute("pendingOrders");
     //List<InsolventUsers> insolventUsers = (List<InsolventUsers>) request.getAttribute("insolventUsers");
 
-    BestOptionalProduct bestOptionalProduct = (BestOptionalProduct) request.getAttribute("bestOptionalProduct");
+    BestOptionalService bestOptionalProduct = (BestOptionalService) request.getAttribute("bestOptionalProduct");
 
 %>
 

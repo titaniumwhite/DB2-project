@@ -8,17 +8,16 @@ import java.io.Serializable;
 @Entity
 
 @NamedQuery(
-        name = "BestOptionalProduct.retrieveBest",
-        query = "SELECT bop FROM BestOptionalProduct bop "
+        name = "BestOptionalService.retrieveBest",
+        query = "SELECT bop FROM BestOptionalService bop "
 )
 
-@Table(name = "best_optional_product", schema = "dbproject2022")
-public class BestOptionalProduct implements Serializable {
+@Table(name = "best_optional_service", schema = "dbproject2022")
+public class BestOptionalService implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "optional_service_id", nullable = false)
     private int optional_service_id;
 
@@ -27,15 +26,15 @@ public class BestOptionalProduct implements Serializable {
     private OptionalServiceEntity optionalService;
 
     @Column(name = "sales", nullable = false)
-    private int numberOfSales;
+    private int sales;
 
-    public BestOptionalProduct(int optional_service_id, OptionalServiceEntity optionalService, int numberOfSales) {
+    public BestOptionalService(int optional_service_id, OptionalServiceEntity optionalService, int sales) {
         this.optional_service_id = optional_service_id;
         this.optionalService = optionalService;
-        this.numberOfSales = numberOfSales;
+        this.sales = sales;
     }
 
-    public BestOptionalProduct() {
+    public BestOptionalService() {
 
     }
 }
