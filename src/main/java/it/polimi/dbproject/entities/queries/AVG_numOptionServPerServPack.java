@@ -11,7 +11,7 @@ import java.io.Serializable;
 @NamedQuery(
         name = "AVG_numOptionServPerServPack.findByPackageId",
         query = "SELECT n FROM AVG_numOptionServPerServPack n " +
-                "WHERE n.servicePack_id = :package_id"
+                "WHERE n.availableServicePack_id = :package_id"
 )
 
 @Table(name = "avg_numoptionservperservpack", schema = "dbproject2022")
@@ -20,11 +20,11 @@ public class AVG_numOptionServPerServPack implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name = "available_service_pack_id", nullable = false)
+    @Column(name = "availableServicePack_id", nullable = false)
     private int availableServicePack_id;
 
     @OneToOne
-    @JoinColumn(name = "servicePack_id")
+    @JoinColumn(name = "availableServicePack_id")
     private AvailableServicePackEntity availableServicePack;
 
     @Column(name = "avgNum", nullable = false)

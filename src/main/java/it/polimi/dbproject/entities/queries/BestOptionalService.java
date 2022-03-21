@@ -31,7 +31,7 @@ public class BestOptionalService implements Serializable {
     public BestOptionalService(int optional_service_id, OptionalServiceEntity optionalService, int sales) {
         this.optional_service_id = optional_service_id;
         this.optionalService = optionalService;
-        this.sales = sales;
+        this.sales = 0;
     }
 
     public BestOptionalService() {

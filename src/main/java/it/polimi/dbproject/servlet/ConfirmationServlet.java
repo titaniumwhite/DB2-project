@@ -92,7 +92,6 @@ public class ConfirmationServlet extends HttpServlet {
 
                 userService.updateOrder(order, true);
             } else if (!alreadyExist){
-                System.out.println("entro qua222 e creo nuovo ordine");
                 order = userService.createOrder(new Timestamp(System.currentTimeMillis()), user, servicePack, isPlaceable);
             }
 

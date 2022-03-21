@@ -4,6 +4,7 @@ import it.polimi.dbproject.entities.*;
 import it.polimi.dbproject.entities.queries.*;
 
 import javax.ejb.Stateless;
+import javax.faces.view.ActionSource2AttachedObjectTarget;
 import javax.persistence.*;
 import javax.swing.text.html.Option;
 import java.util.List;
@@ -102,9 +103,9 @@ public class EmployeeService {
     public BestOptionalService retrieveBestOptionalProduct(){
         BestOptionalService bestOP = null;
         try {
-            if(em.createNamedQuery("BestOptionalService.retrieveBest", BestOptionalService.class)
-                    .getResultList().size() != 0)
-                bestOP = em.createNamedQuery("BestOptionalService.retrieveBest", BestOptionalService.class).getSingleResult();
+            bestOP = em.createNamedQuery("BestOptionalService.retrieveBest", BestOptionalService.class).getSingleResult();
+            System.out.println(bestOP);
+            return null;
         }catch(NoResultException ignored){}
 
         return bestOP;
