@@ -40,5 +40,12 @@ public class PurchasesPerPackage implements Serializable {
         totalOrder=0;
     }
 
-
+    @Override
+    public String toString() {
+        return "PurchasesPerPackage{" +
+                "availableServicePack_id=" + availableServicePack_id +
+                ", availableServicePack=" + availableServicePack +
+                ", totalOrder=" + totalOrder +
+                '}';
+    }
 }

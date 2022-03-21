@@ -74,42 +74,41 @@ public class SalesReportServlet extends HttpServlet {
 
         System.out.println(servicePackage_id + "   " + period_id);
 
-        int test = 5;
+        int test = 6;
 
         if (test == 1) {
-            // 1st
+            // 1st WORKING
             PurchasesPerPackage purchasesPerPackage = employeeService.purchasesPerPackage(servicePackage_id);
             System.out.println(purchasesPerPackage);
-        } else if (test == 2) {
-            // 2nd
+        } else if (test == 1) {
+            // 2nd WORKING
             PurchasesPerPackageAndPeriod purchasesPerPackageAndPeriod = employeeService.retrievePurchasesPerPackageAndPeriod(servicePackage_id, period_id);
             System.out.println(purchasesPerPackageAndPeriod);
         } else if (test == 3) {
 
 
             // 3rd
-        } else if (test == 4) {
+        } else if (test == 1) {
 
-            // 4th
+            // 4th WORKING
             AVG_numOptionServPerServPack averageOptionalProductsPerPackage = employeeService.retrieveAverageOptionalProductsPerPackage(servicePackage_id);
             System.out.println(averageOptionalProductsPerPackage);
         } else if (test == 5) {
-
+            // not working
             // 5th
             List<PendingOrders> pendingOrders = employeeService.retrieveAllPendingOrders();
-            System.out.println(pendingOrders);
+            System.out.println(pendingOrders.size());
 
 
             List<InsolventUsers> insolventUsers = employeeService.retrieveAllInsolventUsers();
-            System.out.println(insolventUsers);
+            System.out.println(insolventUsers.size());
 
             List<Errors> errors = employeeService.retrieveAllErrors();
-            System.out.println(errors);
+            System.out.println(errors.size());
         } else if (test == 6) {
-
             // 6th
             BestOptionalService bestOptionalService = employeeService.retrieveBestOptionalProduct();
-            System.out.println(bestOptionalService);
+            System.out.println("and the best iss" + bestOptionalService);
         }
 
 
