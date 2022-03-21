@@ -91,13 +91,20 @@
                 <% } %>
                     <br><br>
                 <p style="font-size: medium; text-align: center; justify-content: center"><b>Choose the start date</b></p>
-                        <input type="date" name="chosenStartDate" id="chosenStartDate" required>
-
-
+                <div class="row" style="text-align: center">
+                <div class="col" style="width: 25%; text-align: center; justify-content: center; align-items: center">
+                        <input type="date" name="chosenStartDate" id="chosenStartDate" min="2022-03-24" required>
+                </div>
+                </div>
                     <br><br>
+                <div class="row" style="text-align: center">
+                    <div class="col" style="width: 25%; text-align: center; justify-content: center; align-items: center">
+                        <input class="btn btn-outline-primary" type="submit" value="Confirm"/>
+                    </div>
+                </div>
 
-                    <input class="btn btn-outline-primary" type="submit" value="Confirm"/>
 
+                <br>
                     </form>
 
 

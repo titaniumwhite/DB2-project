@@ -75,9 +75,10 @@
             <li class="list-group-item">
                 <p style="font-size: medium; text-align: center; justify-content: center" name="chosenOptionalServices" id="chosenOptionalServices" ><%=os.getName()%> (<%=os.getMonthly_fee()%> &euro;/month)</p>
             </li>
+            <br>
             <% } %>
         </ul
-
+        <br>
         <p style="font-size: medium; text-align: center; justify-content: center"><b>Total cost for the duration of the subscription: </b></p>
         <div class="row"  style="justify-content: center">
             <div class="form-check">
@@ -92,13 +93,13 @@
             <div class="row" style="text-align: center">
 
                 <% if(user != null){ %>
-
-                    <button class="btn btn-primary"type="submit" onclick="actScheduleOverlayOn()"> BUY (ACCEPTANCE) </button>
-
+                <div class="col" style="width: 25%; text-align: center; justify-content: center; align-items: center">
+                    <button class="btn btn-primary" type="submit" onclick="actScheduleOverlayOn()"> BUY (ACCEPTANCE) </button>
+                </div>
                         <div style="justify-content: center; padding-top: 1rem">
                         </div>
                     <form action="confirmationpage" method="post">
-                        <button class="btn btn-primary" name="confirm" value="reject" type="submit"> BUY (REJECT) </button>
+                        <button class="btn btn-danger" name="confirm" value="reject" type="submit"> BUY (REJECT) </button>
                     </form>
                     <% } else { %>
 
@@ -120,27 +121,25 @@
                 <div class="card mx-auto my-auto" style="height: auto; width: 600px;">
                     <div class="card-body p-33 text-center">
 
-                        <h3 class="mb-3">Activation Schedule</h3>
-                        <h2 class="mb-2">The payment has been confirmed</h2>
-                        <p style="font-size: large; text-align: center; justify-content: center"><b>The following package will be activated the <%=servicePack.getStartDate()%>:</b></p>
+                        <h3 class="mb-3"><i>Activation Schedule</i></h3>
+                        <h2 class="mb-2"><b>PAYMENT HAS BEEN CONFIRMED</b></h2>
+                        <p style="font-size: large; text-align: center; justify-content: center"><i>The following package will be activated the: </i><b><%=servicePack.getStartDate()%>:</b></p>
                         <div class="row"  style="justify-content: center">
-                            <div class="form-check">
-                                <p style="font-size: medium; text-align: center; justify-content: center"><%=servicePack.getAvailablePackage().getName()%></p>
-                            </div>
+                                <p style="font-size: medium; padding: 0"><%=servicePack.getAvailablePackage().getName()%></p>
                         </div>
 
                         <div class="row"  style="justify-content: center">
                             <% if (servicePack.getSelectedOptionalServices().size() > 0) {%>
-                            <p style="font-size: large; text-align: center; justify-content: center"><b>The same day the following optional services will be activated:</b></p>
+                            <p style="font-size: large; text-align: center; justify-content: center"><i>The same day the following optional services will be activated:</i></p>
                             <ul class="list-group">
                                 <% for (OptionalServiceEntity os: servicePack.getSelectedOptionalServices()) {%>
-                                <li class="list-group-item">
+
                                     <p style="font-size: medium; text-align: center; justify-content: center" name="chosenOptionalServices" ><%=os.getName()%></p>
-                                </li>
+
                                 <% }} %>
                             </ul
                         </div>
-
+                        <br>
                         <form action="confirmationpage" method="post">
                             <button type="submit" class="btn btn-outline-primary" name="confirm" value="confirm" onclick="actScheduleOverlayOff()">Return to homepage</button>
                         </form>
