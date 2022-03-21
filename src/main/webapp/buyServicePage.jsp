@@ -102,8 +102,6 @@
                         <input class="btn btn-outline-primary" type="submit" value="Confirm"/>
                     </div>
                 </div>
-
-
                 <br>
                     </form>
 

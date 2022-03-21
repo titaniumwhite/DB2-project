@@ -120,14 +120,12 @@
             <div class="row h-100 justify-content-center align-items-center">
                 <div class="card mx-auto my-auto" style="height: auto; width: 600px;">
                     <div class="card-body p-33 text-center">
-
                         <h3 class="mb-3"><i>Activation Schedule</i></h3>
                         <h2 class="mb-2"><b>PAYMENT HAS BEEN CONFIRMED</b></h2>
                         <p style="font-size: large; text-align: center; justify-content: center"><i>The following package will be activated the: </i><b><%=servicePack.getStartDate()%>:</b></p>
                         <div class="row"  style="justify-content: center">
                                 <p style="font-size: medium; padding: 0"><%=servicePack.getAvailablePackage().getName()%></p>
                         </div>
-
                         <div class="row"  style="justify-content: center">
                             <% if (servicePack.getSelectedOptionalServices().size() > 0) {%>
                             <p style="font-size: large; text-align: center; justify-content: center"><i>The same day the following optional services will be activated:</i></p>
