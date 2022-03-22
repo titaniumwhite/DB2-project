@@ -37,8 +37,6 @@
     </ul>
 
 </nav>
-
-<>
     <div class="container d-flex" style="justify-content: center; align-content: center; padding-top: 1.5rem">
         <div class="col-lg-8">
             <div class="card card-margin">
@@ -126,7 +124,8 @@
         <br>${x}
         <input class="btn btn-primary" type="submit" value="Submit">
                 </div>
-            </div>
+    </form>
+                </div>
         </div>
     </div>
 

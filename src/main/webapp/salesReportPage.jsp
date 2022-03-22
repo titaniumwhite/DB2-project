@@ -65,20 +65,48 @@
         <div class="col-lg-12">
             <div class="card card-margin">
                 <div class="card-header no-border">
-                    <h5 class="card-title" style="text-align: center">Sales Report</h5>
+                    <h5 class="card-title" style="text-align: center; font-size: large"><b>Sales Report</b></h5>
                 </div>
-
-                <div class="row">
-
-                    <form action="salesreport" method="post">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th scope="col">Dimensions / Package</th>
+                            <th scope="col">Total Purchase Per Package</th>
+                            <th scope="col">Total Purchases Per Package And Period</th>
+                            <th scope="col">Total Value Of Sales With Optional Services</th>
+                            <th scope="col">Total Value Of Sales With Optional Services</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>Mark</td>
+                            <td>Otto</td>
+                            <td>@mdo</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2</th>
+                            <td>Jacob</td>
+                            <td>Thornton</td>
+                            <td>@fat</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">3</th>
+                            <td>Larry</td>
+                            <td>the Bird</td>
+                            <td>@twitter</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <!--<form action="salesreport" method="post">
                         <label for="servicePackage">Choose a service package:</label>
                         <select name="servicePackage" id="servicePackage">
                             <%
-                                for (AvailableServicePackEntity servicePackage: availablePackages) {
+                                //for (AvailableServicePackEntity servicePackage: availablePackages) {
                             %>
-                            <option value="<%=servicePackage.getAvailableServicePack_id()%>"><%=servicePackage.getName() %></option>
+                            <option value="<%//servicePackage.getAvailableServicePack_id()%>"><%//servicePackage.getName() %></option>
                             <%
-                                }
+                                //}
                             %>
                         </select>
                         <br><br>
@@ -86,11 +114,11 @@
                         <label for="period">Choose a validity period:</label>
                         <select name="period" id="period">
                             <%
-                                for (PeriodEntity period: periods) {
+                                //for (PeriodEntity period: periods) {
                             %>
-                            <option value="<%=period.getPeriod_id()%>"><%=period.getDuration()%></option>
+                            <option value="<%//period.getPeriod_id()%>"><%//period.getDuration()%></option>
                             <%
-                                }
+                             //   }
                             %>
                         </select>
                         <br><br>
@@ -102,7 +130,7 @@
                 <div class="card-text"><h3>Total Purchases per Package and Period</h3></div>
                 <div class="card-text"><h3>Total Value of sales with Optional Products</h3></div>
                 <div class="card-text"><h3>Total Value of sales without Optional Products</h3></div>
-                <div class="card-text"><h3>Average number of Optional Services sold together with each Service Package</h3></div>
+                <div class="card-text"><h3>Average number of Optional Services sold together with each Service Package</h3></div> -->
                 <div class="card-text"><h3>List of Insolvent Users</h3></div>
                     The number of Insolvent Users is ${insolventUsers.size()}
                 <div class="card-text"><h3>List of Suspended Orders</h3></div>
@@ -116,7 +144,6 @@
             </div>
         </div>
     </div>
-
 </section>
 </body>
 

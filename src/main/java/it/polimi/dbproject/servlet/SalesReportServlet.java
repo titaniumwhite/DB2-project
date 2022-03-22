@@ -107,7 +107,7 @@ public class SalesReportServlet extends HttpServlet {
         } else if (test == 1) {
             // 6th
             BestOptionalService bestOptionalService = employeeService.retrieveBestOptionalProduct();
-            System.out.println("and the best iss" + bestOptionalService);
+            System.out.println("and the best is " + bestOptionalService);
         }
 
 
