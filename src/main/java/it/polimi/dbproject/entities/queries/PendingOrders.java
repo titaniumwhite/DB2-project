@@ -31,4 +31,8 @@ public class PendingOrders implements Serializable {
     public PendingOrders(OrderEntity order) {
         this.order = order;
     }
+
+    public OrderEntity getOrder(){
+        return this.order;
+    }
 }

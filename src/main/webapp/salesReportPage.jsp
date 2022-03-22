@@ -25,26 +25,22 @@
 </head>
 <body style="background-color: #508bfc;">
 <%
-    List<AvailableServicePackEntity> availablePackages = (List<AvailableServicePackEntity>) request.getAttribute("availablePackages");
-    ServicePackEntity choosenPackage = (ServicePackEntity)request.getAttribute("choosenPackage");
+    List<AvailableServicePackEntity> availableServicePack = (List<AvailableServicePackEntity>) request.getAttribute("availableServicePack");
+    AvailableServicePackEntity availableServicePackChosen = (AvailableServicePackEntity) request.getAttribute("availableServicePackChosen");
 
     PurchasesPerPackage purchasesPerPackage = (PurchasesPerPackage) request.getAttribute("purchasesPerPackage");
     PurchasesPerPackageAndPeriod purchasesPerPackageAndPeriod = (PurchasesPerPackageAndPeriod) request.getAttribute("purchasesPerPackageAndPeriod");
-
     List<PeriodEntity> periods = (List<PeriodEntity>) request.getAttribute("periods");
 
     SalesPerPackage salesPerPackage = (SalesPerPackage) request.getAttribute("salesPerPackage");
 
-    AVG_numOptionServPerServPack averageOptionalProductsPerPackage = (AVG_numOptionServPerServPack) request.getAttribute("AVG_numOptionServPerServPack");
+    AVG_numOptionServPerServPack avg_numOptionServPerServPack = (AVG_numOptionServPerServPack) request.getAttribute("avg_numOptionServPerServPack");
 
     List<Errors> errors = (List<Errors>) request.getAttribute("errors");
     List<PendingOrders> pendingOrders = (List<PendingOrders>) request.getAttribute("pendingOrders");
     List<InsolventUsers> insolventUsers = (List<InsolventUsers>) request.getAttribute("insolventUsers");
 
-    String bestOptionalService_name = (String) request.getAttribute("bestOptionalService_name");
-    Integer bestOptionalService_sale = (Integer) request.getAttribute("bestOptionalService_sale");
-
-
+    BestOptionalService bestOptionalService = (BestOptionalService) request.getAttribute("bestOptionalService");
 %>
 
 
@@ -61,86 +57,236 @@
 </nav>
 
 <section>
-    <div class="container d-flex" style="justify-content: center; align-content: center; padding-top: 1.5rem">
-        <div class="col-lg-12">
-            <div class="card card-margin">
-                <div class="card-header no-border">
-                    <h5 class="card-title" style="text-align: center; font-size: large"><b>Sales Report</b></h5>
-                </div>
-                    <table class="table table-striped">
-                        <thead>
-                        <tr>
-                            <th scope="col">Dimensions / Package</th>
-                            <th scope="col">Total Purchase Per Package</th>
-                            <th scope="col">Total Purchases Per Package And Period</th>
-                            <th scope="col">Total Value Of Sales With Optional Services</th>
-                            <th scope="col">Total Value Of Sales With Optional Services</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td>Larry</td>
-                            <td>the Bird</td>
-                            <td>@twitter</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                    <!--<form action="salesreport" method="post">
-                        <label for="servicePackage">Choose a service package:</label>
-                        <select name="servicePackage" id="servicePackage">
-                            <%
-                                //for (AvailableServicePackEntity servicePackage: availablePackages) {
-                            %>
-                            <option value="<%//servicePackage.getAvailableServicePack_id()%>"><%//servicePackage.getName() %></option>
-                            <%
-                                //}
-                            %>
-                        </select>
-                        <br><br>
+    <div>
+        <h1>SALES REPORT</h1>
+        <div>
+            <h2>TOTAL PURCHASE PER PACKAGE</h2>
+            <form action="salesreport" method="post">
+                <p> Choose a service package: </p>
+                <select name="srvPackage" id="srvPackage">
+                    <%
+                        for (AvailableServicePackEntity a: availableServicePack) {
+                    %>
+                    <option value="<%=a.getAvailableServicePack_id()%>"><%=a.getName()%></option>
+                    <%
+                        }
+                    %>
+                </select>
+                <br>
+                <br>
+                <button name="button" type="submit">SELECT PACKAGE</button>
+                <br>
+                <br>
+                <%
+                    if(purchasesPerPackage != null) {
+                %>
+                <p><%=purchasesPerPackage.getTotalOrder()%></p>
+                <%
+                    }
+                %>
+            </form>
+        </div>
+        <br>
+        <br>
+        <div>
+            <h2>TOTAL PURCHASE PER PACKAGE AND PERIOD</h2>
+            <form action="salesreport" method="post">
+                <p> Choose a service package: </p>
+                <select name="srvPackageWithPeriod" id="srvPackageWithPeriod">
+                    <%
+                        for (AvailableServicePackEntity a: availableServicePack) {
+                    %>
+                    <option value="<%=a.getAvailableServicePack_id()%>"><%=a.getName()%></option>
+                    <%
+                        }
+                    %>
+                </select>
+                <br>
+                <br>
+                <button name="button" type="submit">SELECT PACKAGE</button>
+                <br>
+                <br>
+            </form>
+                <%
+                    if(periods != null) {
+                %>
+                <br>
+                <p>Package Selected: <%=availableServicePackChosen.getName()%></p>
+                <form action="salesreport" method="post">
+                    <br>
+                    <br>
+                    <p>Choose a period: </p>
+                    <select name="period" id="period">
+                        <%
+                            for(PeriodEntity p: periods) {
+                        %>
+                        <option value="<%=p.getPeriod_id()%>"><%=p.toString()%></option>
+                        <%
+                            }
+                        %>
+                    </select>
+                    <br>
+                    <br>
+                    <button type="submit">SELECT PERIOD</button>
+                </form>
+                <br>
+                <br>
+                <%
+                    if(purchasesPerPackageAndPeriod != null){
+                %>
+                <p><%=purchasesPerPackageAndPeriod.getTotalNumber()%></p>
+                <%
+                    }}
+                %>
+        </div>
+        <br>
+        <br>
+        <div>
+            <h2> TOTAL SALES PER PACKAGE WITH AND WITHOUT OPTIONAL SERVICE </h2>
+            <form action="salesreport" method="post">
+                <p>Choose a service pack: </p>
+                <select name="srvPackageWithOptProducts" id="srvPackageWithOptProducts">
+                    <%
+                        for (AvailableServicePackEntity a: availableServicePack) {
+                    %>
+                    <option value="<%=a.getAvailableServicePack_id()%>"><%=a.getName()%></option>
+                    <%
+                        }
+                    %>
+                </select>
+                <br>
+                <br>
+                <button name="button" type="submit">SELECT PACKAGE</button>
+                <%
+                    if(salesPerPackage != null) {
+                %>
+                <p>Sales No Optional<%=salesPerPackage.getTotalSalesNoOptional()%></p>
+                <p>Sales With Optional<%=salesPerPackage.getTotalSalesWithOptional()%></p>
+                <%
+                    }
+                %>
+            </form>
+        </div>
+        <br>
+        <br>
+        <div>
+            <h2> AVERAGE NUMBER OF OPTIONAL SERVICE SOLD WITH EACH PACKAGE </h2>
+            <form action="salesreport" method="post">
+                <p>Choose a service pack: </p>
+                <select name="srvPackageAvg" id="srvPackageAvg">
+                    <%
+                        for (AvailableServicePackEntity a: availableServicePack) {
+                    %>
+                    <option value="<%=a.getAvailableServicePack_id()%>"><%=a.getName()%></option>
+                    <%
+                        }
+                    %>
+                </select>
+                <br>
+                <br>
+                <button name="button" type="submit">SELECT PACKAGE</button>
+                <%
+                    if(avg_numOptionServPerServPack != null) {
+                %>
+                <p><%=avg_numOptionServPerServPack.getAverage()%></p>
+                <%
+                    }
+                %>
+            </form>
+        </div>
+        <br>
+        <br>
+        <div>
+            <h2>INSOLVENT USERS</h2>
+        </div>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">User</th>
+            </tr>
+            </thead>
+            <tbody>
+            <%
+                if(insolventUsers != null){
+                    for (InsolventUsers iu: insolventUsers) {
+            %>
+            <tr>
+                <th scope="row"><%=iu.getUser().getUsername()%></th>
+            </tr>
+            <%
+                }}
+            %>
+            </tbody>
+        </table>
 
-                        <label for="period">Choose a validity period:</label>
-                        <select name="period" id="period">
-                            <%
-                                //for (PeriodEntity period: periods) {
-                            %>
-                            <option value="<%//period.getPeriod_id()%>"><%//period.getDuration()%></option>
-                            <%
-                             //   }
-                            %>
-                        </select>
-                        <br><br>
-                        <button class="btn btn-primary" type="submit">Submit</button>
-                    </form>
-                </div>
+        <div>
+            <h2>SUSPENDED ORDERS</h2>
+        </div>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">User</th>
+                <th scope="col">Date & Hour</th>
+            </tr>
+            </thead>
+            <tbody>
+            <%
+                if(pendingOrders != null){
+                    for (PendingOrders po: pendingOrders) {
+            %>
+            <tr>
+                <th scope="row"><%=po.getOrder().getOwner().getUsername()%></th>
+                <th scope="row"><%=po.getOrder().getCreation_ts()%></th>
+            </tr>
+            <%
+                    }}
+            %>
+            </tbody>
+        </table>
 
-                <div class="card-text"><h3>Total Purchases per Package</h3></div>
-                <div class="card-text"><h3>Total Purchases per Package and Period</h3></div>
-                <div class="card-text"><h3>Total Value of sales with Optional Products</h3></div>
-                <div class="card-text"><h3>Total Value of sales without Optional Products</h3></div>
-                <div class="card-text"><h3>Average number of Optional Services sold together with each Service Package</h3></div> -->
-                <div class="card-text"><h3>List of Insolvent Users</h3></div>
-                    The number of Insolvent Users is ${insolventUsers.size()}
-                <div class="card-text"><h3>List of Suspended Orders</h3></div>
-                    The number of Suspended Orders is ${pendingOrders.size()}
-                <div class="card-text"><h3>List of Errors</h3></div>
-                    The number of Errors is ${errors.size()}
-                <div class="card-text"><h3>Best Seller Optional Service</h3></div>
-                    The Optional Service that has sold the most is ${bestOptionalService_name} for a total value of ${bestOptionalService_sale} &euro;
+        <div>
+            <h2>USER ERRORS</h2>
+        </div>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">Username</th>
+                <th scope="col">#Errors</th>
+                <th scope="col">Date & Hour Last Rejection</th>
+            </tr>
+            </thead>
+            <tbody>
+            <%
+                if(errors != null){
+                    for (Errors e: errors) {
+            %>
+            <tr>
+                <th scope="row"><%=e.getError().getOwner().getUsername()%></th>
+                <th scope="row"><%=e.getError().getOwner().getErrors().size()%></th>
+                <th scope="row"><%=e.getError().getTs()%></th>
+            </tr>
+            <%
+                    }}
+            %>
+            </tbody>
+        </table>
+        <br>
+        <br>
 
-
+        <div>
+            <h2> BEST SELLER OPTIONAL SERVICE</h2>
+            <div>
+                <%
+                    if(bestOptionalService != null){
+                %>
+                <p><%=bestOptionalService.getOptionalService().getName()%></p>
+                <%
+                    } else {
+                %>
+                <p> No Optional Service has been sold yet!</p>
+                <%
+                    }
+                %>
             </div>
         </div>
     </div>

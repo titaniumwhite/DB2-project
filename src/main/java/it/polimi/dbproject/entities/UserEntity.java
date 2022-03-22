@@ -58,7 +58,7 @@ public class UserEntity implements Serializable {
     @OneToMany(targetEntity = ServicePackEntity.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ServicePackEntity> servicePackages;
 
-    @OneToMany(targetEntity = ErrorEntity.class, fetch = FetchType.LAZY, mappedBy="owner", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(targetEntity = ErrorEntity.class, fetch = FetchType.EAGER, mappedBy="owner", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ErrorEntity> errors;
 
     public UserEntity() {}

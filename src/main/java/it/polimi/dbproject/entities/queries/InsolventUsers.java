@@ -32,4 +32,8 @@ public class InsolventUsers implements Serializable {
     public InsolventUsers() {
 
     }
+
+    public UserEntity getUser(){
+        return this.user;
+    }
 }

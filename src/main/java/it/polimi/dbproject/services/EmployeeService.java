@@ -183,4 +183,9 @@ public class EmployeeService {
         }
     }
 
+    public List<PeriodEntity> retrievePeriodOfAvailablePackage (int availableServicePack_id){
+        return em.createNamedQuery("Period.findPeriodThroughPackage", PeriodEntity.class)
+                .setParameter("availableServicePackId", availableServicePack_id)
+                .getResultList();
+    }
 }

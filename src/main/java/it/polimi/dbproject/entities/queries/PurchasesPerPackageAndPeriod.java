@@ -52,4 +52,6 @@ public class PurchasesPerPackageAndPeriod implements Serializable {
     public PurchasesPerPackageAndPeriod() {
 
     }
+
+    public int getTotalNumber(){ return this.totalNumber; }
 }

@@ -25,7 +25,7 @@ public class ErrorEntity implements Serializable {
     @Column(name = "timestamp", nullable = false)
     private Timestamp timestamp;
 
-    @ManyToOne(targetEntity = UserEntity.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(targetEntity = UserEntity.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_error")
     private UserEntity owner;
 

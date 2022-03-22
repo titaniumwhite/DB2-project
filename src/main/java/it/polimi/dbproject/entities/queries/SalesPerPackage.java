@@ -12,7 +12,7 @@ import java.io.Serializable;
 @NamedQuery(
         name = "SalesPerPackage.retrieveByPackageId",
         query = "SELECT n FROM SalesPerPackage n " +
-                "WHERE n.salesperpackage_id = :package_id"
+                "WHERE n.availableServicePack_id = :package_id"
 )
 
 
@@ -42,4 +42,8 @@ public class SalesPerPackage implements Serializable {
     public SalesPerPackage() {
 
     }
+
+    public float getTotalSalesWithOptional(){ return this.totalSalesWithOptional; }
+
+    public float getTotalSalesNoOptional(){ return this.totalSalesNoOptional; }
 }

@@ -40,6 +40,8 @@ public class PurchasesPerPackage implements Serializable {
         totalOrder=0;
     }
 
+    public int getTotalOrder(){ return this.totalOrder; }
+
     @Override
     public String toString() {
         return "PurchasesPerPackage{" +

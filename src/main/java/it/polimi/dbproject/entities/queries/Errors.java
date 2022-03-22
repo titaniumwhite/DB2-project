@@ -32,4 +32,8 @@ public class Errors implements Serializable {
     public Errors() {
 
     }
+
+    public ErrorEntity getError(){
+        return this.error;
+    }
 }
