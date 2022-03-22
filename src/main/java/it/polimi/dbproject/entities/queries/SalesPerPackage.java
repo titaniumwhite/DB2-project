@@ -23,7 +23,7 @@ public class SalesPerPackage implements Serializable {
     private int availableServicePack_id;
 
     @OneToOne
-    @JoinColumn(name = "package_id")
+    @JoinColumn(name = "availableServicePack_id")
     private AvailableServicePackEntity availableServicePack;
 
     @Column(name = "total_sales_with_optional", nullable = false)

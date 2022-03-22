@@ -5,6 +5,8 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
+@Entity
+
 @NamedQuery(
         name = "User.retrieveUserThroughID",
         query = "SELECT u FROM UserEntity u " +
@@ -17,11 +19,12 @@ import java.util.List;
                 "WHERE u.isInsolvent = true"
 )
 
-@Entity
+@NamedQuery(
+        name = "User.loginUser",
+        query = "SELECT u FROM UserEntity u " +
+                "WHERE u.username = :usn and u.password = :psw")
+
 @Table(name = "user", schema = "dbproject2022")
-@NamedQuery(name = "User.loginUser", query = "SELECT u FROM UserEntity u WHERE u.username = :usn and u.password = :psw")
-
-
 public class UserEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;

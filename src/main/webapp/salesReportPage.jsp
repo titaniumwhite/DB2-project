@@ -26,15 +26,7 @@
 <body style="background-color: #508bfc;">
 <%
     List<AvailableServicePackEntity> availableServicePack = (List<AvailableServicePackEntity>) request.getAttribute("availableServicePack");
-    AvailableServicePackEntity availableServicePackChosen = (AvailableServicePackEntity) request.getAttribute("availableServicePackChosen");
-
-    PurchasesPerPackage purchasesPerPackage = (PurchasesPerPackage) request.getAttribute("purchasesPerPackage");
-    PurchasesPerPackageAndPeriod purchasesPerPackageAndPeriod = (PurchasesPerPackageAndPeriod) request.getAttribute("purchasesPerPackageAndPeriod");
     List<PeriodEntity> periods = (List<PeriodEntity>) request.getAttribute("periods");
-
-    SalesPerPackage salesPerPackage = (SalesPerPackage) request.getAttribute("salesPerPackage");
-
-    AVG_numOptionServPerServPack avg_numOptionServPerServPack = (AVG_numOptionServPerServPack) request.getAttribute("avg_numOptionServPerServPack");
 
     List<Errors> errors = (List<Errors>) request.getAttribute("errors");
     List<PendingOrders> pendingOrders = (List<PendingOrders>) request.getAttribute("pendingOrders");
@@ -59,143 +51,72 @@
 <section>
     <div>
         <h1>SALES REPORT</h1>
-        <div>
-            <h2>TOTAL PURCHASE PER PACKAGE</h2>
-            <form action="salesreport" method="post">
-                <p> Choose a service package: </p>
-                <select name="srvPackage" id="srvPackage">
-                    <%
-                        for (AvailableServicePackEntity a: availableServicePack) {
-                    %>
-                    <option value="<%=a.getAvailableServicePack_id()%>"><%=a.getName()%></option>
-                    <%
-                        }
-                    %>
-                </select>
-                <br>
-                <br>
-                <button name="button" type="submit">SELECT PACKAGE</button>
-                <br>
-                <br>
+        <form action="salesreport" method="post">
+            <p> Choose a service package: </p>
+            <select name="choosen_package" id="srvPackage">
                 <%
-                    if(purchasesPerPackage != null) {
+                    for (AvailableServicePackEntity a: availableServicePack) {
                 %>
-                <p><%=purchasesPerPackage.getTotalOrder()%></p>
+                <option value="<%=a.getAvailableServicePack_id()%>"><%=a.getName()%></option>
                 <%
                     }
                 %>
-            </form>
+            </select>
+            <p>Choose a period: </p>
+            <select name="choosen_period" id="period">
+                <%
+                    for(PeriodEntity p: periods) {
+                %>
+                <option value="<%=p.getPeriod_id()%>"><%=p.getDuration()%></option>
+                <%
+                    }
+                %>
+            </select>
+            <br>
+            <br>
+            <br>
+            <button name="button" type="submit">SELECT PACKAGE</button>
+        </form>
+
+        <div>
+            <h2>TOTAL PURCHASE PER PACKAGE</h2>
+            <p>${purchasesPerPackage}</p>
+
         </div>
         <br>
         <br>
         <div>
             <h2>TOTAL PURCHASE PER PACKAGE AND PERIOD</h2>
-            <form action="salesreport" method="post">
-                <p> Choose a service package: </p>
-                <select name="srvPackageWithPeriod" id="srvPackageWithPeriod">
-                    <%
-                        for (AvailableServicePackEntity a: availableServicePack) {
-                    %>
-                    <option value="<%=a.getAvailableServicePack_id()%>"><%=a.getName()%></option>
-                    <%
-                        }
-                    %>
-                </select>
-                <br>
-                <br>
-                <button name="button" type="submit">SELECT PACKAGE</button>
-                <br>
-                <br>
-            </form>
-                <%
-                    if(periods != null) {
-                %>
-                <br>
-                <p>Package Selected: <%=availableServicePackChosen.getName()%></p>
-                <form action="salesreport" method="post">
-                    <br>
-                    <br>
-                    <p>Choose a period: </p>
-                    <select name="period" id="period">
-                        <%
-                            for(PeriodEntity p: periods) {
-                        %>
-                        <option value="<%=p.getPeriod_id()%>"><%=p.toString()%></option>
-                        <%
-                            }
-                        %>
-                    </select>
-                    <br>
-                    <br>
-                    <button type="submit">SELECT PERIOD</button>
-                </form>
-                <br>
-                <br>
-                <%
-                    if(purchasesPerPackageAndPeriod != null){
-                %>
-                <p><%=purchasesPerPackageAndPeriod.getTotalNumber()%></p>
-                <%
-                    }}
-                %>
+            <p>${purchasesPerPackageAndPeriod}</p>
+
         </div>
         <br>
         <br>
         <div>
             <h2> TOTAL SALES PER PACKAGE WITH AND WITHOUT OPTIONAL SERVICE </h2>
-            <form action="salesreport" method="post">
-                <p>Choose a service pack: </p>
-                <select name="srvPackageWithOptProducts" id="srvPackageWithOptProducts">
-                    <%
-                        for (AvailableServicePackEntity a: availableServicePack) {
-                    %>
-                    <option value="<%=a.getAvailableServicePack_id()%>"><%=a.getName()%></option>
-                    <%
-                        }
-                    %>
-                </select>
-                <br>
-                <br>
-                <button name="button" type="submit">SELECT PACKAGE</button>
-                <%
-                    if(salesPerPackage != null) {
-                %>
-                <p>Sales No Optional<%=salesPerPackage.getTotalSalesNoOptional()%></p>
-                <p>Sales With Optional<%=salesPerPackage.getTotalSalesWithOptional()%></p>
-                <%
-                    }
-                %>
-            </form>
+            <p>${salesPerPackage_no_opt}</p>
+            <p>${salesPerPackage_with_opt}</p>
+
         </div>
         <br>
         <br>
         <div>
             <h2> AVERAGE NUMBER OF OPTIONAL SERVICE SOLD WITH EACH PACKAGE </h2>
-            <form action="salesreport" method="post">
-                <p>Choose a service pack: </p>
-                <select name="srvPackageAvg" id="srvPackageAvg">
-                    <%
-                        for (AvailableServicePackEntity a: availableServicePack) {
-                    %>
-                    <option value="<%=a.getAvailableServicePack_id()%>"><%=a.getName()%></option>
-                    <%
-                        }
-                    %>
-                </select>
-                <br>
-                <br>
-                <button name="button" type="submit">SELECT PACKAGE</button>
-                <%
-                    if(avg_numOptionServPerServPack != null) {
-                %>
-                <p><%=avg_numOptionServPerServPack.getAverage()%></p>
-                <%
-                    }
-                %>
-            </form>
+            <p>${avg_numOptionServPerServPack}</p>
+
         </div>
         <br>
         <br>
+
+
+
+
+
+
+
+
+
+
         <div>
             <h2>INSOLVENT USERS</h2>
         </div>

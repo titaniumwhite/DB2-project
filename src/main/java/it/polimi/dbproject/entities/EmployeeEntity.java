@@ -5,7 +5,11 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@NamedQuery(name = "Employee.loginEmployee", query = "SELECT e FROM EmployeeEntity e WHERE e.username = :usn and e.password = :psw")
+@NamedQuery(
+        name = "Employee.loginEmployee",
+        query = "SELECT e FROM EmployeeEntity e " +
+                "WHERE e.username = :usn and e.password = :psw"
+)
 
 @Table(name = "employee", schema = "dbproject2022")
 public class EmployeeEntity implements Serializable {

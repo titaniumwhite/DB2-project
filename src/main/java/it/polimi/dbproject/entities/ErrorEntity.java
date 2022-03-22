@@ -7,7 +7,8 @@ import java.sql.Timestamp;
 @Entity
 @NamedQuery(
         name = "Error.findAll",
-        query = "SELECT e FROM ErrorEntity e WHERE e.owner = :user "
+        query = "SELECT e FROM ErrorEntity e " +
+                "WHERE e.owner = :user "
 )
 @Table(name = "error", schema = "dbproject2022")
 public class ErrorEntity implements Serializable {

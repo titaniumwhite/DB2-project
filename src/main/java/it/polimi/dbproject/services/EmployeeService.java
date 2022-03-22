@@ -172,13 +172,9 @@ public class EmployeeService {
 
     public PurchasesPerPackage purchasesPerPackage(int package_id){
         try {
-            System.out.println("Try");
-            PurchasesPerPackage a = em.createNamedQuery("PurchasesPerPackageEntity.retrievePurchasesByPackId", PurchasesPerPackage.class)
+            return em.createNamedQuery("PurchasesPerPackageEntity.retrievePurchasesByPackId", PurchasesPerPackage.class)
                     .setParameter("package_id", package_id).getResultList().stream().findFirst().get();
-            System.out.println(a.toString());
-            return null;
         } catch (NoSuchElementException exception){
-            System.out.println("catch");
             return new PurchasesPerPackage(package_id, retrieveAvailablePackageThroughID(package_id).get());
         }
     }

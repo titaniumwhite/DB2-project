@@ -16,7 +16,6 @@ import java.util.List;
                 "WHERE asp.availableServicePackId = :availableServicePackId"
 )
 
-
 @Table(name = "available_service_package", schema = "dbproject2022")
 public class AvailableServicePackEntity implements Serializable {
 

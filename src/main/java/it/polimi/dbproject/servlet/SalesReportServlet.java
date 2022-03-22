@@ -21,26 +21,33 @@ public class SalesReportServlet extends HttpServlet {
 
     private AvailableServicePackEntity availableServicePackChosen;
     private List<PeriodEntity> periods = null;
-    private PurchasesPerPackage purchasesPerPackage;
-    private PurchasesPerPackageAndPeriod purchasesPerPackageAndPeriod;
-    private SalesPerPackage salesPerPackage;
-    private AVG_numOptionServPerServPack avg_numOptionServPerServPack;
+    private PurchasesPerPackage purchasesPerPackage = null;
+    private PurchasesPerPackageAndPeriod purchasesPerPackageAndPeriod = null;
+    private SalesPerPackage salesPerPackage = null;
+    private AVG_numOptionServPerServPack avg_numOptionServPerServPack = null;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        List<AvailableServicePackEntity> availableServicePack = employeeService.retrieveAllAvailableServicePackages();
-        request.setAttribute("availableServicePack", availableServicePack);
+        request.setAttribute("availableServicePack", employeeService.retrieveAllAvailableServicePackages());
+        request.setAttribute("periods", employeeService.retrieveAllPeriods());
 
-        request.setAttribute("purchasesPerPackage", purchasesPerPackage);
+        if (purchasesPerPackage != null) {
+            request.setAttribute("purchasesPerPackage", purchasesPerPackage.getTotalOrder());
+        }
 
-        request.setAttribute("availableServicePackChosen", availableServicePackChosen);
-        request.setAttribute("periods", periods);
-        request.setAttribute("purchasesPerPackageAndPeriod", purchasesPerPackageAndPeriod);
+        if (purchasesPerPackageAndPeriod != null) {
+            request.setAttribute("purchasesPerPackageAndPeriod", purchasesPerPackageAndPeriod.getTotalNumber());
+        }
 
-        request.setAttribute("salesPerPackage", salesPerPackage);
+        if (salesPerPackage != null) {
+            request.setAttribute("salesPerPackage_no_opt", salesPerPackage.getTotalSalesNoOptional());
+            request.setAttribute("salesPerPackage_with_opt", salesPerPackage.getTotalSalesWithOptional());
+        }
 
-        request.setAttribute("avg_numOptionServPerServPack", avg_numOptionServPerServPack);
+        if (avg_numOptionServPerServPack != null) {
+            request.setAttribute("avg_numOptionServPerServPack", avg_numOptionServPerServPack.getAverage());
+        }
 
         List<InsolventUsers> insolventUsers = employeeService.retrieveAllInsolventUsers();
         request.setAttribute("insolventUsers", insolventUsers);
@@ -56,127 +63,32 @@ public class SalesReportServlet extends HttpServlet {
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("salesReportPage.jsp");
         dispatcher.forward(request, response);
-
-        /*List<AvailableServicePackEntity> availablePackages = employeeService.retrieveAllAvailableServicePackages();
-        request.setAttribute("availablePackages", availablePackages);
-
-        List<PeriodEntity> periods = employeeService.retrieveAllPeriods();
-        request.setAttribute("periods", periods);
-
-        //List<PurchasesPerPackageEntity> purchasesPerPackage = ???
-        request.setAttribute("purchasesPerPackage", purchasesPerPackage);
-
-        //request.setAttribute("choosenPackage", choosenPackage);
-
-        //List<PurchasesPerPackageAndPeriod> purchasesPerPackageAndPeriods = ???
-        request.setAttribute("purchagesPerPackageAndPeriod", purchasesPerPackageAndPeriod);
-
-        request.setAttribute("salesPerPackage", salesPerPackage);
-
-        request.setAttribute("AVG_numOptionServPerServPack", AVG_numOptionServPerServPack);
-
-        List<InsolventUsers> insolventUsers = employeeService.retrieveAllInsolventUsers();
-        request.setAttribute("insolventUsers", insolventUsers);
-
-        List<PendingOrders> pendingOrders = employeeService.retrieveAllPendingOrders();
-        request.setAttribute("pendingOrders", pendingOrders);
-
-        List<Errors> errors = employeeService.retrieveAllErrors();
-        request.setAttribute("errors", errors);
-
-        BestOptionalService bestOptionalService = employeeService.retrieveBestOptionalProduct();
-
-        request.setAttribute("bestOptionalService_name", bestOptionalService.getOptionalService().getName());
-        request.setAttribute("bestOptionalService_sale", bestOptionalService.getSales());
-
-        RequestDispatcher dispatcher = request.getRequestDispatcher("salesReportPage.jsp");
-        dispatcher.forward(request, response);*/
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        String srvPackage = request.getParameter("srvPackage");
-
-        String srvPackageWithPeriod = request.getParameter("srvPackageWithPeriod");
-        String period = request.getParameter("period");
-
-        String srvPackageWithOptProducts = request.getParameter("srvPackageWithOptProducts");
-
-        String srvPackageAvg = request.getParameter("srvPackageAvg");
-
-        Optional<AvailableServicePackEntity> availableServicePackEntityOptional = null;
         String toServlet = "salesreport";
 
-        if(srvPackage != null)
-            purchasesPerPackage = employeeService.purchasesPerPackage(Integer.parseInt(srvPackage));
+        String choosen_package = request.getParameter("choosen_package");
+        String choosen_period = request.getParameter("choosen_period");
 
-        if(srvPackageWithPeriod != null){
-            availableServicePackChosen = employeeService.retrieveAvailablePackageThroughID(Integer.parseInt(srvPackageWithPeriod)).get();
-            periods = employeeService.retrievePeriodOfAvailablePackage(Integer.parseInt(srvPackageWithPeriod));
+        if(choosen_package != null) {
+            purchasesPerPackage = employeeService.purchasesPerPackage(Integer.parseInt(choosen_package));
+            request.setAttribute("purchasesPerPackage", purchasesPerPackage);
+
+            if (choosen_period != null) {
+                purchasesPerPackageAndPeriod = employeeService.retrievePurchasesPerPackageAndPeriod(Integer.parseInt(choosen_package), Integer.parseInt(choosen_period));
+                request.setAttribute("purchasesPerPackageAndPeriod", purchasesPerPackageAndPeriod);
+            }
+
+            // problema in qualche relazione -> PersistenceException
+            salesPerPackage = employeeService.retrieveSalesPerPackage(Integer.parseInt(choosen_package));
+
+            avg_numOptionServPerServPack = employeeService.retrieveAverageOptionalProductsPerPackage(Integer.parseInt(choosen_package));
+
         }
-
-        if(availableServicePackChosen != null && periods != null)
-            purchasesPerPackageAndPeriod = employeeService.retrievePurchasesPerPackageAndPeriod(availableServicePackChosen.getAvailableServicePack_id(), Integer.parseInt(period));
-
-        if(srvPackageWithOptProducts != null){
-            salesPerPackage = employeeService.retrieveSalesPerPackage(Integer.parseInt(srvPackageWithOptProducts));
-        }
-
-
-        if(srvPackageAvg != null)
-            avg_numOptionServPerServPack = employeeService.retrieveAverageOptionalProductsPerPackage(Integer.parseInt(srvPackageAvg));
 
         response.sendRedirect(toServlet);
 
-
-
-
-        /*int servicePackage_id = Integer.parseInt(request.getParameter("servicePackage"));
-        int period_id = Integer.parseInt(request.getParameter("period"));
-        String toServlet = "salesreport?package=" + servicePackage_id + "&period=" + period_id;
-
-        System.out.println(servicePackage_id + "   " + period_id);
-
-        int test = 6;
-
-        if (test == 1) {
-            // 1st WORKING
-            PurchasesPerPackage purchasesPerPackage = employeeService.purchasesPerPackage(servicePackage_id);
-            System.out.println(purchasesPerPackage);
-        } else if (test == 1) {
-            // 2nd WORKING
-            PurchasesPerPackageAndPeriod purchasesPerPackageAndPeriod = employeeService.retrievePurchasesPerPackageAndPeriod(servicePackage_id, period_id);
-            System.out.println(purchasesPerPackageAndPeriod);
-        } else if (test == 1) {
-
-
-            // 3rd
-        } else if (test == 1) {
-
-            // 4th WORKING
-            AVG_numOptionServPerServPack averageOptionalProductsPerPackage = employeeService.retrieveAverageOptionalProductsPerPackage(servicePackage_id);
-            System.out.println(averageOptionalProductsPerPackage);
-        } else if (test == 1) {
-            // not working
-            // 5th
-            List<PendingOrders> pendingOrders = employeeService.retrieveAllPendingOrders();
-            System.out.println(pendingOrders.size());
-
-
-            List<InsolventUsers> insolventUsers = employeeService.retrieveAllInsolventUsers();
-            System.out.println(insolventUsers.size());
-
-            List<Errors> errors = employeeService.retrieveAllErrors();
-            System.out.println(errors.size());
-        } else if (test == 1) {
-            // 6th
-            BestOptionalService bestOptionalService = employeeService.retrieveBestOptionalProduct();
-            System.out.println("and the best is " + bestOptionalService);
-        }
-
-
-
-        response.sendRedirect(toServlet);*/
     }
 }

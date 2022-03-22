@@ -10,7 +10,8 @@ import java.util.Objects;
 @Entity
 @NamedQuery(
         name = "OptionalService.findAll",
-        query = "SELECT os FROM OptionalServiceEntity os ORDER BY os.optionalService_id"
+        query = "SELECT os FROM OptionalServiceEntity os " +
+                "ORDER BY os.optionalService_id"
 )
 @NamedQuery(
         name = "OptionalService.findOptionalThroughPackage",

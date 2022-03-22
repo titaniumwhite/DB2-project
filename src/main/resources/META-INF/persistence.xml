@@ -14,6 +14,15 @@
         <class>it.polimi.dbproject.entities.PeriodEntity</class>
         <class>it.polimi.dbproject.entities.ServicePackEntity</class>
         <class>it.polimi.dbproject.entities.ServiceEntity</class>
+        <class>it.polimi.dbproject.entities.queries.AVG_numOptionServPerServPack</class>
+        <class>it.polimi.dbproject.entities.queries.BestOptionalService</class>
+        <class>it.polimi.dbproject.entities.queries.Errors</class>
+        <class>it.polimi.dbproject.entities.queries.InsolventUsers</class>
+        <class>it.polimi.dbproject.entities.queries.PendingOrders</class>
+        <class>it.polimi.dbproject.entities.queries.PurchasesPerPackage</class>
+        <class>it.polimi.dbproject.entities.queries.PurchasesPerPackageAndPeriod</class>
+        <class>it.polimi.dbproject.entities.queries.SalesPerPackage</class>
+
 
     </persistence-unit>
 </persistence>
