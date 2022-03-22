@@ -1,9 +1,6 @@
 package it.polimi.dbproject.servlet;
 
-import it.polimi.dbproject.entities.AvailableServicePackEntity;
-import it.polimi.dbproject.entities.EmployeeEntity;
-import it.polimi.dbproject.entities.ErrorEntity;
-import it.polimi.dbproject.entities.PeriodEntity;
+import it.polimi.dbproject.entities.*;
 import it.polimi.dbproject.entities.queries.*;
 import it.polimi.dbproject.entities.queries.PendingOrders;
 import it.polimi.dbproject.services.EmployeeService;
@@ -49,17 +46,19 @@ public class SalesReportServlet extends HttpServlet {
 
         request.setAttribute("AVG_numOptionServPerServPack", AVG_numOptionServPerServPack);
 
-        //List<InsolventUsers> insolventUsers = employeeService.retrieveAllInsolventUsers();
-        //request.setAttribute("insolventUsers", insolventUsers);
+        List<InsolventUsers> insolventUsers = employeeService.retrieveAllInsolventUsers();
+        request.setAttribute("insolventUsers", insolventUsers);
 
-        //List<PendingOrders> pendingOrders = employeeService.retrieveAllPendingOrders();
-        //request.setAttribute("pendingOrders", pendingOrders);
+        List<PendingOrders> pendingOrders = employeeService.retrieveAllPendingOrders();
+        request.setAttribute("pendingOrders", pendingOrders);
 
-        //List<Errors> errors = employeeService.retrieveAllErrors();
-        //request.setAttribute("errors", errors);
+        List<Errors> errors = employeeService.retrieveAllErrors();
+        request.setAttribute("errors", errors);
 
-        //BestOptionalProduct bestOptionalProduct = employeeService.retrieveBestOptionalProduct();
-        //request.setAttribute("bestOptionalProduct", bestOptionalProduct);
+        BestOptionalService bestOptionalService = employeeService.retrieveBestOptionalProduct();
+
+        request.setAttribute("bestOptionalService_name", bestOptionalService.getOptionalService().getName());
+        request.setAttribute("bestOptionalService_sale", bestOptionalService.getSales());
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("salesReportPage.jsp");
         dispatcher.forward(request, response);
@@ -84,7 +83,7 @@ public class SalesReportServlet extends HttpServlet {
             // 2nd WORKING
             PurchasesPerPackageAndPeriod purchasesPerPackageAndPeriod = employeeService.retrievePurchasesPerPackageAndPeriod(servicePackage_id, period_id);
             System.out.println(purchasesPerPackageAndPeriod);
-        } else if (test == 3) {
+        } else if (test == 1) {
 
 
             // 3rd
@@ -93,7 +92,7 @@ public class SalesReportServlet extends HttpServlet {
             // 4th WORKING
             AVG_numOptionServPerServPack averageOptionalProductsPerPackage = employeeService.retrieveAverageOptionalProductsPerPackage(servicePackage_id);
             System.out.println(averageOptionalProductsPerPackage);
-        } else if (test == 5) {
+        } else if (test == 1) {
             // not working
             // 5th
             List<PendingOrders> pendingOrders = employeeService.retrieveAllPendingOrders();
@@ -105,7 +104,7 @@ public class SalesReportServlet extends HttpServlet {
 
             List<Errors> errors = employeeService.retrieveAllErrors();
             System.out.println(errors.size());
-        } else if (test == 6) {
+        } else if (test == 1) {
             // 6th
             BestOptionalService bestOptionalService = employeeService.retrieveBestOptionalProduct();
             System.out.println("and the best iss" + bestOptionalService);

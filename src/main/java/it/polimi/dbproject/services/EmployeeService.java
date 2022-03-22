@@ -101,14 +101,12 @@ public class EmployeeService {
     }
 
     public BestOptionalService retrieveBestOptionalProduct(){
-        BestOptionalService bestOP = null;
         try {
-            bestOP = em.createNamedQuery("BestOptionalService.retrieveBest", BestOptionalService.class).getSingleResult();
-            System.out.println(bestOP);
+            return em.createNamedQuery("BestOptionalService.retrieveBest", BestOptionalService.class).getSingleResult();
+        }catch(NoResultException ignored){
             return null;
-        }catch(NoResultException ignored){}
+        }
 
-        return bestOP;
     }
 
     public List<PeriodEntity> retrieveAllPeriods(){

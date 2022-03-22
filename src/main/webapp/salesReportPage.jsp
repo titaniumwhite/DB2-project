@@ -39,9 +39,11 @@
 
     List<Errors> errors = (List<Errors>) request.getAttribute("errors");
     List<PendingOrders> pendingOrders = (List<PendingOrders>) request.getAttribute("pendingOrders");
-    //List<InsolventUsers> insolventUsers = (List<InsolventUsers>) request.getAttribute("insolventUsers");
+    List<InsolventUsers> insolventUsers = (List<InsolventUsers>) request.getAttribute("insolventUsers");
 
-    BestOptionalService bestOptionalProduct = (BestOptionalService) request.getAttribute("bestOptionalProduct");
+    String bestOptionalService_name = (String) request.getAttribute("bestOptionalService_name");
+    Integer bestOptionalService_sale = (Integer) request.getAttribute("bestOptionalService_sale");
+
 
 %>
 
@@ -102,9 +104,13 @@
                 <div class="card-text"><h3>Total Value of sales without Optional Products</h3></div>
                 <div class="card-text"><h3>Average number of Optional Services sold together with each Service Package</h3></div>
                 <div class="card-text"><h3>List of Insolvent Users</h3></div>
+                    The number of Insolvent Users is ${insolventUsers.size()}
                 <div class="card-text"><h3>List of Suspended Orders</h3></div>
+                    The number of Suspended Orders is ${pendingOrders.size()}
                 <div class="card-text"><h3>List of Errors</h3></div>
+                    The number of Errors is ${errors.size()}
                 <div class="card-text"><h3>Best Seller Optional Service</h3></div>
+                    The Optional Service that has sold the most is ${bestOptionalService_name} for a total value of ${bestOptionalService_sale} &euro;
 
 
             </div>

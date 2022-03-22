@@ -37,4 +37,28 @@ public class BestOptionalService implements Serializable {
     public BestOptionalService() {
 
     }
+
+    public int getOptional_service_id() {
+        return optional_service_id;
+    }
+
+    public void setOptional_service_id(int optional_service_id) {
+        this.optional_service_id = optional_service_id;
+    }
+
+    public OptionalServiceEntity getOptionalService() {
+        return optionalService;
+    }
+
+    public void setOptionalService(OptionalServiceEntity optionalService) {
+        this.optionalService = optionalService;
+    }
+
+    public int getSales() {
+        return sales;
+    }
+
+    public void setSales(int sales) {
+        this.sales = sales;
+    }
 }
