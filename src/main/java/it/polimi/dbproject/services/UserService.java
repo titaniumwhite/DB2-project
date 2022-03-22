@@ -133,17 +133,6 @@ public class UserService {
                 .getResultList();
     }
 
-    public ServicePackEntity addressServiceToUser(ServicePackEntity servicePack, UserEntity user) throws SQLException{
-        servicePack.setUser(user);
-        try {
-            em.persist(servicePack);
-            em.flush();
-            return servicePack;
-        } catch (ConstraintViolationException ignored){
-            return null;
-        }
-    }
-
     public OrderEntity createOrder(Timestamp ts, UserEntity user, ServicePackEntity sp, boolean isPlaceable){
         int cost = sp.getTotalCost();
         OrderEntity order = new OrderEntity(ts, cost, isPlaceable, user, sp);
@@ -191,12 +180,6 @@ public class UserService {
                 .getResultList();
     }
 
-    public Optional<ServicePackEntity> retrieveServicePackThroughOrderId(int orderId){
-        return em.createNamedQuery("ServicePack.retrievePackageThroughOrderID", ServicePackEntity.class)
-                .setParameter("orderId", orderId)
-                .getResultStream().findFirst();
-    }
-
     public Optional<ServicePackEntity> retrieveServicePackThroughId(int servicePackId){
         return em.createNamedQuery("ServicePack.retrievePackageThroughID", ServicePackEntity.class)
                 .setParameter("servicePackId", servicePackId)
@@ -216,7 +199,7 @@ public class UserService {
                 .getResultList();
     }
 
-    public ServicePackEntity createServicePack (ServicePackEntity servicePack, UserEntity user) throws SQLException {
+    public ServicePackEntity createServicePack(ServicePackEntity servicePack, UserEntity user) throws SQLException {
         servicePack.setUser(user);
         try{
             em.persist(servicePack);
@@ -227,7 +210,7 @@ public class UserService {
         }
     }
 
-    public OrderEntity updateOrder (OrderEntity order, boolean isPlaceable){
+    public OrderEntity updateOrder(OrderEntity order, boolean isPlaceable){
         OrderEntity orderEntity = em.find(OrderEntity.class, order.getOrder_id());
         orderEntity.setPlaceable(isPlaceable);
         em.merge(orderEntity);

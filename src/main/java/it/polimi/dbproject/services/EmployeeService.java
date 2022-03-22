@@ -114,12 +114,6 @@ public class EmployeeService {
                 .getResultList();
     }
 
-    public Optional<ServicePackEntity> retrievePackageThroughID(int servicePackId) {
-        return em.createNamedQuery("ServicePack.retrievePackageThroughID", ServicePackEntity.class)
-                .setParameter("servicePackId", servicePackId)
-                .getResultStream().findFirst();
-    }
-
     public Optional<AvailableServicePackEntity> retrieveAvailablePackageThroughID(int servicePackId) {
         return em.createNamedQuery("AvailableServicePackage.findByID", AvailableServicePackEntity.class)
                 .setParameter("availableServicePackId", servicePackId)
@@ -177,11 +171,5 @@ public class EmployeeService {
         } catch (NoSuchElementException exception){
             return new PurchasesPerPackage(package_id, retrieveAvailablePackageThroughID(package_id).get());
         }
-    }
-
-    public List<PeriodEntity> retrievePeriodOfAvailablePackage (int availableServicePack_id){
-        return em.createNamedQuery("Period.findPeriodThroughPackage", PeriodEntity.class)
-                .setParameter("availableServicePackId", availableServicePack_id)
-                .getResultList();
     }
 }
