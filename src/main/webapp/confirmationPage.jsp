@@ -158,6 +158,7 @@
     <div class="container" style="height: auto">
         <div class="row h-100 justify-content-center align-items-center">
             <div class="card mx-auto my-auto" style="height: auto; width: 600px;">
+                <br>
                 <div style="text-align: left">
                     <button type="button" class="btn btn-outline-danger" onclick="overlayOff()">x</button>
                 </div>
