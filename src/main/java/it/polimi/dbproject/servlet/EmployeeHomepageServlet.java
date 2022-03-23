@@ -25,7 +25,7 @@ public class EmployeeHomepageServlet extends HttpServlet {
         EmployeeEntity employee;
         try {
             employee = (EmployeeEntity) session.getAttribute("employee");
-            request.setAttribute("username", employee.getUsername());
+            session.setAttribute("username", employee.getUsername());
 
         } catch (NumberFormatException e) {
             //the user accessed as a guest
@@ -45,7 +45,5 @@ public class EmployeeHomepageServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-
     }
 }

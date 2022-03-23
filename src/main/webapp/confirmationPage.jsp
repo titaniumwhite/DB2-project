@@ -158,7 +158,9 @@
     <div class="container" style="height: auto">
         <div class="row h-100 justify-content-center align-items-center">
             <div class="card mx-auto my-auto" style="height: auto; width: 600px;">
-                <button type="button" class="btn-close" onclick="overlayOff()"></button>
+                <div style="text-align: left">
+                    <button type="button" class="btn btn-outline-danger" onclick="overlayOff()">x</button>
+                </div>
                 <div class="card-body p-33 text-center">
 
                     <h3 class="mb-3">Sign in</h3>

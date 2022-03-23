@@ -43,12 +43,15 @@
                 <div class="card-header no-border">
                     <h5 class="card-title" style="text-align: center">Create a new Service Package</h5>
                 </div>
+                <div class="card-body">
                 <div class="card-text">
     <form action="createpackage" method="post">
         <div class="form-group">
-        <br><br>
-        Package Name <input type="text" name="name"/><br/><br/>
-        Services
+        <br>
+            <b>Package Name </b>
+            <input type="text" name="name"/>
+        <br>
+        <b>Services</b>
         <div class="form-check form-switch">
             <input class="form-check-input" name="mobilePhone" type="checkbox" role="switch" id="mobilePhone" onclick="enableDisableTextbox(this)">
             <label class="form-check-label" for="mobilePhone">Mobile Phone</label>
@@ -91,7 +94,7 @@
             <label class="form-check-label" for="fixedInternet">Fixed Internet</label>
         </div>
         <br>
-        Validity Periods
+            <b>Validity Periods</b>
         <%
             List<PeriodEntity> periods = (List<PeriodEntity>) request.getAttribute("periods");
             if (periods != null) {
@@ -106,7 +109,7 @@
                 }}
         %>
         <br>
-        Optional Services
+            <b>Optional Services</b>
         <%
             List<OptionalServiceEntity> optionalServices = (List<OptionalServiceEntity>) request.getAttribute("optionalServices");
             if (optionalServices != null) {
@@ -122,11 +125,14 @@
         %>
         <%String x = (String)request.getAttribute("creationPackageMessage");%>
         <br>${x}
-        <input class="btn btn-primary" type="submit" value="Submit">
+        <div style="text-align: right">
+            <input class="btn btn-primary" type="submit" value="Submit">
+        </div>
                 </div>
     </form>
                 </div>
         </div>
+            </div>
     </div>
 
     </div>
@@ -139,10 +145,14 @@
         <div class="container" style="height: auto">
             <div class="row h-100 justify-content-center align-items-center">
         <div class="card mx-auto my-auto" style="width: 600px;">
-            <button type="button" class="btn-close" onclick="overlayOff()"></button>
+            <br>
+            <div style="text-align: left">
+            <button type="button" class="btn btn-outline-danger" onclick="overlayOff()">x</button>
+            </div>
+            <br>
             <form action="createoptionalservice" method="post">
                 <h5 class="card-header">Create an Optional Service</h5>
-
+                <br>
                 <div class="input-group mb-3">
                     <span class="input-group-text" id="optionalServiceName">Name</span>
                     <input type="text" name="name" class="form-control" id="name">
@@ -151,9 +161,9 @@
                     <span class="input-group-text" id="optionalServiceFee">Monthly Fee &euro;</span>
                     <input type="number" name="fee" class="form-control" id="fee">
                 </div>
-
+                <div style="text-align: right">
                 <input class="btn btn-primary" type="submit" value="Submit">
-
+                </div>
             </form>
         </div>
             </div>

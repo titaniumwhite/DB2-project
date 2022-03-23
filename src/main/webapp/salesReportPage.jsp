@@ -42,6 +42,7 @@
     <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="display: inline-flex; width: 60%">
         <li class="nav-item"><a class="nav-link" href="./" style="color: white; float: left !important; display: flex">Logout</a></li>
     </ul>
+    <a href="employeehomepage" class="btn btn-outline-primary" role="button" >Back</a>
     <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="display: inline-flex; width: 2%">
         <li class="nav-item" style="color: white; padding: 0.5rem; text-align: right !important; display: flex">${username}</li>
     </ul>
@@ -50,10 +51,17 @@
 
 <section>
     <div>
+        <div class="container d-flex" style="justify-content: center; align-content: center; text-align: center; padding-top: 1.5rem">
+            <div class="card" style="width: 75%">
+                <div class="card-body">
         <h1>SALES REPORT</h1>
+                    <br>
         <form action="salesreport" method="post">
-            <p> Choose a service package: </p>
-            <select name="choosen_package" id="srvPackage">
+            <div class="input-group mb-3" style="text-align: center; justify-content: center; align-content: center">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="srvPackage">Choose a Service Pack</label>
+                </div>
+            <select class="custom-select" name="choosen_package" id="srvPackage">
                 <%
                     for (AvailableServicePackEntity a: availableServicePack) {
                 %>
@@ -62,8 +70,12 @@
                     }
                 %>
             </select>
-            <p>Choose a period: </p>
-            <select name="choosen_period" id="period">
+            </div>
+            <div class="input-group mb-3" style="text-align: center; justify-content: center; align-content: center">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="period">Choose a period: </label>
+                </div>
+            <select class="custom-select" name="choosen_period" id="period">
                 <%
                     for(PeriodEntity p: periods) {
                 %>
@@ -72,54 +84,53 @@
                     }
                 %>
             </select>
-            <br>
-            <br>
-            <br>
-            <button name="button" type="submit">SELECT PACKAGE</button>
+            </div>
+            <button class="btn btn-primary" name="button" type="submit">SUBMIT</button>
         </form>
-
-        <div>
-            <h2>TOTAL PURCHASE PER PACKAGE</h2>
-            <p>${purchasesPerPackage}</p>
-
+                </div>
+            </div>
+        </div>
+        <div class="container d-flex" style="justify-content: center; align-content: center; text-align: center; padding-top: 1.5rem">
+            <div class="card" style="width: 75%">
+                <div class="card-body">
+            <h2 class="card-title">TOTAL PURCHASE OF SELECTED PACKAGE</h2>
+                    <p style="font-size: large"><b><i>${purchasesPerPackage}</i></b></p>
+                </div>
+            </div>
         </div>
         <br>
-        <br>
-        <div>
-            <h2>TOTAL PURCHASE PER PACKAGE AND PERIOD</h2>
-            <p>${purchasesPerPackageAndPeriod}</p>
-
+        <div class="container d-flex" style="justify-content: center; align-content: center; text-align: center; padding-top: 1.5rem">
+            <div class="card" style="width: 75%">
+                <div class="card-body">
+            <h2 class="card-title">TOTAL PURCHASE OF SELECTED PACKAGE AND PERIOD</h2>
+                    <p style="font-size: large"><b><i>${purchasesPerPackageAndPeriod}</i></b></p>
+                </div>
+            </div>
         </div>
         <br>
-        <br>
-        <div>
-            <h2> TOTAL SALES PER PACKAGE WITH AND WITHOUT OPTIONAL SERVICE </h2>
-            <p>${salesPerPackage_no_opt}</p>
-            <p>${salesPerPackage_with_opt}</p>
-
+        <div class="container d-flex" style="justify-content: center; align-content: center; text-align: center; padding-top: 1.5rem">
+            <div class="card" style="width: 75%">
+                <div class="card-body">
+            <h2 class="card-title"> TOTAL SALES OF SELECTED PACKAGE WITHOUT AND WITH OPTIONAL SERVICE </h2>
+                    <p style="font-size: large"><b>Without: <i>${salesPerPackage_no_opt}</i></b></p>
+                    <p style="font-size: large"><b>With: <i>${salesPerPackage_with_opt}</i></b></p>
+                </div>
+            </div>
         </div>
         <br>
-        <br>
-        <div>
-            <h2> AVERAGE NUMBER OF OPTIONAL SERVICE SOLD WITH EACH PACKAGE </h2>
-            <p>${avg_numOptionServPerServPack}</p>
-
+        <div class="container d-flex" style="justify-content: center; align-content: center; text-align: center; padding-top: 1.5rem">
+            <div class="card" style="width: 75%">
+                <div class="card-body">
+            <h2 class="card-title"> AVERAGE OPTIONAL SERVICE SOLD WITH SELECTED PACKAGE </h2>
+                    <p style="font-size: large"><b><i>${avg_numOptionServPerServPack}</i></b></p>
+                </div>
+            </div>
         </div>
         <br>
-        <br>
-
-
-
-
-
-
-
-
-
-
-        <div>
-            <h2>INSOLVENT USERS</h2>
-        </div>
+        <div class="container d-flex" style="justify-content: center; align-content: center; padding-top: 1.5rem">
+            <div class="card" style="width: 75%">
+                <div class="card-body">
+            <h2 class="card-title">INSOLVENT USERS</h2>
         <table class="table table-striped">
             <thead>
             <tr>
@@ -139,10 +150,14 @@
             %>
             </tbody>
         </table>
-
-        <div>
-            <h2>SUSPENDED ORDERS</h2>
+            </div>
         </div>
+    </div>
+    <br>
+        <div class="container d-flex" style="justify-content: center; align-content: center; padding-top: 1.5rem">
+            <div class="card" style="width: 75%">
+                <div class="card-body">
+            <h2 class="card-title">SUSPENDED ORDERS</h2>
         <table class="table table-striped">
             <thead>
             <tr>
@@ -164,15 +179,19 @@
             %>
             </tbody>
         </table>
-
-        <div>
-            <h2>USER ERRORS</h2>
+                </div>
+            </div>
         </div>
+        <br>
+        <div class="container d-flex" style="justify-content: center; align-content: center; padding-top: 1.5rem">
+        <div class="card" style="width: 75%">
+            <div class="card-body">
+            <h2 class="card-title">USER ERRORS</h2>
         <table class="table table-striped">
             <thead>
             <tr>
                 <th scope="col">Username</th>
-                <th scope="col">#Errors</th>
+                <th scope="col">Error Package Cost</th>
                 <th scope="col">Date & Hour Last Rejection</th>
             </tr>
             </thead>
@@ -183,7 +202,7 @@
             %>
             <tr>
                 <th scope="row"><%=e.getError().getOwner().getUsername()%></th>
-                <th scope="row"><%=e.getError().getOwner().getErrors().size()%></th>
+                <th scope="row"><%=e.getError().getTot_number()%></th>
                 <th scope="row"><%=e.getError().getTs()%></th>
             </tr>
             <%
@@ -191,25 +210,34 @@
             %>
             </tbody>
         </table>
-        <br>
+            </div>
+        </div>
+        </div>
         <br>
 
-        <div>
-            <h2> BEST SELLER OPTIONAL SERVICE</h2>
+        <div class="container d-flex" style="justify-content: center; align-content: center; text-align: center; padding-top: 1.5rem">
+            <div class="card" style="width: 75%">
+                <div class="card-body">
+            <h2 class="card-title"> BEST SELLER OPTIONAL SERVICE</h2>
+            <h4 class="card-subtitle mb-2 text-muted"> The best seller optional service is that among all optional services which has recorder the highest income for the Company</h4>
             <div>
                 <%
                     if(bestOptionalService != null){
                 %>
-                <p><%=bestOptionalService.getOptionalService().getName()%></p>
+                <p style="font-size: large"><b><i><%=bestOptionalService.getOptionalService().getName()%></i></b></p>
                 <%
                     } else {
                 %>
-                <p> No Optional Service has been sold yet!</p>
+                <p style="font-size: large"><i>No Optional Service has been sold yet!</i></p>
                 <%
                     }
                 %>
             </div>
+                </div>
+            </div>
         </div>
+        <br>
+        <br>
     </div>
 </section>
 </body>

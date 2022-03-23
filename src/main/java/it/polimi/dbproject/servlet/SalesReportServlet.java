@@ -25,12 +25,17 @@ public class SalesReportServlet extends HttpServlet {
     private PurchasesPerPackageAndPeriod purchasesPerPackageAndPeriod = null;
     private SalesPerPackage salesPerPackage = null;
     private AVG_numOptionServPerServPack avg_numOptionServPerServPack = null;
-
+    String username = null;
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        HttpSession session = request.getSession();
+
         request.setAttribute("availableServicePack", employeeService.retrieveAllAvailableServicePackages());
         request.setAttribute("periods", employeeService.retrieveAllPeriods());
+        username = (String) session.getAttribute("username");
+        System.out.println(username);
+        session.setAttribute("username", username);
 
         if (purchasesPerPackage != null) {
             request.setAttribute("purchasesPerPackage", purchasesPerPackage.getTotalOrder());
