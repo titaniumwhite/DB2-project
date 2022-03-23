@@ -1,10 +1,7 @@
-<%@ page import="it.polimi.dbproject.entities.OptionalServiceEntity" %>
 <%@ page import="java.util.List" %>
 <%@ page import="javax.swing.text.html.Option" %>
-<%@ page import="it.polimi.dbproject.entities.PeriodEntity" %>
-<%@ page import="it.polimi.dbproject.entities.AvailableServicePackEntity" %>
-<%@ page import="it.polimi.dbproject.entities.ServicePackEntity" %>
-<%@ page import="it.polimi.dbproject.entities.queries.*" %><%--
+<%@ page import="it.polimi.dbproject.entities.queries.*" %>
+<%@ page import="it.polimi.dbproject.entities.*" %><%--
   Created by IntelliJ IDEA.
   User: gabri
   Date: 09/03/2022
@@ -28,7 +25,7 @@
     List<AvailableServicePackEntity> availableServicePack = (List<AvailableServicePackEntity>) request.getAttribute("availableServicePack");
     List<PeriodEntity> periods = (List<PeriodEntity>) request.getAttribute("periods");
 
-    List<Errors> errors = (List<Errors>) request.getAttribute("errors");
+    List<ErrorEntity> errors = (List<ErrorEntity>) request.getAttribute("errors");
     List<PendingOrders> pendingOrders = (List<PendingOrders>) request.getAttribute("pendingOrders");
     List<InsolventUsers> insolventUsers = (List<InsolventUsers>) request.getAttribute("insolventUsers");
 
@@ -198,12 +195,12 @@
             <tbody>
             <%
                 if(errors != null){
-                    for (Errors e: errors) {
+                    for (ErrorEntity e: errors) {
             %>
             <tr>
-                <th scope="row"><%=e.getError().getOwner().getUsername()%></th>
-                <th scope="row"><%=e.getError().getTot_number()%></th>
-                <th scope="row"><%=e.getError().getTs()%></th>
+                <th scope="row"><%=e.getOwner().getUsername()%></th>
+                <th scope="row"><%=e.getTot_number()%></th>
+                <th scope="row"><%=e.getTs()%></th>
             </tr>
             <%
                     }}

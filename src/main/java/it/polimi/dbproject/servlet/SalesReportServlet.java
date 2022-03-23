@@ -60,7 +60,7 @@ public class SalesReportServlet extends HttpServlet {
         List<PendingOrders> pendingOrders = employeeService.retrieveAllPendingOrders();
         request.setAttribute("pendingOrders", pendingOrders);
 
-        List<Errors> errors = employeeService.retrieveAllErrors();
+        List<ErrorEntity> errors = employeeService.retrieveAllErrors();
         request.setAttribute("errors", errors);
 
         BestOptionalService bestOptionalService = employeeService.retrieveBestOptionalProduct();
@@ -86,7 +86,6 @@ public class SalesReportServlet extends HttpServlet {
                 request.setAttribute("purchasesPerPackageAndPeriod", purchasesPerPackageAndPeriod);
             }
 
-            // problema in qualche relazione -> PersistenceException
             salesPerPackage = employeeService.retrieveSalesPerPackage(Integer.parseInt(choosen_package));
 
             avg_numOptionServPerServPack = employeeService.retrieveAverageOptionalProductsPerPackage(Integer.parseInt(choosen_package));

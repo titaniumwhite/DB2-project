@@ -5,11 +5,18 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 
 @Entity
+
 @NamedQuery(
-        name = "Error.findAll",
+        name = "Error.findAllByUserId",
         query = "SELECT e FROM ErrorEntity e " +
                 "WHERE e.owner = :user "
 )
+
+@NamedQuery(
+        name = "Error.findAll",
+        query = "SELECT e FROM ErrorEntity e "
+)
+
 @Table(name = "error", schema = "dbproject2022")
 public class ErrorEntity implements Serializable {
 

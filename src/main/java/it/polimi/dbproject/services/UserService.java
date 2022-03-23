@@ -128,7 +128,7 @@ public class UserService {
     }
 
     public List<ErrorEntity> retrieveAllErrorsOfUser(int userId){
-        return em.createNamedQuery("Error.findAll", ErrorEntity.class)
+        return em.createNamedQuery("Error.findAllByUserId", ErrorEntity.class)
                 .setParameter("user", retrieveUserThroughID(userId).get())
                 .getResultList();
     }

@@ -97,8 +97,6 @@ public class ConfirmationServlet extends HttpServlet {
 
 
         } else {
-            System.out.println("entro qua 3");
-
             order = userService.retrieveOrderThroughID(Integer.parseInt(Id_OrderRejected)).get();
             order = userService.orderUpdate(order, isPlaceable);
         }

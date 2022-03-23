@@ -55,7 +55,6 @@ public class EmployeeService {
 
     public OptionalServiceEntity createOptionalService(String name, int fee) {
         OptionalServiceEntity os = new OptionalServiceEntity(name, fee, null, null);
-        System.out.println(os.toString());
 
         try{
             em.persist(os);
@@ -95,8 +94,8 @@ public class EmployeeService {
                 .getResultList();
     }
 
-    public List<Errors> retrieveAllErrors(){
-        return em.createNamedQuery("Errors.retrieveAll", Errors.class)
+    public List<ErrorEntity> retrieveAllErrors(){
+        return em.createNamedQuery("Error.findAll", ErrorEntity.class)
                 .getResultList();
     }
 
