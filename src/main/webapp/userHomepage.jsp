@@ -55,7 +55,6 @@
                     <h5 class="card-title">ID ORDER: <%=o.getOrder_id()%></h5>
                 </div>
                 <div class="card-body text-success">
-                    <!--<p class="card-text">Chosen Service Package: <%//=o.getChosenServicePackage().getAvailablePackage().getName()%></p> -->
                     <p class="card-text">Created: <%=o.getCreation_ts()%></p>
                     <p class="card-text">Total Cost: <%=o.getTotal_cost()%></p>
                 </div>
