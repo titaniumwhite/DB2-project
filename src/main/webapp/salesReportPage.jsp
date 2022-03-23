@@ -27,7 +27,7 @@
 
     List<ErrorEntity> errors = (List<ErrorEntity>) request.getAttribute("errors");
     List<PendingOrders> pendingOrders = (List<PendingOrders>) request.getAttribute("pendingOrders");
-    List<InsolventUsers> insolventUsers = (List<InsolventUsers>) request.getAttribute("insolventUsers");
+    List<UserEntity> insolventUsers = (List<UserEntity>) request.getAttribute("insolventUsers");
 
     BestOptionalService bestOptionalService = (BestOptionalService) request.getAttribute("bestOptionalService");
 %>
@@ -137,10 +137,10 @@
             <tbody>
             <%
                 if(insolventUsers != null){
-                    for (InsolventUsers iu: insolventUsers) {
+                    for (UserEntity iu: insolventUsers) {
             %>
             <tr>
-                <th scope="row"><%=iu.getUser().getUsername()%></th>
+                <th scope="row"><%=iu.getUsername()%></th>
             </tr>
             <%
                 }}

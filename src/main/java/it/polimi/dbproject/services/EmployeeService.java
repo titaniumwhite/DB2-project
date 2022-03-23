@@ -84,8 +84,8 @@ public class EmployeeService {
                 .getResultList();
     }
 
-    public List<InsolventUsers> retrieveAllInsolventUsers(){
-        return em.createNamedQuery("InolventUsers.retrieveInsolventUsers", InsolventUsers.class)
+    public List<UserEntity> retrieveAllInsolventUsers(){
+        return em.createNamedQuery("User.retrieveInsolventUsers", UserEntity.class)
                 .getResultList();
     }
 
@@ -101,7 +101,8 @@ public class EmployeeService {
 
     public BestOptionalService retrieveBestOptionalProduct(){
         try {
-            return em.createNamedQuery("BestOptionalService.retrieveBest", BestOptionalService.class).getSingleResult();
+            return em.createNamedQuery("BestOptionalService.retrieveBest", BestOptionalService.class)
+                    .getResultList().stream().findFirst().get();
         }catch(NoResultException ignored){
             return null;
         }

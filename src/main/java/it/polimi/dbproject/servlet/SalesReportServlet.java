@@ -54,7 +54,7 @@ public class SalesReportServlet extends HttpServlet {
             request.setAttribute("avg_numOptionServPerServPack", avg_numOptionServPerServPack.getAverage());
         }
 
-        List<InsolventUsers> insolventUsers = employeeService.retrieveAllInsolventUsers();
+        List<UserEntity> insolventUsers = employeeService.retrieveAllInsolventUsers();
         request.setAttribute("insolventUsers", insolventUsers);
 
         List<PendingOrders> pendingOrders = employeeService.retrieveAllPendingOrders();

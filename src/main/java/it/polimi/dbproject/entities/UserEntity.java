@@ -22,7 +22,14 @@ import java.util.List;
 @NamedQuery(
         name = "User.loginUser",
         query = "SELECT u FROM UserEntity u " +
-                "WHERE u.username = :usn and u.password = :psw")
+                "WHERE u.username = :usn and u.password = :psw"
+)
+
+@NamedQuery(
+        name = "User.retrieveInsolventUsers",
+        query = "SELECT u FROM UserEntity u " +
+                "WHERE u.isInsolvent = true"
+)
 
 @Table(name = "user", schema = "dbproject2022")
 public class UserEntity implements Serializable {
