@@ -62,10 +62,10 @@ public class OrderEntity implements Serializable {
     private UserEntity owner;
 
     @OneToOne (fetch = FetchType.EAGER, cascade = {
-            CascadeType.PERSIST,
-            CascadeType.MERGE,
-            CascadeType.REFRESH,
-            CascadeType.DETACH}, optional = false)
+                                                    CascadeType.PERSIST,
+                                                    CascadeType.MERGE,
+                                                    CascadeType.REFRESH,
+                                                    CascadeType.DETACH}, optional = false)
     @JoinColumn(name = "service_package_order")
     private ServicePackEntity servicePackageOrder;
 

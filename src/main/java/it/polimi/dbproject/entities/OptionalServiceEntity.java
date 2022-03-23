@@ -41,7 +41,11 @@ public class OptionalServiceEntity implements Serializable{
     @Column(name = "monthly_fee", nullable = false)
     private int monthlyFee;
 
-    @ManyToMany(mappedBy = "optionalServices", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "optionalServices", fetch = FetchType.LAZY, cascade = {  CascadeType.PERSIST,
+                                                                                    CascadeType.MERGE,
+                                                                                    CascadeType.REFRESH,
+                                                                                    CascadeType.DETACH})
+
     private List<AvailableServicePackEntity> availableServicePackages;
 
     @ManyToMany(mappedBy = "selectedOptionalServices", fetch = FetchType.EAGER)
@@ -88,12 +92,12 @@ public class OptionalServiceEntity implements Serializable{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         OptionalServiceEntity that = (OptionalServiceEntity) o;
-        return optionalService_id == that.optionalService_id;
+        return name.equals(that.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(optionalService_id);
+        return Objects.hash(name);
     }
 
     @Override

@@ -96,8 +96,9 @@ public class CreatePackageServlet extends HttpServlet {
         List<OptionalServiceEntity> availableOptionalServices = es.getAllOptionalServices();
         List<OptionalServiceEntity> optionalServices = new ArrayList<>();
         if (optionalServicesToOffer != null) {
-            for (int i = 0; i < optionalServicesToOffer.length; i++) {
-                for (int j = 0; j < availableOptionalServices.size(); j++) {
+
+            for (int j = 0; j < availableOptionalServices.size(); j++) {
+                for (int i = 0; i < optionalServicesToOffer.length; i++) {
                     if (Objects.equals(availableOptionalServices.get(j).getName(), optionalServicesToOffer[i])) {
                         optionalServices.add(availableOptionalServices.get(j));
                     }
