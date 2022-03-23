@@ -16,7 +16,6 @@
         <class>it.polimi.dbproject.entities.ServiceEntity</class>
         <class>it.polimi.dbproject.entities.queries.AVG_numOptionServPerServPack</class>
         <class>it.polimi.dbproject.entities.queries.BestOptionalService</class>
-        <class>it.polimi.dbproject.entities.queries.PendingOrders</class>
         <class>it.polimi.dbproject.entities.queries.PurchasesPerPackage</class>
         <class>it.polimi.dbproject.entities.queries.PurchasesPerPackageAndPeriod</class>
         <class>it.polimi.dbproject.entities.queries.SalesPerPackage</class>

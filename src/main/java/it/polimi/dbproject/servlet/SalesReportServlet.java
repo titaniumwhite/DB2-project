@@ -2,7 +2,6 @@ package it.polimi.dbproject.servlet;
 
 import it.polimi.dbproject.entities.*;
 import it.polimi.dbproject.entities.queries.*;
-import it.polimi.dbproject.entities.queries.PendingOrders;
 import it.polimi.dbproject.services.EmployeeService;
 
 import javax.ejb.EJB;
@@ -57,7 +56,7 @@ public class SalesReportServlet extends HttpServlet {
         List<UserEntity> insolventUsers = employeeService.retrieveAllInsolventUsers();
         request.setAttribute("insolventUsers", insolventUsers);
 
-        List<PendingOrders> pendingOrders = employeeService.retrieveAllPendingOrders();
+        List<OrderEntity> pendingOrders = employeeService.retrieveAllPendingOrders();
         request.setAttribute("pendingOrders", pendingOrders);
 
         List<ErrorEntity> errors = employeeService.retrieveAllErrors();

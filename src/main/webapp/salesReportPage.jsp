@@ -26,7 +26,7 @@
     List<PeriodEntity> periods = (List<PeriodEntity>) request.getAttribute("periods");
 
     List<ErrorEntity> errors = (List<ErrorEntity>) request.getAttribute("errors");
-    List<PendingOrders> pendingOrders = (List<PendingOrders>) request.getAttribute("pendingOrders");
+    List<OrderEntity> pendingOrders = (List<OrderEntity>) request.getAttribute("pendingOrders");
     List<UserEntity> insolventUsers = (List<UserEntity>) request.getAttribute("insolventUsers");
 
     BestOptionalService bestOptionalService = (BestOptionalService) request.getAttribute("bestOptionalService");
@@ -165,11 +165,11 @@
             <tbody>
             <%
                 if(pendingOrders != null){
-                    for (PendingOrders po: pendingOrders) {
+                    for (OrderEntity po: pendingOrders) {
             %>
             <tr>
-                <th scope="row"><%=po.getOrder().getOwner().getUsername()%></th>
-                <th scope="row"><%=po.getOrder().getCreation_ts()%></th>
+                <th scope="row"><%=po.getOwner().getUsername()%></th>
+                <th scope="row"><%=po.getCreation_ts()%></th>
             </tr>
             <%
                     }}

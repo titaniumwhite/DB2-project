@@ -4,9 +4,7 @@ import it.polimi.dbproject.entities.*;
 import it.polimi.dbproject.entities.queries.*;
 
 import javax.ejb.Stateless;
-import javax.faces.view.ActionSource2AttachedObjectTarget;
 import javax.persistence.*;
-import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -89,8 +87,8 @@ public class EmployeeService {
                 .getResultList();
     }
 
-    public List<PendingOrders> retrieveAllPendingOrders(){
-        return em.createNamedQuery("PendingOrders.retrievePendingOrders", PendingOrders.class)
+    public List<OrderEntity> retrieveAllPendingOrders(){
+        return em.createNamedQuery("Order.retrieveAllPendingOrders", OrderEntity.class)
                 .getResultList();
     }
 

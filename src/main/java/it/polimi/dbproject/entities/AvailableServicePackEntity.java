@@ -27,11 +27,7 @@ public class AvailableServicePackEntity implements Serializable {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @OneToMany(mappedBy="availablePackages", fetch = FetchType.EAGER, cascade = {
-            CascadeType.PERSIST,
-            CascadeType.MERGE,
-            CascadeType.REFRESH,
-            CascadeType.DETACH})
+    @OneToMany(mappedBy="availablePackages", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private List<ServicePackEntity> offeredToPackage;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

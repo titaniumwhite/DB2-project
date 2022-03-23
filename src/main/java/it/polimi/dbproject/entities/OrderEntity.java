@@ -24,8 +24,13 @@ import java.sql.Timestamp;
 @NamedQuery(
         name = "Order.retrievePendingOrder",
         query = " SELECT distinct o FROM OrderEntity o "+
-                " JOIN o.servicePackageOrder s " +
                 " WHERE o.owner = :user AND o.isPlaceable = false"
+)
+
+@NamedQuery(
+        name = "Order.retrieveAllPendingOrders",
+        query = " SELECT distinct o FROM OrderEntity o "+
+                " WHERE o.isPlaceable = false"
 )
 
 @Table(name = "order", schema = "dbproject2022")
